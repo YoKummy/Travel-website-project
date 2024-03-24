@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelTales</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+
+<body>
+  <nav class="navbar bg-body-tertiary pink-bg">
+    <a class="navbar-brand pink-text" href="https://amrit03b.github.io/TravelTales/"> <b>TravelTales:) </b> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #c71585">
+          TravelTales:)
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active checkAuth" aria-current="page" data-href="write.html">Start Writing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active checkAuth" aria-current="page" data-href="read.html">Read Journals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="aboutus.html">About us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- First section with background image -->
+  <section class="hero-section">
+    <div class="container-fluid hero-content">
+      <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 text-center">
+          <h1 class="hero-title">Share Your Adventures</h1>
+          <p class="hero-subtitle">
+            Document your travel journeys with TravelTales:) <br />
+            Keep your memories alive and inspire others.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second section with cards -->
+  <section class="cards-section">
+      <div class="row">
+          <div class="card">
+            <img src="images/card1.jpg" class="card-img-top" alt="Card 1" />
+            <div class="card-body">
+              <h5 class="card-title" id="cdtt">Write</h5>
+              <p class="card-text" id="cdt">
+                Start writing your travel experiences and make them immortal.
+              </p>
+              <div class="button1">
+              <a data-href="write.html" class="btn btn-primary checkAuth">Start Journaling</a>
+            </div>
+          </div>
+        </div>
+          <div class="card">
+            <img src="images/card2.jpg" class="card-img-top" alt="Card 2" />
+            <div class="card-body">
+              <h5 class="card-title" id="cdtt">Read</h5>
+              <p class="card-text" id="cdt">
+                Read travel diaries written by others to get to know about
+                different places.
+              </p>
+              <div class="button">
+              <a data-href="read.html" class="btn btn-primary checkAuth">Read other's Journals</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="">
+    <!-- Footer -->
+    <footer class="text-center text-white abc" style="background-color: #f599f2">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: CTA -->
+        <section class="">
+          <p class="d-flex justify-content-center align-items-center">
+            <span class="me-3">Register for Free</span>
+            <button type="button" id="registerButton" class="btn btn-outline-dark btn-rounded btnn"
+              onclick="location.href = 'login.html';">Sign Up/Login</button>
+            <!-- <button type="button" id="loginButton" class="btn btn-outline-dark btn-rounded ms-3 btnn"
+              onclick="toggleForm('sign-in')">Login</button> -->
+          </p>
+
+        </section>
+      </div>
+    </footer>
+  </section>
+
+  <!-- Sign Up Form -->
+  <div class="form-popup" id="sign-up">
+    <form class="form-container bg-light p-4 rounded">
+      <h1 class="mb-4">Sign up</h1>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="psw" class="form-label">Password</label>
+        <input type="password" class="form-control" id="psw" placeholder="Enter Password" required>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary me-3">Sign Up</button>
+        <button type="button" class="btn btn-danger" onclick="closeForm('sign-up')">Close</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Login Form -->
+  <div class="form-popup" id="sign-in">
+    <form class="form-container bg-light p-4 rounded">
+      <h1 class="mb-4">Sign in</h1>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="psw" class="form-label">Password</label>
+        <input type="password" class="form-control" id="psw" placeholder="Enter Password" required>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary me-3 buttton">Login</button>
+        <button type="button" class="btn btn-danger" onclick="closeForm('sign-in')">Close</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <!-- Section: CTA -->
+</div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <section id="title" class="gradient-background">
+    <footer>
+    <div class="text-center p-3 footerr" style="color: white;
+        background-color: rgba(242, 97, 205, 0.2)">
+      <p>© 2023 Copyright:</p>
+      <a class="text-black d-block" href="index.html">TravelTales:)</a>
+      <a class="btn btn-rounded" href="aboutus.html">About us</a>
+      <a class="btn btn-rounded" id="privacyPolicyLink">Privacy Policy</a>
+    </div>
+    <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </section>
+  <div class="modal-wrap">
+    <div class="info-wrap">
+      <h3 class="info-text">To write or read a post you must do authorization.</h3> 
+      <div class="btn-group">
+        <button class="btnA btn-sign">Sign in/up</button>
+        <button class="btnA btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="privacyPolicyModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title">Privacy Policy</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-light">
+          <p class="fw-bold">
+            Effective Date: 10/29/2023
+          </p>
+          <p>
+            At TravelTales, we are committed to protecting your privacy and ensuring the security of your personal
+            information. This
+            Privacy Policy outlines our practices regarding the collection, use, and sharing of your information when you
+            visit our
+            website. Please take a moment to review this policy and understand how we handle your data.
+            <br>
+            Information We Collect
+            <br>
+            1.1. Personal Information
+            We may collect the following personal information when you register or use our services:
+            <br>
+            Name
+            Email address
+            Username and password
+            Profile picture
+            Location
+            User-generated content (e.g., travel diaries, comments)
+            1.2. Usage Information
+            We automatically collect certain information about how you interact with our website, including:
+            <br>
+            Device information (e.g., IP address, browser type, operating system)
+            Usage statistics (e.g., pages visited, features used)
+            Cookies and similar tracking technologies (see our Cookie Policy for more information)
+            <br>
+            How We Use Your Information
+            <br>
+            We use your information for the following purposes:
+            <br>
+            To create and manage your TravelTales account.
+            To personalize your experience on our website.
+            To provide and improve our services.
+            To respond to your requests and inquiries.
+            To send you relevant updates and notifications.
+            To monitor and analyze website usage.
+            To prevent fraud and enhance the security of our platform.
+            Sharing Your Information
+            We do not sell your personal information to third parties. However, we may share your information with the
+            following
+            entities:
+            <br>
+            Service providers: We may engage third-party service providers to assist us in providing our services (e.g.,
+            hosting,
+            analytics, customer support).
+            Legal requirements: We may disclose your information in response to a legal request or as required by
+            applicable laws
+            and regulations.
+            Cookies and Tracking Technologies
+            We use cookies and similar tracking technologies to enhance your user experience and analyze website traffic.
+            You can
+            manage your cookie preferences through your browser settings. Please refer to our Cookie Policy for more
+            details.
+            <br>
+            Your Privacy Choices
+            <br>
+            You can control and manage your privacy preferences by:
+  
+            Editing your profile information.
+            Updating your communication preferences.
+            Deleting your account, subject to our account deletion policy.
+            Data Security
+            We take the security of your personal information seriously. We implement reasonable security measures to
+            protect your
+            data from unauthorized access and disclosure.
+            <br>
+            Children's Privacy
+            TravelTales is not intended for users under the age of 13. We do not knowingly collect personal information
+            from
+            individuals under the age of 13.
+            <br>
+            Changes to this Privacy Policy
+            We may update this Privacy Policy to reflect changes in our practices or for other operational, legal, or
+            regulatory
+            reasons. Any changes will be posted on this page, and the effective date will be updated accordingly.
+            <br>
+            Contact Us
+            If you have any questions or concerns about this Privacy Policy or our data practices, please contact us
+            By using TravelTales, you acknowledge and agree to the terms of this Privacy Policy. Please review this policy
+            periodically for any updates or changes.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Accept</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End of .container -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script>
+    function SignUp() {
+      document.getElementById("sign-up").style.display = "block";
+    }
+
+    function closeSignUp() {
+      document.getElementById("sign-up").style.display = "none";
+    }
+
+    function SignIn() {
+      closeSignUp();
+      document.getElementById("sign-in").style.display = "block";
+    }
+
+    function closeSignIn() {
+      document.getElementById("sign-in").style.display = "none";
+    }
+    function toggleForm(formId) {
+      var form = document.getElementById(formId);
+      if (form.style.display === "block") {
+        form.style.display = "none";
+      } else {
+        form.style.display = "block";
+      }
+    }
+
+    function closeForm(formId) {
+      document.getElementById(formId).style.display = "none";
+    }
+  </script>
+  <script>
+    var validity = 0;
+    localStorage.setItem("storageName", validity);
+    const bodyWrap = document.querySelector('body');
+    const btnSign = document.querySelector('.btn-sign');
+    const btnCancel = document.querySelector('.btn-cancel');
+    const modalWrap = document.querySelector('.modal-wrap');
+    const btnCloseMenu = document.querySelector('.btn-close');
+    
+    const toggleModalWrap = () => modalWrap.classList.toggle('modal-wrap_active');
+    const hideMenuWrap = () => btnCloseMenu.click();
+
+    btnSign.addEventListener('click', () => {
+      toggleModalWrap();
+      window.open('login.html', '_self');
+    });
+
+    btnCancel.addEventListener('click', toggleModalWrap);
+
+    bodyWrap.addEventListener('click', ({ target }) => {
+      if(target.classList.contains('checkAuth')) {
+        hideMenuWrap();
+        toggleModalWrap();
+        window.scrollTo(0, 0);
+      }
+    })
+
+  const privacyPolicyModal = new bootstrap.Modal(document.getElementById('privacyPolicyModal'));
+
+      document.getElementById('privacyPolicyLink').addEventListener('click', () => {
+        privacyPolicyModal.show();
+      });
+
+      const acceptButton = document.querySelector('#privacyPolicyModal .btn-primary');
+      const closeButton = document.querySelector('#privacyPolicyModal .btn-secondary');
+
+      acceptButton.addEventListener('click', () => {
+        privacyPolicyModal.hide(); // Close the modal
+      });
+
+      closeButton.addEventListener('click', () => {
+        privacyPolicyModal.hide(); // Close the modal
+      });
+    </script>
+</body>
+
+</html>

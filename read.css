@@ -1,0 +1,120 @@
+/* body */
+body{
+  background-color: #ffcdfd;
+}
+/* Style for the journal card */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 50%;
+    background-color: #FFC0CB;
+  }
+  
+  .card img {
+    max-width: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .card h1 {
+    font-size: 24px;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .card p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+  }
+
+  .search-container {
+    text-align: center;
+    margin: 20px;
+}
+
+#search-input {
+    padding: 5px;
+    width: 300px;
+    border: 1px solid #ccc;
+}
+
+.search-container:hover #search-input{
+  width:350px;
+}
+
+.search-container #search-input{
+  width: 0;
+  outline:none;
+  border: none;
+  font-weight: 500;
+  transition: 0.8s;
+  background: transparent;
+}
+
+button{
+  border-radius: 20px;
+}
+
+
+.fa{
+  color: rgb(178, 49, 243);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+.navbar {
+  background-color: #C71585; /* Pink background color for the navbar */
+}
+
+.pink-bg {
+  background-color: #FFC0CB; /* Pink background color for the offcanvas body */
+}
+
+.pink-text {
+
+  color: #C71585; /* Pink color for the navbar brand text */
+  margin: auto;
+}
+
+.nav-link {
+  font-size: 18px; /* Custom font size */
+  color: rgb(255, 255, 255); /* Custom link color */
+  margin-right: 15px; /* Custom margin between the nav items */
+  transition: all 0.3s; /* Smooth transition for size and color changes */
+}
+
+.nav-link:hover {
+  font-size: 20px; /* Slightly bigger font size on hover */
+  color: #FF69B4; /* Lighter pink color on hover */
+}
+
+.nav-link:active {
+  font-size: 20px; /* Slightly bigger font size on click */
+  color: #C71585; /* Darker pink color on click */
+}
