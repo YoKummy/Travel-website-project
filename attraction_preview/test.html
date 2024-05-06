@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+<link rel="stylesheet" href="attraction_preview\style.css">
+<script src="search_bar\script.js"></script>
+<title>Travel website</title>
+<style>
+html, body {
+    height: 100%; /* 確保 HTML 和 BODY 的高度填滿整個視窗 */
+    margin: 0; /* 清除預設的外邊距 */
+    padding: 0; /* 清除預設的內邊距 */
+}
+.wrap{
+    width:100%;
+    height:100%;
+    margin:0 auto;
+}
+.Header{
+    height:80%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background-color: #4e9fda;
+}
+.Footer{
+    height:10%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap; /* 強制換行 */
+    align-items: center;
+    background-color: #4e9fda;
+}
+.Leftbar{
+    background:gray;
+    height:10%;
+    width:15%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    float:left;
+}
+.Rightbar{
+    background:gray;
+    height:10%;
+    width:15%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    float:left;
+}
+.clearfix{
+    clear:both;
+}
+.Body{
+    background:pink;
+    height:10%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    float:left;
+    width: 70%;
+}
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <div class ="Header">
+            <div class="wrapper">
+                <div class="title">
+                  <img src="search_bar\tag.svg" alt="icon">
+                  <h2>Tags</h2>
+                </div>
+                <div class="content">
+                  <p>Press enter or add a comma after each tag</p>
+                  <ul><input type="text" spellcheck="false"></ul>
+                </div>
+                <div class="details">
+                  <p><span>10</span> tags are remaining</p>
+                  <button>Remove All</button>
+                </div>
+            </div>
+        </div>
+        <div class="Leftbar">Leftbar</div>
+        <div class="Body">Body</div>
+        <div class="Rightbar">Rightbar</div>
+        <div class="clearfix"></div>
+        <footer class="Footer">
+            <p style="color: white;">© 2024 Copyright</p>
+            <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="aboutus.html">關於我們</a>
+        </footer>
+    </div> 
+</body>
