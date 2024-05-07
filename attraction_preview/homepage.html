@@ -48,7 +48,7 @@
 }
 
 hr.black_line {
-    border-top: 1px solid black;
+    border-top: 3px solid black;
 }
 /*搜尋列*/
 ::selection{
@@ -150,7 +150,7 @@ html, body {
   display: flex;
   float: left;
   flex-direction: column; /* 讓元素由上到下排列 */
-  width:75%;
+  width:95%;
   height:100%;
   margin-left: 5%; /* 留出左側欄的寬度 */
 }
@@ -173,7 +173,7 @@ html, body {
 }
 .Leftbar{
     background-color: rgba(115, 199, 255);
-    width:5%;
+    width:6%;
     height:100%;
     display: flex;
     flex-direction: column; /* 讓元素由上到下排列 */
@@ -186,12 +186,9 @@ html, body {
 }
 .Rightbar{
     background:gray;
-    height:100%;
-    width:15%;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    float:left;
+    position: fixed;
+    top: 20px;
+    right: 0;
 }
 .clearfix{
     clear:both;
@@ -244,76 +241,77 @@ html, body {
                         </div>
                     </div>
                 </div>
+                <nav class="Rightbar">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
+                    <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <div class="d-flex justify-content-center"> 
+                                        <div class="btn-group">
+                                            <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
+                                            <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
+                                        </div>
+                                    </div>
+                                </li>
+        
+                                <div id="page1Content">                    
+                                    <section class="cards-section">
+                                        <div class="row">
+                                            <div class="card" style="background: transparent;">
+                                                <img src="post.jpeg" class="card-img-top" alt="Card 1" />
+                                                <div class="card-body text-center">
+                                                    
+                                                    <p class="card-text" id="cdt">
+                                                    </p>
+                                                    <div class="button1 text-center">
+                                                        
+                                                        <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="row">
+                                            <div class="card" style="background: transparent;">
+                                                <img src="read.jpg" class="card-img-top" alt="Card 2" />
+                                                <div class="card-body text-center">
+                                                    
+                                                    <p class="card-text" id="cdt">
+                                                    </p>
+                                                    <div class="button1 text-center">
+                                                        
+                                                        <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+        
+                                
+                                <div id="page2Content" style="display: none;">
+                                    <p>待未來更新</p>
+                                    
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             </div>
             <div class="Body">Body</div>
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
-                <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="aboutus.html">關於我們</a>
+                <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="about us.html">關於我們</a>
             </footer>
         </div>
-        <nav class="Rightbar">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
-            <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <div class="d-flex justify-content-center"> 
-                                <div class="btn-group">
-                                    <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
-                                    <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
-                                </div>
-                            </div>
-                        </li>
 
-                        <div id="page1Content">                    
-                            <section class="cards-section">
-                                <div class="row">
-                                    <div class="card" style="background: transparent;">
-                                        <img src="post.jpeg" class="card-img-top" alt="Card 1" />
-                                        <div class="card-body text-center">
-                                            
-                                            <p class="card-text" id="cdt">
-                                            </p>
-                                            <div class="button1 text-center">
-                                                
-                                                <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="card" style="background: transparent;">
-                                        <img src="read.jpg" class="card-img-top" alt="Card 2" />
-                                        <div class="card-body text-center">
-                                            
-                                            <p class="card-text" id="cdt">
-                                            </p>
-                                            <div class="button1 text-center">
-                                                
-                                                <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        
-                        <div id="page2Content" style="display: none;">
-                            <p>待未來更新</p>
-                            
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <div class="clearfix"></div>
     </div>
     <script>
@@ -383,7 +381,7 @@ html, body {
                 mini = false;
             } else {
                 console.log("closing sidebar");
-                sidebar.style.width = "5%";
+                sidebar.style.width = "6%";
                 mini = true;
             }
         }
