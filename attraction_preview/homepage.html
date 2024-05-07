@@ -28,18 +28,24 @@
 .place-info:nth-child(5n) {
     margin-right: 0;
 }
+.place-info .place-info-details {
+    position: relative; 
+    margin: 0;
+    padding: 0;
+}
 .image-container{ /*主頁面照片容器 */
+    margin: 0% 0% 0% 5%;
+    padding: 0;
     height:70%;
     width:90%;
-    position: absolute;
-    top: -18%; /* 負值代表把圖片向上移動 */
-    left: 50%;
-    transform: translateX(-50%); /*水平向左移動容器50%的寬度 */
-    padding-bottom: 56.25%; /*內邊距長對寬的比例，16:9 */
+    position: relative; 
+    padding-bottom: 56.75%; /*內邊距長對寬的比例，16:9 */
 }
 .place-info h3 { /*主頁面景點名稱 */
-    margin-bottom: 5px;
+    margin: 0;
+    padding: 0;
     text-align: center;
+    font-size: large;
 }
 .place-info img { /*主頁面照片 */
     overflow:hidden;
@@ -47,7 +53,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height:45%;
+    height:100%;
     width:100%;
 }
 .loading { /*未提供照片情況下的背景 */
@@ -546,9 +552,9 @@ html, body {
                                 imageContainer.appendChild(loadingDiv);
                             }
 
+                            placeInfo.appendChild(placeName);
                             imageContainer.appendChild(placePhoto); //把placePhoto(子)添加到imageContainer(父)
                             placeInfo.appendChild(imageContainer);
-                            placeInfo.appendChild(placeName);
 
                             var placeDetails = document.createElement('div');
                             placeDetails.classList.add('place-info-details');
