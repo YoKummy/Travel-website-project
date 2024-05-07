@@ -176,7 +176,7 @@ hr.black_line {
     width:28%;
     display: flex;
     align-items: center;
-  justify-content: space-between; /* 將兩個按鈕推到容器的兩側 */
+    justify-content: space-between; /* 將兩個按鈕推到容器的兩側 */
 }
 .content ul{
   display: flex;
@@ -534,7 +534,7 @@ html, body {
                             var placeInfo = document.createElement('div'); //在這邊建立一個區塊存到placeInfo中
                             placeInfo.classList.add('place-info'); //為placeInfo添加css樣式
                             var placeName = document.createElement('h3');
-                            placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, '');
+                            placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, ''); //用正規表達式篩選名稱，避免名字過長
 
                             var imageContainer = document.createElement('div');
                             imageContainer.classList.add('image-container');
