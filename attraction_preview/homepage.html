@@ -534,7 +534,7 @@ html, body {
                             var placeInfo = document.createElement('div'); //在這邊建立一個區塊存到placeInfo中
                             placeInfo.classList.add('place-info'); //為placeInfo添加css樣式
                             var placeName = document.createElement('h3');
-                            placeName.textContent = place.name;
+                            placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, '');
 
                             var imageContainer = document.createElement('div');
                             imageContainer.classList.add('image-container');
