@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可滾動網站</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* 確保定位正確 */
+        }
+
+        .container {
+            width: 95%; /* 調整寬度 */
+            max-width: 15000px; /* 最大寬度 */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .areas-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            border: 1px solid #ccc; /* 添加邊框 */
+            padding: 10px; /* 調整內邊距 */
+            overflow: auto; /* 使得區域可以滾動 */
+            position: relative; /* 讓內部元素相對於此位置 */
+        }
+
+        .area {
+            background-color: #f0f0f0;
+            padding: 20px;
+            height: 600px; /* 調整需要的高度 */
+            position: relative; /* 讓內部元素相對於此位置 */
+        }
+
+        .white-area {
+            background-color: white;
+            width: 100%; /* 白色區域填滿整個網頁的寬度 */
+            padding: 10px; /* 補償 margin 的 padding */
+        }
+
+        .btn-container {
+            text-align: center; /* 文字置中 */
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn-container button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-container button:hover {
+            background-color: #999;
+        }
+
+        .content-area {
+            background-color: white; /* 更改背景色 */
+            padding: 20px;
+            height: 525px;
+            overflow: auto;
+        }
+
+        .content-area1 {
+            background-color: #000;
+            padding: 10px;
+            height: 350px;
+        }
+
+        .content-area2 {
+            background-color: white;
+            padding: 10px;
+            height: 5px;
+        }
+
+        .content-area3 {
+            background-color: #000;
+            padding:10px;
+            height: 500px;
+        }
+
+        #toggle-btn {
+            position: fixed; /* 固定在右上角 */
+            top: 20px;
+            right: 20px;
+            background-color: yellow;
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #toggle-btn.active {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>This is a simple scrollable website created using HTML and CSS.</p>
+    <div class="container">
+        <div class="white-area">
+            <div class="areas-container">
+                
+                <div class="area">
+                    <div class="btn-container">
+                        <button id="my-schedule-btn">我的行程</button>
+                        <button id="collaborate-btn">與我共編</button>
+                    </div>
+                    <div class="content-area">
+                        <h2>#規劃中</h2>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <h1>這裡顯示旅遊行程的照片跟一些文字說明。</h1>
+                        <!-- 重複的內容以測試滾動效果 -->
+                    </div>
+                </div>
+
+                <div class="area">
+                    <div class="btn-container">
+                        <button id="day1-btn">Day1</button>
+                        <button id="day2-btn">Day2</button>
+                        <button id="day3-btn">Day3</button>
+                    </div>
+                    <div class="content-area">
+                        <h2>#各旅遊安排</h2>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <h1>照片、時間、地點</h1>
+                        <h1>可筆記、分享。。</h1>
+                        <!-- 重複的內容以測試滾動效果 -->
+                    </div>
+                </div>
+
+                <div class="area">
+                    <div class="content-area">
+                        <div class="content-area1">
+                            <p style="color: white;">這裡顯示同一景點不同照片。</p>
+                            <p style="color: white;">照片可切換。</p>
+                            <p style="color: white;">這裡顯示同一景點不同照片。</p>
+                            <p style="color: white;">照片可切換。</p>
+                            <p style="color: white;">這裡顯示同一景點不同照片。</p>
+                            <p style="color: white;">照片可切換。</p>
+                            <p style="color: white;">這裡顯示同一景點不同照片。</p>
+                            <p style="color: white;">照片可切換。</p>
+                        </div>
+                        <div class="content-area2"></div>
+                        <div class="content-area3">
+                            <h2 style="color: white;">各景點詳細介紹</h2>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <h1 style="color: white;">文字說明</h1>
+                            <!-- 重複的內容以測試滾動效果 -->
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <h1>其他內容</h1>
+    <button id="toggle-btn">景點</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('toggle-btn');
+            const areasContainer = document.querySelector('.areas-container');
+
+            toggleBtn.addEventListener('click', function() {
+                if (toggleBtn.textContent === '景點') {
+                    toggleBtn.textContent = '行程';
+                } else {
+                    toggleBtn.textContent = '景點';
+                }
+            });
+
+            const myScheduleBtn = document.getElementById('my-schedule-btn');
+            const collaborateBtn = document.getElementById('collaborate-btn');
+            const day1Btn = document.getElementById('day1-btn');
+            const day2Btn = document.getElementById('day2-btn');
+            const day3Btn = document.getElementById('day3-btn');
+
+            myScheduleBtn.addEventListener('click', function() {
+                // Your logic for "我的行程" button click
+                console.log('我的行程 button clicked');
+            });
+
+            collaborateBtn.addEventListener('click', function() {
+                // Your logic for "與我共編" button click
+                console.log('與我共編 button clicked');
+            });
+
+            day1Btn.addEventListener('click', function() {
+                // Your logic for "Day1" button click
+                console.log('Day1 button clicked');
+            });
+
+            day2Btn.addEventListener('click', function() {
+                // Your logic for "Day2" button click
+                console.log('Day2 button clicked');
+            });
+
+            day3Btn.addEventListener('click', function() {
+                // Your logic for "Day3" button click
+                console.log('Day3 button clicked');
+            });
+        });
+    </script>
+</body>
+</html>
