@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>About Us - TravelTales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.15.0/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary pink-bg">
+        <a class="navbar-brand pink-text text-center"><b>旅遊行程分享</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
+
+        <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <div class="d-flex justify-content-center"> 
+                            <div class="btn-group">
+                                <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
+                                <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <div id="page1Content">                    
+                        <section class="cards-section">
+                            <div class="row">
+                                <div class="card" style="background: transparent;">
+                                    <img src="post.jpeg" class="card-img-top" alt="Card 1" />
+                                    <div class="card-body text-center">
+                                        
+                                        <p class="card-text" id="cdt">
+                                        </p>
+                                        <div class="button1 text-center">
+                                            
+                                            <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="card" style="background: transparent;">
+                                    <img src="read.jpg" class="card-img-top" alt="Card 2" />
+                                    <div class="card-body text-center">
+                                        
+                                        <p class="card-text" id="cdt">
+                                        </p>
+                                        <div class="button1 text-center">
+                                            
+                                            <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    
+                    <div id="page2Content" style="display: none;">
+                        <p>待未來更新</p>
+                        
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!-- 右邊區塊功能 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showPage(pageNumber) {
+        if (pageNumber === 1) {
+            document.getElementById("page1Content").style.display = "block";
+            document.getElementById("page2Content").style.display = "none";
+        } else if (pageNumber === 2) {
+            document.getElementById("page1Content").style.display = "none";
+            document.getElementById("page2Content").style.display = "block";
+        }        
+    }
+</script>
+
+    
+    <main class="container mt-3">
+        <section id="mission">
+            <h1>理念</h1>
+            <div class="border-top mb-4"></div>
+            <p>
+                我們的旅遊行程分享網站，目標是推廣旅行者到我們的平台分享，瀏覽他人的行程，並於我們的平台交流。<br>
+                讓對該行程有興趣的同好，參考你的旅遊軌跡完成一段旅程，甚至未來有機會一同完成下一段美妙的旅程。
+            </p>
+            <p>
+                不論你是探索自然景觀，或著體驗不同的文化，旅遊行程分享網站都會是你分享專屬行程的理想場所。
+            </p>
+            <p>
+                我們的目標是讓使用者能夠透過分享自己的行程，與其他旅行者在我們的平台上交流。
+            </p>
+        </section>
+    </main>
+        <!-- Copyright -->
+    <section id="title" class="gradient-background">
+        <footer>
+            <div class="text-center p-3 footerr" style="color: white;
+                background-color: #157dc7;">
+                <p>© 2024 Copyright</p>
+                <a class="btn btn-rounded" href="aboutus.html">關於我們</a>
+            </div>
+            
+        </footer>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+
+</html>
