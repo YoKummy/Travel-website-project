@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>submit_trip.php</title>
+    <title>submit_write.php</title>
 </head>
 <body>
 <?php
@@ -12,15 +12,15 @@ $username = "root";
 $password = "";
 $dbname = "travel_planner";
 
-// 创建连接
+// 建立連線
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// 检查连接
+// 檢查連線
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// 创建数据库（如果尚未创建）
+// 建立資料庫
 $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
 if ($conn->query($sql) === TRUE) {
     echo "Database created successfully or already exists<br>";
@@ -28,10 +28,10 @@ if ($conn->query($sql) === TRUE) {
     die("Error creating database: " . $conn->error);
 }
 
-// 选择数据库
+// 選擇資料庫
 $conn->select_db($dbname);
 
-// 创建表格（如果尚未创建）
+// 建立表格
 $sql = "CREATE TABLE IF NOT EXISTS trips (
     id INT AUTO_INCREMENT PRIMARY KEY,
     trip_name VARCHAR(255) NOT NULL,
@@ -46,7 +46,7 @@ if ($conn->query($sql) === TRUE) {
     die("Error creating table: " . $conn->error);
 }
 
-// 检查文件上传
+// 檢查文件上傳情形
 $image_url = "";
 if (isset($_FILES['image']) && $_FILES['image']['name']) {
     $target_dir = "uploads/";
@@ -61,13 +61,13 @@ if (isset($_FILES['image']) && $_FILES['image']['name']) {
     }
 }
 
-// 确保所有必需字段都已设置
+// 確認所有欄位
 if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST['transport'])) {
-    // 准备并绑定
+    // 準備並連接
     $stmt = $conn->prepare("INSERT INTO trips (trip_name, start_date, end_date, transport, image_url) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $trip_name, $start_date, $end_date, $transport, $image_url);
 
-    // 设置参数并执行
+    // 設定參數後執行
     $trip_name = $_POST['trip_name'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
