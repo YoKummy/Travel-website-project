@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>旅遊行程編輯</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            padding: 10px 20px;
+            color: #333;
+            margin-top: 0;
+        }
+        .header {
+            background-size: cover;
+            height: 250px;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 40px;
+        }
+        .header::after {
+            content: '封面照片';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            height: 48px;
+            font-size: 16px;
+        }
+        .btn-primary {
+            width: 100%;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">行程建立</div>
+        <div class="header" style="background-image: url('write.jpg');" onclick="document.getElementById('upload').click();">
+            <input type="file" id="upload" name="image" accept="image/*" style="display:none;" onchange="changeHeaderImage(this);">
+        </div>
+        <form action="submit_trip.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="tripName">行程名稱</label>
+                <input type="text" id="tripName" name="trip_name" class="form-control" placeholder="輸入專屬於自己的行程名稱吧">
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="startDate">開始日期</label>
+                        <input type="date" id="startDate" name="start_date" class="form-control" onchange="validateDates()">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="endDate">結束日期</label>
+                        <input type="date" id="endDate" name="end_date" class="form-control" onchange="validateDates()">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="transport">交通方式</label>
+                <select id="transport" name="transport" class="form-control">
+                    <option>飛機</option>
+                    <option>機車</option>
+                    <option>走路</option>
+                    <option>火車</option>
+                    <option>高鐵</option>
+                    <option>公車</option>
+                    <option>開車</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-top: 40px;">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateDates() {
+            var start = document.getElementById('startDate').value;
+            var end = document.getElementById('endDate').value;
+            if (start && end && end < start) {
+                alert("結束日期不能早於開始日期！");
+                document.getElementById('endDate').value = start;
+            }
+        }
+
+        function changeHeaderImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector('.header').style.backgroundImage = 'url(' + e.target.result + ')';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
