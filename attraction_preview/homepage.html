@@ -176,12 +176,14 @@ hr.black_line {
 }
 .wrapper{
   width: 60%;
-  height:70%;
+  height: 115px;;
   background: #fff;
   border-radius: 10px;
   padding: 0px 25px 20px;
   box-shadow: 0 0 30px rgba(0,0,0,0.06);
-}
+  margin-bottom: 10px;
+  margin-top: 10px;
+} 
 .wrapper :where(.title, li, li i, .details){
   display: flex;
   align-items: center;
@@ -192,7 +194,7 @@ hr.black_line {
   margin-top: 0; 
 }
 .details{
-    margin-top: 0;
+    margin-top: 5px;
     padding-top: 0; 
     height: auto;
 }
@@ -263,14 +265,15 @@ html, body {
 .wrap{
     width:100%;
     height:100%;
-    margin:0 auto;
+    margin: 0;
+    padding-bottom: 10vh;
 }
 .body_container {
   display: flex;
   float: left;
   flex-direction: column; /* 讓元素由上到下排列 */
   width:94%;
-  height:100%;
+  min-height:110vh;
   margin-left: 5%; /* 留出左側欄的寬度 */
   overflow-y: hidden;
   margin-left: 6%;
@@ -284,7 +287,7 @@ html, body {
     background-color: #4e9fda;
 }
 .Footer{
-    height:10%;
+    height:10vh;
     width:100%;
     justify-content: center;
     display: flex;
@@ -314,7 +317,7 @@ html, body {
 }
 .Body{
     background:pink;
-    height:70%;
+    min-height:80vh;
     display: flex;
     float:left;
     width: 100%;
@@ -344,7 +347,7 @@ html, body {
                 <span><i class="material-icons">account_circle</i>
                 <span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span>
             </a><br>
-          </div>
+        </div>
         <div class="body_container">
             <div class ="Header">
                 <div class="wrapper">
@@ -352,99 +355,97 @@ html, body {
                     <ul><input type="text" spellcheck="false" placeholder="Press enter or add a comma after each tag"></ul>
                     </div>
                     <div class="details">
-                    <p><span>10</span> tags are remaining</p>
+                    <p style="margin-top: 5px;"><span>10</span> tags are remaining</p>
                         <div class="button_container">
                             <button>Remove All</button>
                             <button>Search</button><!--列出tag相關的地點，未完成-->
                         </div>
                     </div>
                 </div>
-                <nav class="Rightbar">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
-                    <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <div class="d-flex justify-content-center"> 
-                                        <div class="btn-group">
-                                            <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
-                                            <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
+            <nav class="Rightbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
+                <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <div class="d-flex justify-content-center"> 
+                                    <div class="btn-group">
+                                        <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
+                                        <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
+                                    </div>
+                                </div>
+                            </li>
+    
+                            <div id="page1Content">                    
+                                <section class="cards-section">
+                                    <div class="row">
+                                        <div class="card" style="background: transparent;">
+                                            <img src="post.jpeg" class="card-img-top" alt="Card 1" />
+                                            <div class="card-body text-center">
+                                                
+                                                <p class="card-text" id="cdt">
+                                                </p>
+                                                <div class="button1 text-center">
+                                                    
+                                                    <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-        
-                                <div id="page1Content">                    
-                                    <section class="cards-section">
-                                        <div class="row">
-                                            <div class="card" style="background: transparent;">
-                                                <img src="post.jpeg" class="card-img-top" alt="Card 1" />
-                                                <div class="card-body text-center">
+    
+                                    <div class="row">
+                                        <div class="card" style="background: transparent;">
+                                            <img src="read.jpg" class="card-img-top" alt="Card 2" />
+                                            <div class="card-body text-center">
+                                                
+                                                <p class="card-text" id="cdt">
+                                                </p>
+                                                <div class="button1 text-center">
                                                     
-                                                    <p class="card-text" id="cdt">
-                                                    </p>
-                                                    <div class="button1 text-center">
-                                                        
-                                                        <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
-                                                    </div>
+                                                    <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
                                                 </div>
                                             </div>
                                         </div>
-        
-                                        <div class="row">
-                                            <div class="card" style="background: transparent;">
-                                                <img src="read.jpg" class="card-img-top" alt="Card 2" />
-                                                <div class="card-body text-center">
-                                                    
-                                                    <p class="card-text" id="cdt">
-                                                    </p>
-                                                    <div class="button1 text-center">
-                                                        
-                                                        <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-        
+                                    </div>
+                                </section>
+                            </div>
+    
+                            
+                            <div id="page2Content" style="display: none;">
+                                <p>待未來更新</p>
                                 
-                                <div id="page2Content" style="display: none;">
-                                    <p>待未來更新</p>
-                                    
-                                </div>
-                            </ul>
-                        </div>
+                            </div>
+                        </ul>
                     </div>
-                </nav>
-            </div>
-            <div class="Body">
-                <div id="places"></div>
-                <div id="floating-button" onclick="scrollToTop()">
-                    <a href="#"><span class="material-symbols-outlined">forum</span></a>
                 </div>
+            </nav>
+        </div>
+        <div class="Body">
+            <div id="places"></div>
+            <div id="floating-button" onclick="scrollToTop()">
+                <a href="#"><span class="material-symbols-outlined">forum</span></a>
             </div>
-            <div id="popup" class="popup">
-                <div class="popup-content">
-                    <h2 id="place-name"></h2>
-                    <div id="place-rating"></div>
-                    <img id="place-image" class="place-image" src="" alt="Place Image">
-                    <div id="place-details"></div>
-                </div>
-                <span id="popup-close" class="popup-close">✕</span>
-            </div> 
-            
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <h2 id="place-name"></h2>
+                <div id="place-rating"></div>
+                <img id="place-image" class="place-image" src="" alt="Place Image">
+                <div id="place-details"></div>
+            </div>
+            <span id="popup-close" class="popup-close">✕</span>
+        </div> 
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
                 <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="about us.html">關於我們</a>
             </footer>
         </div>
-
     </div>
     <script>
       //搜尋列
