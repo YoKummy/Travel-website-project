@@ -63,8 +63,9 @@
     }
 
     $sql = "CREATE TABLE Friend_List (
+      ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(30) NOT NULL,
-      Friend_ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+      Friend_ID INT(6) UNSIGNED
       )";
 
     $dbname="userDB";
@@ -87,8 +88,8 @@
       die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "INSERT INTO Friend_List (username, Friend_ID)
-    VALUES ('Admin', '000002')";
+    $sql = "INSERT INTO Friend_List (ID, username, Friend_ID)
+    VALUES ('000001', 'Admin', '000002')";
 
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
