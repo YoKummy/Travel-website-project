@@ -61,6 +61,40 @@
       } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+
+    $sql = "CREATE TABLE Friend_List (
+      username VARCHAR(30) NOT NULL,
+      Friend_ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+      )";
+
+    $dbname="userDB";
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+    }
+
+    if (mysqli_query($conn, $sql)) {
+        echo "Table User created successfully";
+      } else {
+        echo "Error creating table: " . mysqli_error($conn);
+      }
+
+    $dbname="userDB";
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+    if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "INSERT INTO Friend_List (username, Friend_ID)
+    VALUES ('Admin', '000002')";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
     ?>
 </body>
 </html>
