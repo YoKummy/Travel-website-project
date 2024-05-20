@@ -63,9 +63,9 @@
     }
 
     $sql = "CREATE TABLE Friend_List (
-      ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      ID CHAR(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(30) NOT NULL,
-      Friend_ID INT(6) UNSIGNED
+      Friend_ID CHAR(6) UNSIGNED
       )";
 
     $dbname="userDB";
