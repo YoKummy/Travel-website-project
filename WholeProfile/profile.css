@@ -4,7 +4,7 @@
 
 body {
   margin: 40px 0;
-  background-color: #000;
+  background-color: #008d76;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -123,4 +123,5 @@ header {
 
 #main{
   margin-left: 300px;
+  color: #008d76;
 }

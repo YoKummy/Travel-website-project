@@ -7,6 +7,46 @@
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="leftBar.css">
+
+    <style>
+        /* Style for the modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -78,7 +118,7 @@
     ?>
 
     <div id = "main">
-    
+
     <div id="profile-upper">
     <div id="profile-d">
       <div id="profile-pic">
@@ -86,8 +126,26 @@
       </div>
       <div id="u-name"><?php echo $uname?>#<?php echo $id?></div>
       <div id="bio">
+      <div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="toggleEditModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editForm" action="updateprofile.php" method="POST" enctype="multipart/form-data">
+            <label for="bio">Bio: </label><br>
+            <textarea id="bio" name="bio" style="color: blue;"><?php echo $bio; ?></textarea><br><br>
+            <label for="pfp">Profile Picture:</label><br>
+            <input type="file" id="pfp" name="pfp"><br><br>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+</div>
+      </div>
+
+      <div id="bio">
         Bio: <?php echo $bio?>
       </div>
+
       <div id="friend">
         Followers count: 69
         <div id="button-container">
@@ -112,5 +170,23 @@
     <p id="lower-text">Test</p>
   </div>
     </div>
+
+    <script>
+    function toggleEditModal() {
+        var modal = document.getElementById("editModal");
+        modal.style.display = (modal.style.display === "block") ? "none" : "block";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        var modal = document.getElementById("editModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Add event listener to the edit button
+    document.getElementById("setting").addEventListener("click", toggleEditModal);
+</script>
 </body>
 </html>
