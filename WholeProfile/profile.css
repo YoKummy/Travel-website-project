@@ -1,0 +1,126 @@
+* {
+  outline: none;
+}
+
+body {
+  margin: 40px 0;
+  background-color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+img {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/* Header */
+header {
+  padding: 15px 20px;
+  background-color: #4267b2;
+}
+
+/* Header finished */
+
+/* Profile image header */
+#profile-upper {
+  position: relative;
+  padding-bottom: 400px;
+}
+
+#profile-d {
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  width: calc(100% - 40px); /* Adjusted width */
+  z-index: 2;
+}
+
+#profile-pic {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 3px;
+  margin-top: 28px;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #fff;
+}
+
+#profile-pic img {
+  width: 100%;
+}
+
+#u-name {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+#bio {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 22px;
+  max-width: 600px; /* Ensures bio does not exceed a certain width */
+}
+
+#friend {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 22px;
+}
+
+#button-container {
+  margin-top: 10px;
+}
+
+#lower-text {
+  color: aliceblue;
+  margin-top: 40px;
+}
+
+#profile-lower p {
+  margin: 20px auto;
+  width: 80%; 
+  background-color: #e9ebee;
+  box-shadow: 0px 8px 30px #1d2d4f;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 20px; 
+}
+
+#friends-list {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 200px; 
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#friends-list h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#friends-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#friends-list ul li {
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  text-align: center;
+}
+
+#main{
+  margin-left: 300px;
+}
