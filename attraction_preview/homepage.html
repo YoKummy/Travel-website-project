@@ -37,6 +37,13 @@
 .offcanvas-backdrop {
     display: none; /*移除bootstrap造成的背景暗化*/
 }
+.navbar-toggler {
+    padding: 10px 15px; /* 调整按钮的内边距 */
+    font-size: 16px; /* 调整按钮的字体大小 */
+    width: auto; /* 或者你想要的宽度值 */
+    height: auto; /* 或者你想要的高度值 */
+    background-color:#efcf1a;
+}
 /*景點一覽*/
 .place-info { /*主頁面景點與照片 */
     margin-bottom: 10px; /*離底部10像素 */
@@ -48,6 +55,8 @@
     margin-right: 2%;
     height: 200px;
     position: relative;
+    background-color: white;
+    border-radius: 17%;
 }
 .place-info:nth-child(5n) {
     margin-right: 0;
@@ -256,6 +265,24 @@ hr.black_line {
 .details button:hover{
   background: #2c52ed;
 }
+.wname{
+    position:absolute;
+    font-size: 25px;
+    left: 135px;
+    top: 47px;
+}
+#toggle-btn {
+    position: absolute; /* 固定在右上角 */
+    top: 47px;
+    right: 93px;
+    background-color: rgb(44, 43, 83);
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
 /*主頁*/
 html, body {
     height: 100%; /* 確保 HTML 和 BODY 的高度填滿整個視窗 */
@@ -322,6 +349,8 @@ html, body {
     float:left;
     width: 100%;
     overflow: auto;
+    padding-top: 8px;
+    padding-left: 20px;
 }
 </style>
 </head>
@@ -350,6 +379,7 @@ html, body {
         </div>
         <div class="body_container">
             <div class ="Header">
+                <b class="wname">旅遊行程分享</b>
                 <div class="wrapper">
                     <div class="content">
                     <ul><input type="text" spellcheck="false" placeholder="Press enter or add a comma after each tag"></ul>
@@ -362,6 +392,7 @@ html, body {
                         </div>
                     </div>
                 </div>
+                <button id="toggle-btn">切換至行程</button>
             <nav class="Rightbar">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
@@ -438,6 +469,7 @@ html, body {
                 <div id="place-rating"></div>
                 <img id="place-image" class="place-image" src="" alt="Place Image">
                 <div id="place-details"></div>
+                <button>添加至行程</button>
             </div>
             <span id="popup-close" class="popup-close">✕</span>
         </div> 
@@ -528,6 +560,17 @@ html, body {
                 document.getElementById("page2Content").style.display = "block";
             }        
         }
+        //切換按鈕
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleBtn = document.getElementById('toggle-btn');
+            toggleBtn.addEventListener('click', function() {
+                if (toggleBtn.textContent === '切換至行程') {
+                    toggleBtn.textContent = '切換至景點';
+                } else {
+                    toggleBtn.textContent = '切換至行程';
+                }
+            });
+        });
         //景點一覽
         var infowindow; /*可在地圖上跳出景點資訊視窗*/
         var currentPlace = null; /*儲存使用者目前點選的景點 */
@@ -697,10 +740,6 @@ html, body {
                 alert('瀏覽器不支援地理位置服務！');
             }
         }
-        /*聊天室按鈕*/
-        function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script> <!--右側欄--> 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrg019oeLqn9I3RPG5PZm94sRi4pdN_cA&callback=initMap&libraries=places" async defer></script><!--api金鑰-->
