@@ -39,7 +39,7 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     end_date DATE NOT NULL,
     transport VARCHAR(255) NOT NULL,
     image_url VARCHAR(255)
-    id CHAR(6), /*判斷創建行程的使用者 */
+    userId CHAR(6), /*判斷創建行程的使用者 */
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table created successfully or already exists<br>";
