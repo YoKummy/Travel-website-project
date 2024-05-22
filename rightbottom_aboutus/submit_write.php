@@ -13,7 +13,7 @@ $password = "";
 $dbname = "travel_planner";
 
 // 建立連線
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password);
 
 // 檢查連線
 if ($conn->connect_error) {
@@ -39,6 +39,7 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     end_date DATE NOT NULL,
     transport VARCHAR(255) NOT NULL,
     image_url VARCHAR(255)
+    id CHAR(6), /*判斷創建行程的使用者 */
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table created successfully or already exists<br>";
