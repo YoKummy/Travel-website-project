@@ -82,7 +82,7 @@
   <?php
     $servername = "localhost";
     $username = "root";
-    $password = "1225";
+    $password = "";
     $dbname = "userDB";
 
     // Create connection

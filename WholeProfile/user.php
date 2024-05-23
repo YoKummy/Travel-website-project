@@ -9,7 +9,7 @@
     <?php
     $servername = "localhost";
     $username = "root";
-    $password = "1225";
+    $password = "";
     $conn = mysqli_connect($servername, $username, $password);
 
     if(!$conn){
@@ -17,7 +17,7 @@
     }
     echo "Connected successfully";
 
-    $sql = "CREATE DATABASE userDB";
+    $sql = "CREATE DATABASE userDB IF NOT EXISTS";
     if(mysqli_query($conn, $sql)){
         echo "Database created successfully!";
     }else{
