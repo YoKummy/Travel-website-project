@@ -17,14 +17,14 @@
     }
     echo "Connected successfully";
 
-    $sql = "CREATE DATABASE userDB";
+    $sql = "CREATE DATABASE IF NOT EXISTS userDB";
     if(mysqli_query($conn, $sql)){
         echo "Database created successfully!";
     }else{
         echo "ERROR creating database: " . mysqli_error($conn);
     } 
 
-    $sql = "CREATE TABLE user (
+    $sql = "CREATE TABLE IF NOT EXISTS user (
         id CHAR(6) PRIMARY KEY,
         uname VARCHAR(30) NOT NULL,
         email VARCHAR(30) NOT NULL,
@@ -59,7 +59,7 @@
 
     $stmt->close();
 
-    $sql = "CREATE TABLE FriendList (
+    $sql = "CREATE TABLE IF NOT EXISTS FriendList (
         ID CHAR(6) PRIMARY KEY,
         usname VARCHAR(30) NOT NULL,
         Friend_ID CHAR(6)
