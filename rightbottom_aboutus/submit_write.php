@@ -9,7 +9,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "0305";
 $dbname = "travel_planner";
 
 // 建立連線
@@ -38,9 +38,11 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     transport VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255)
-    userId CHAR(6), /*判斷創建行程的使用者 */
+    image_url VARCHAR(255),
+    userId CHAR(6), /*創建行程的使用者*/
+    total_date INT /*行程的總天數*/
 )";
+
 if ($conn->query($sql) === TRUE) {
     echo "Table created successfully or already exists<br>";
 } else {
@@ -65,14 +67,19 @@ if (isset($_FILES['image']) && $_FILES['image']['name']) {
 // 確認所有欄位
 if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST['transport'])) {
     // 準備並連接
-    $stmt = $conn->prepare("INSERT INTO trips (trip_name, start_date, end_date, transport, image_url) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $trip_name, $start_date, $end_date, $transport, $image_url);
+    $stmt = $conn->prepare("INSERT INTO trips (trip_name, start_date, end_date, transport, userId, image_url, total_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssi", $trip_name, $start_date, $end_date, $transport, $userId, $image_url, $total_date);
 
     // 設定參數後執行
     $trip_name = $_POST['trip_name'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $transport = $_POST['transport'];
+    $userId = "S00001"; //測試資料
+    $start_day = new DateTime($_POST['start_date']);
+    $end_day = new DateTime($_POST['end_date']); 
+    $interval = $start_day->diff($end_day); //獲取相隔的天數
+    $total_date = $interval->days + 1; //獲取確切天數
 
     if ($stmt->execute()) {
         echo "New trip created successfully<br>";

@@ -22,12 +22,12 @@
     } 
 
     $sql = "CREATE TABLE IF NOT EXISTS attraction (
-        id INT(6) AUTO_INCREMENT PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_number INT NOT NULL, /*景點的先後順序 */
         tname VARCHAR(255) NOT NULL, /*行程名稱*/
         uname VARCHAR(30) NOT NULL, /*使用者名稱*/
         aname VARCHAR(30) NOT NULL, /*景點名稱*/
-        trip_day INT(3) NOT NULL,
-        total_day INT(3) NOT NULL
+        trip_day INT NOT NULL
         )";
 
     $dbname = "AttractionDB";
@@ -40,39 +40,39 @@
         echo "ERROR : " . mysqli_error($conn);
     }
 
-    $stmt = $conn->prepare("INSERT INTO attraction (id, tname, uname, aname, trip_day, total_day) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssii", $id, $tname, $uname, $aname, $trip_day, $total_day);
+    $stmt = $conn->prepare("INSERT INTO attraction (id, order_number, tname, uname, aname, trip_day) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iisssi", $id, $order_number, $tname, $uname, $aname, $trip_day);
 
     $id = "S00001";
+    $order_number = 1;
     $tname = "桃園二日遊";
     $uname = "Test";
-    $aname = "中央大學";
+    $aname = "埔心牧場";
     $trip_day = 1;
-    $total_day = 2;
     $stmt->execute();
     
     $id = "S00001";
+    $order_number = 2;
     $tname = "桃園二日遊";
     $uname = "Test";
-    $aname = "依仁堂";
+    $aname = "中壢觀光夜市";
     $trip_day = 1;
-    $total_day = 2;
     $stmt->execute();
 
     $id = "S00001";
+    $order_number = 1;
     $tname = "桃園二日遊";
     $uname = "Test";
-    $aname = "友好之櫻";
+    $aname = "光明公園";
     $trip_day = 2;
-    $total_day = 2;
     $stmt->execute();
 
     $id = "S00001";
+    $order_number = 1;
     $tname = "桃園一日遊";
     $uname = "Test";
-    $aname = "太極草坪";
+    $aname = "中壢中正公園";
     $trip_day = 1;
-    $total_day = 1;
     $stmt->execute();
     $stmt->close();
     ?>
