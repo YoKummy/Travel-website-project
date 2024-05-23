@@ -47,6 +47,7 @@ header {
 }
 
 #profile-pic img {
+  height: 100%;
   width: 100%;
 }
 
@@ -74,12 +75,15 @@ header {
   margin-top: 10px;
 }
 
-#lower-text {
+/* #lower-text {
   color: aliceblue;
   margin-top: 40px;
-}
+  margin-right: 200px;
+} */
 
-#profile-lower p {
+
+/* #profile-lower {
+  margin-right: 200px;
   margin: 20px auto;
   width: 80%; 
   background-color: #e9ebee;
@@ -87,7 +91,7 @@ header {
   border-radius: 4px;
   overflow: hidden;
   padding: 20px; 
-}
+} */
 
 #friends-list {
   position: absolute;

@@ -22,10 +22,11 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
+    $pfp = htmlspecialchars($_POST["pfp"]);
     $bio = htmlspecialchars($_POST['bio']);
 
     // Handle file upload
-    $pfp = "";
+    /* $pfp = "";
     if (!empty($_FILES['pfp']['name'])) {
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["pfp"]["name"]);
@@ -64,14 +65,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-    }
+    } */
 
     // Update user data
     $sql = "UPDATE user SET bio='$bio'";
+
     
     /* $sql .= ", pfp='$pfp'";
     
     $sql .= " WHERE id='$id'"; */
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
+
+    $sql = "UPDATE user SET pfp='$pfp'";
 
     if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";

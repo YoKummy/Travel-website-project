@@ -17,16 +17,14 @@
     }
     echo "Connected successfully";
 
-
-    $sql = "CREATE DATABASE userDB IF NOT EXISTS";
-
+    $sql = "CREATE DATABASE IF NOT EXISTS userDB";
     if(mysqli_query($conn, $sql)){
         echo "Database created successfully!";
     }else{
         echo "ERROR creating database: " . mysqli_error($conn);
     } 
 
-    $sql = "CREATE TABLE IF NOT EXISTS user (
+    $sql = "CREATE TABLE user (
         id CHAR(6) PRIMARY KEY,
         uname VARCHAR(30) NOT NULL,
         email VARCHAR(30) NOT NULL,
@@ -61,11 +59,14 @@
 
     $stmt->close();
 
-    $sql = "CREATE TABLE IF NOT EXISTS FriendList (
-        ID CHAR(6) PRIMARY KEY,
-        usname VARCHAR(30) NOT NULL,
-        Friend_ID CHAR(6)
-        )";
+    $sql = "CREATE TABLE FriendList (
+        id CHAR(6),
+        fname VARCHAR(30) NOT NULL,
+        Friend_ID CHAR(6),
+        PRIMARY KEY (id, Friend_ID),
+        FOREIGN KEY (id) REFERENCES user(id),
+        UNIQUE (id, Friend_ID)
+    )";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     if(!$conn){
@@ -78,12 +79,75 @@
         echo "ERROR : " . mysqli_error($conn);
     }
 
-    $stmt = $conn->prepare("INSERT INTO FriendList (ID, usname, Friend_ID) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $ID, $usname, $Friend_ID);
+    $stmt = $conn->prepare("INSERT INTO FriendList (ID, fname, Friend_ID) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $ID, $fname, $Friend_ID);
 
-    $ID = '000001';
-    $usname = 'Admin';
-    $Friend_ID = '000002';
+    $ID = 'S00001';
+    $fname = 'Jin';
+    $Friend_ID = 'S00007';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Jojo';
+    $Friend_ID = 'S00009';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Ada';
+    $Friend_ID = 'S00003';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Don';
+    $Friend_ID = 'S00006';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Josh';
+    $Friend_ID = 'S00069';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Kelly';
+    $Friend_ID = 'S00096';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Mike';
+    $Friend_ID = 'S00051';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Howard';
+    $Friend_ID = 'S00077';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'James';
+    $Friend_ID = 'S00056';
+
+    $stmt->execute();
+    echo "Successfully";
+
+    $ID = 'S00001';
+    $fname = 'Stan';
+    $Friend_ID = 'S00010';
 
     $stmt->execute();
     echo "Successfully";

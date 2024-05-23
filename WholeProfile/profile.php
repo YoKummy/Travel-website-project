@@ -25,7 +25,7 @@
         }
 
         .modal-content {
-            background-color: white;
+            background-color: black;
             margin: 5% auto; 
             padding: 20px;
             border: 1px solid #888;
@@ -41,7 +41,7 @@
 
         .close:hover,
         .close:focus {
-            color: black;
+            color: yellow;
             text-decoration: none;
             cursor: pointer;
         }
@@ -79,7 +79,7 @@
     }
 </script>
 
-  <?php
+<?php
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -101,7 +101,12 @@
     $userResult = $conn->query($userSql);
 
     // Fetch friends list
-    $friendsSql = "SELECT usname FROM FriendList WHERE ID = '$userId' OR Friend_ID = '$userId'";
+    $friendsSql = "
+        SELECT f.fname
+        FROM FriendList f
+        JOIN user u
+        WHERE f.id = u.id
+    ";
     $friendsResult = $conn->query($friendsSql);
 
     if ($userResult->num_rows > 0) {
@@ -115,63 +120,66 @@
         echo "No user found.";
         $uname = $email = $bio = $pfp = "";
     }
-    ?>
+?>
 
-    <div id = "main">
-
+<div id="main">
     <div id="profile-upper">
-    <div id="profile-d">
-      <div id="profile-pic">
-        <img src="<?php echo $pfp?>" alt="Profile picture">
-      </div>
-      <div id="u-name"><?php echo $uname?>#<?php echo $id?></div>
-      <div id="bio">
-      <div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="toggleEditModal()">&times;</span>
-        <h2>Edit Profile</h2>
-        <form id="editForm" action="updateprofile.php" method="POST" enctype="multipart/form-data">
-            <label for="bio">Bio: </label><br>
-            <textarea id="bio" name="bio" style="color: blue;"><?php echo $bio; ?></textarea><br><br>
-            <label for="pfp">Profile Picture:</label><br>
-            <input type="file" id="pfp" name="pfp"><br><br>
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="submit" value="Save Changes">
-        </form>
+        <div id="profile-d">
+            <div id="profile-pic">
+                <img src="<?php echo $pfp ?>" alt="Profile picture" width="100%" height="100%">
+            </div>
+            <div id="u-name"><?php echo $uname ?>#<?php echo $id ?></div>
+            <div id="bio">
+                <div id="editModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="toggleEditModal()">&times;</span>
+                        <h2>Edit Profile</h2>
+                        <form id="editForm" action="updateprofile.php" method="POST" enctype="multipart/form-data">
+                            <label for="bio">Bio: </label><br>
+                            <textarea id="bio" name="bio" style="color: blue; width: 800px"><?php echo $bio; ?></textarea><br><br>
+                            <label for="pfp">Profile Picture(put image link here):</label><br>
+                            <textarea id="bio" name="pfp" style="color: red; width: 800px"><?php echo $pfp; ?></textarea><br><br>
+                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                            <input type="submit" value="Save Changes">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bio">
+                Bio: <?php echo $bio ?>
+            </div>
+
+            <div id="friend">
+                Followers count: 69
+                <div id="button-container">
+                    <button id="follow-button">Follow</button>
+                    <button id="setting">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div id="friends-list">
+            <h3>Friends List</h3>
+            <ul>
+                <?php
+                    if ($friendsResult->num_rows > 0) {
+                        while($friend = $friendsResult->fetch_assoc()) {
+                            echo "<li>" . htmlspecialchars($friend['fname']) . "</li>";
+                        }
+                    } else {
+                        echo "<li>No friends found.</li>";
+                    }
+                ?>
+            </ul>
+        </div>
     </div>
 </div>
-      </div>
 
-      <div id="bio">
-        Bio: <?php echo $bio?>
-      </div>
+<div id="profile-lower">
+    <p>Hello1!!!!!</p>
+</div>
 
-      <div id="friend">
-        Followers count: 69
-        <div id="button-container">
-          <button id="follow-button">Follow</button>
-          <button id="setting">Edit</button>
-        </div>
-      </div>
-    </div>
-    <div id="friends-list">
-      <h3>Friends List</h3>
-      <ul>
-        <li>Friend 1</li>
-        <li>Friend 2</li>
-        <li>Friend 3</li>
-        <li>Friend 4</li>
-        <li>Friend 5</li>
-      </ul>
-    </div>
-  </div>
-  <div id="profile-lower">
-    <p id="lower-text">My travels</p>
-    <p id="lower-text">Test</p>
-  </div>
-    </div>
-
-    <script>
+<script>
     function toggleEditModal() {
         var modal = document.getElementById("editModal");
         modal.style.display = (modal.style.display === "block") ? "none" : "block";
