@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--左側欄-->
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css"> <!--搜尋列-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入 jQuery 庫 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.15.0/font/bootstrap-icons.css" rel="stylesheet"> <!--右側欄-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><!--聊天圖示-->
 <title>Travel website</title>
@@ -43,6 +44,47 @@
     width: auto; /* 或者你想要的宽度值 */
     height: auto; /* 或者你想要的高度值 */
     background-color:#efcf1a;
+}
+/*行程編輯*/
+.trip-div{
+    display: flex;
+    flex-Direction: row;
+    align-Items: center;
+    margin-bottom: 10px;
+}
+.trip-div p,
+.trip-div select {
+  display: flex;
+  margin-right: 10px;
+}
+.tpopup-content{
+    height:100%;
+    width:100%;
+}
+.tourist_popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    height: 85vh;
+    width: 107vh;
+    z-index: 9999; /*顯示在其他元素上 */
+    display: none; /*不會直接顯示 */
+}
+.trip-selector{
+    background-color: gray;
+    border-radius: 30%;
+    width:50%;
+    height:13%;
+}
+.tpopup-close { /*視窗關閉鈕 */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 /*景點一覽*/
 .place-info { /*主頁面景點與照片 */
@@ -103,6 +145,8 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    height: 85vh;
+    width: 107vh;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
@@ -125,6 +169,7 @@
 .place-image { /*視窗照片 */
     max-width: 80%;
     max-height: 80%;
+    margin: 0 auto; /* 將左右邊距設為自動，使其水平置中 */
 }
 .place-info-details { /*視窗資訊 */
     position: absolute;
@@ -425,7 +470,7 @@ html, body {
                                                 </p>
                                                 <div class="button1 text-center">
                                                     
-                                                    <a data-href="write.html" class="btn btn-primary checkAuth">開始分享</a>
+                                                    <a href="write.html" class="btn btn-primary checkAuth">開始分享</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -469,10 +514,20 @@ html, body {
                 <h2 id="place-name"></h2>
                 <div id="place-rating"></div>
                 <img id="place-image" class="place-image" src="" alt="Place Image">
+                <div class="buttons-container" style="padding-top: 10px;padding-bottom: 10px;">
+                    <button id="photo-button">查看圖片</button>
+                    <button id="article-button">在Google上搜尋</button>
+                </div>
                 <div id="place-details"></div>
                 <button id="add_to_tourist">添加至行程</button>
             </div>
             <span id="popup-close" class="popup-close">✕</span>
+        </div>
+        <div id="tourist_popup" class="tourist_popup">
+            <div id="tpopup-content" class="tpopup-content">
+                <h2>要加在哪個行程</h2>
+                <span id="tpopup-close" class="tpopup-close">✕</span>
+            </div>
         </div> 
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
@@ -651,56 +706,104 @@ html, body {
 
                     //跳出視窗
                     function openPopup(place) {
-                        clearPopup();
+                    clearPopup();
 
-                        document.getElementById('place-name').textContent = place.name;
+                    document.getElementById('place-name').textContent = place.name;
 
-                        var ratingElement = document.getElementById('place-rating');
-                        var ratingText = document.createElement('span');
-                        ratingText.textContent = 'Google評價: ';
-                        ratingElement.appendChild(ratingText);
-                        var ratingValue = place.rating ? place.rating.toFixed(1) : '未提供';
-                        ratingElement.appendChild(document.createTextNode(ratingValue));
+                    var ratingElement = document.getElementById('place-rating');
+                    ratingElement.textContent = '';
+                    var ratingText = document.createElement('span');
+                    ratingText.textContent = 'Google評價: ';
+                    ratingElement.appendChild(ratingText);
+                    var ratingValue = place.rating ? place.rating.toFixed(1) : '未提供';
+                    ratingElement.appendChild(document.createTextNode(ratingValue));
+                    var starElement = document.createElement('span');
+                    starElement.innerHTML = '&#9733;';
+                    ratingElement.appendChild(starElement);
 
-                        var starElement = document.createElement('span');
-                        starElement.innerHTML = '&#9733;';
-                        ratingElement.appendChild(starElement);
-
-                        var placeImage = document.getElementById('place-image');
-                        if (place.photos && place.photos[0]) {
-                            placeImage.src = place.photos[0].getUrl();
-                        } else {
-                            placeImage.style.display = 'none';
-                        }
-
-                        var buttonsContainer = document.createElement('div');
-                        buttonsContainer.classList.add('buttons-container');
-
-                        var photoButton = document.createElement('button');
-                        photoButton.textContent = '查看圖片';
-                        photoButton.addEventListener('click', function() {
-                            openGoogleMapsPage(place.name, 'photo');
-                        });
-                        buttonsContainer.appendChild(photoButton);
-
-                        var articleButton = document.createElement('button');
-                        articleButton.textContent = '在Google上搜尋';
-                        articleButton.addEventListener('click', function() {
-                            openGoogleMapsPage(place.name, 'article');
-                        });
-                        buttonsContainer.appendChild(articleButton);
-
-                        document.getElementById('place-details').appendChild(buttonsContainer);
-
-                        var addressElement = document.createElement('p');
-                        addressElement.textContent = "地址：" + (place.vicinity ? place.vicinity : "未提供");
-                        document.getElementById('place-details').appendChild(addressElement);
-
-                        currentPlace = place;
-                        
-                        document.getElementById('popup').style.display = 'block';
+                    var placeImage = document.getElementById('place-image');
+                    if (place.photos && place.photos[0]) {
+                        placeImage.src = place.photos[0].getUrl();
+                        placeImage.style.display = 'block';
+                    } else {
+                        placeImage.style.display = 'none';
                     }
 
+                    var photoButton = document.getElementById('photo-button');
+                    photoButton.addEventListener('click', function() {
+                        openGoogleMapsPage(place.name, 'photo');
+                    });
+
+                    var articleButton = document.getElementById('article-button');
+                    articleButton.addEventListener('click', function() {
+                        openGoogleMapsPage(place.name, 'article');
+                    });
+
+                    var addressElement = document.createElement('p');
+                    addressElement.textContent = "地址：" + (place.vicinity ? place.vicinity : "未提供");
+                    document.getElementById('place-details').appendChild(addressElement);
+
+                    currentPlace = place;
+
+                    document.getElementById('popup').style.display = 'block';
+                    }
+
+$(document).ready(function() { // 檔案準備完成時才執行
+  function addToTouristHandler() {
+    $.ajax({
+      url: 'getTdata.php',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        const tripArray = data.tripArray;
+        const dateArray = data.dateArray;
+        const sdateArray = data.sdateArray;
+        const tripContainer = $('#tpopup-content');
+        tripArray.forEach((tripName, index) => {
+          const tripDiv = $('<div></div>').addClass('trip-div'); // 創建一個 div 元素
+          const tripSelect = $('<select></select>').addClass('trip-selector');
+          tripSelect.change();
+          tripSelect.on('change', function() {
+            const selectedDate = $(this).val();
+            if (selectedDate) {
+              const tripDiv = $(this).closest('.trip-div');
+              const dateP = tripDiv.find('.date-container p:nth-child(1)'); // 選擇第一個 <p></p> 元素
+              const sdateP = tripDiv.find('.date-container p:nth-child(2)'); // 選擇第二個 <p></p> 元素
+              dateP.text(tripName);
+              sdateP.text(sdateArray[index]);
+            } 
+          });
+          // 在迴圈外部初始化預設選項
+          const blankOption = $('<option></option>').val('').text('請選擇一天').prop('disabled', true).prop('selected', true);
+          tripSelect.append(blankOption);
+          for (let i = 1; i <= dateArray[index]; i++) {
+            const option = $('<option></option>');
+            option.val(i);
+            option.text('第' + i + '天');
+            tripSelect.append(option);
+          }
+          tripSelect.val(''); // 選擇預設選項
+          const dateContainer = $('<div></div>').addClass('date-container'); // 創建一個父容器
+          const p1 = $('<p></p>');
+          p1.text(tripName);
+          const p2 = $('<p></p>');
+          p2.text(sdateArray[index]);
+          dateContainer.append(p1);
+          dateContainer.append(p2);
+          tripDiv.append(dateContainer);
+          tripDiv.append(tripSelect);
+          tripContainer.append(tripDiv);
+        });
+      },
+      error: function(error) {
+        console.error('Error:', error);
+      }
+    });
+    document.getElementById('tourist_popup').style.display = 'block';
+    document.getElementById('popup').style.display = 'none';
+  }
+  $('#add_to_tourist').click(addToTouristHandler);
+});
                     //打開google頁面
                     function openGoogleMapsPage(placeName, query) {
                         var searchQuery;
@@ -735,6 +838,10 @@ html, body {
                     document.getElementById('popup-close').addEventListener('click', function() {
                         document.getElementById('popup').style.display = 'none';
                         clearPopup();
+                    });
+                    
+                    document.getElementById('tpopup-close').addEventListener('click', function() {
+                        document.getElementById('tourist_popup').style.display = 'none';
                     });
                 });
             } else { //無法定位使用者
