@@ -9,7 +9,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "1225";
 $dbname = "userDB";
 
 // Create connection

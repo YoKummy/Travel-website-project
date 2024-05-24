@@ -9,7 +9,7 @@
     <?php
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = "1225";
     $conn = mysqli_connect($servername, $username, $password);
 
     if(!$conn){
