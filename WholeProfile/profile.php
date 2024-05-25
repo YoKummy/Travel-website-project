@@ -108,6 +108,15 @@
         WHERE f.id = u.id
     ";
     $friendsResult = $conn->query($friendsSql);
+    
+    $countSql = "SELECT COUNT(*) AS total FROM FriendList";
+    $countResult = $conn->query($countSql);
+    $totalFriends = 0;
+    if ($countResult && $countResult->num_rows > 0) {
+        $countRow = $countResult->fetch_assoc();
+        $totalFriends = $countRow['total'];
+    }
+
 
     if ($userResult->num_rows > 0) {
         $user = $userResult->fetch_assoc();
@@ -116,13 +125,15 @@
         $email = htmlspecialchars($user['email']);
         $bio = htmlspecialchars($user['bio']);
         $pfp = htmlspecialchars($user['pfp']);
+
     } else {
         echo "No user found.";
         $uname = $email = $bio = $pfp = "";
     }
 
     // grab data from attraction db
-
+    $sql = "SELECT tname, uname FROM attraction";
+    $result = $conn->query($sql);
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -162,7 +173,7 @@
             </div>
 
             <div id="friend">
-                Followers count: 10
+                Followers count: <?php echo $totalFriends?>
                 <div id="button-container">
                     <button id="follow-button">Follow</button>
                     <button id="setting">Edit</button>
@@ -185,7 +196,18 @@
         </div>
     </div>
     <div id="profile-lower">
-        Hello
+        <?php
+        if ($result->num_rows > 0) {
+            echo "<ul>";
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<li>" . $row["tname"]. " - Created by: " . $row["uname"]. "</li>";
+            }
+            echo "</ul>";
+        } else {
+            echo "No attractions found.";
+        }
+        ?>
     </div>
 </div>
 
