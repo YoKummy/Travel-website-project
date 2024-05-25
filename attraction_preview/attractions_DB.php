@@ -23,7 +23,7 @@
 
     $sql = "CREATE TABLE IF NOT EXISTS attraction (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        order_number INT NOT NULL, /*景點的先後順序 */
+        order_number INT, /*景點的先後順序 */
         tname VARCHAR(255) NOT NULL, /*行程名稱*/
         uname VARCHAR(30) NOT NULL, /*使用者名稱*/
         aname VARCHAR(30) NOT NULL, /*景點名稱*/
@@ -36,7 +36,7 @@
         die("Connection failed: ".mysqli_connect_errno());
     }
 
-    if(!mysqli_multi_query($conn, $sql)){
+    if(!mysqli_query($conn, $sql)){
         echo "ERROR : " . mysqli_error($conn);
     }
 

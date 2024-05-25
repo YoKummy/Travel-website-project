@@ -39,18 +39,44 @@
     display: none; /*移除bootstrap造成的背景暗化*/
 }
 .navbar-toggler {
-    padding: 10px 15px; /* 调整按钮的内边距 */
-    font-size: 16px; /* 调整按钮的字体大小 */
-    width: auto; /* 或者你想要的宽度值 */
-    height: auto; /* 或者你想要的高度值 */
+    padding: 10px 15px; 
+    font-size: 16px;
+    width: auto; 
+    height: auto; 
     background-color:#efcf1a;
 }
-/*行程編輯*/
+/*景點時間選擇*/
+.timepopup-close { 
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.time-content{
+    height:100%;
+    width:100%;
+}
+/*行程插入景點*/
+.submit-button{
+    border-radius: 10px;
+    left: 228px;
+    top: 4px;
+    position: relative;
+}
+.center-text {
+  text-align: center;
+}
 .trip-div{
     display: flex;
     flex-Direction: row;
     align-Items: center;
-    margin-bottom: 10px;
+    margin: 20px;
+    background-color: #E0E0E0;
+    border-radius: 15px;
+    width: 75%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 }
 .trip-div p,
 .trip-div select {
@@ -62,6 +88,46 @@
     width:100%;
 }
 .tourist_popup{
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    height: 85vh;
+    width: 75vh;
+    z-index: 9999; /*顯示在其他元素上 */
+    display: none; /*不會直接顯示 */
+}
+.trip-selector{
+    width:35%;
+    height:13%;
+    margin-left: 85px;
+}
+.tpopup-close { 
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.p1{
+    font-size: 25px;
+    color: black;
+    padding-left: 20px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+.p2{
+    font-size: 18px;
+    color: #9D9D9D;
+    padding-left: 20px;
+    margin-top: 0px;
+}
+/*插入景點的時間*/
+.time_popup{
+    border-radius: 15px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -73,18 +139,6 @@
     width: 107vh;
     z-index: 9999; /*顯示在其他元素上 */
     display: none; /*不會直接顯示 */
-}
-.trip-selector{
-    background-color: gray;
-    border-radius: 30%;
-    width:50%;
-    height:13%;
-}
-.tpopup-close { /*視窗關閉鈕 */
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
 }
 /*景點一覽*/
 .place-info { /*主頁面景點與照片 */
@@ -525,10 +579,18 @@ html, body {
         </div>
         <div id="tourist_popup" class="tourist_popup">
             <div id="tpopup-content" class="tpopup-content">
-                <h2>要加在哪個行程</h2>
+                <h2 style="text-align: center;">要加在哪個行程</h2>
                 <span id="tpopup-close" class="tpopup-close">✕</span>
+                <button class="submit-button" id="submit-button">提交</button>
             </div>
         </div> 
+        <div class="time_popup" id="time_popup">
+            <div id="time-content" class="time-content">
+                <h2 style="text-align: center;">要加在哪</h2>
+                <span id="timepopup-close" class="timepopup-close">✕</span>
+                <button class="Tsubmit-button" id="Tsubmit-button">提交</button>
+            </div>
+        </div>
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
                 <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="about us.html">關於我們</a>
@@ -630,6 +692,9 @@ html, body {
         //景點一覽
         var infowindow; /*可在地圖上跳出景點資訊視窗*/
         var currentPlace = null; /*儲存使用者目前點選的景點 */
+        var currentPlaceName = ''; //儲存目前選擇的地點
+        var selectedDate; //儲存目前選擇的日期
+        var tName = ''; //儲存目前選擇的行程
 
         function initMap() {
             // 獲取使用者的地理位置
@@ -709,6 +774,7 @@ html, body {
                     clearPopup();
 
                     document.getElementById('place-name').textContent = place.name;
+                    currentPlaceName = place.name;
 
                     var ratingElement = document.getElementById('place-rating');
                     ratingElement.textContent = '';
@@ -748,62 +814,150 @@ html, body {
                     document.getElementById('popup').style.display = 'block';
                     }
 
-$(document).ready(function() { // 檔案準備完成時才執行
-  function addToTouristHandler() {
-    $.ajax({
-      url: 'getTdata.php',
-      type: 'GET',
-      dataType: 'json',
+                    //創建選擇行程的視窗
+                    $(document).ready(function() { // 檔案準備完成時才執行
+                    function addToTouristHandler() {
+                        $.ajax({
+                        url: 'getTrip.php',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            const tripArray = data.tripArray;
+                            const dateArray = data.dateArray;
+                            const sdateArray = data.sdateArray;
+                            const tripContainer = $('#tpopup-content');
+                            tripArray.forEach((tripName, index) => {
+                            const tripDiv = $('<div></div>').addClass('trip-div'); // 創建一個 div 元素
+                            const tripSelect = $('<select></select>').addClass('trip-selector');
+                            let optionSelected = false;
+                            tripSelect.change(function() {
+                                optionSelected = true;
+                                const selectedDateVal = $(this).val();
+                                if (selectedDateVal) {
+                                    selectedDate = selectedDateVal;
+                                }
+                                $('.trip-div').not($(this).closest('.trip-div')).find('select').prop('disabled', true);
+                                tName = $(this).closest('.trip-div').find('.p1').text();
+                            });
+                            // 在迴圈外部初始化預設選項
+                            const blankOption = $('<option></option>').addClass('center-text');
+                            blankOption.val('').text('請選擇一天').prop('disabled', true).prop('selected', true);
+                            tripSelect.append(blankOption);
+                            for (let i = 1; i <= dateArray[index]; i++) {
+                                const option = $('<option></option>').addClass('center-text');
+                                option.val(i);
+                                option.text('第' + i + '天');
+                                tripSelect.append(option);
+                            }
+                            tripSelect.val(''); // 選擇預設選項
+                            const dateContainer = $('<div></div>').addClass('date-container'); // 創建一個父容器
+                            const p1 = $('<p></p>').addClass('p1');
+                            p1.text(tripName);
+                            const p2 = $('<p></p>').addClass('p2');
+                            p2.text(sdateArray[index]);
+                            dateContainer.append(p1);
+                            dateContainer.append(p2);
+                            tripDiv.append(dateContainer);
+                            tripDiv.append(tripSelect);
+                            tripContainer.append(tripDiv);
+                            });
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                        });
+                        document.getElementById('tourist_popup').style.display = 'block';
+                        document.getElementById('popup').style.display = 'none';
+                    }
+                    $('#add_to_tourist').click(addToTouristHandler);
+                    });
+
+//創建景點排序視窗
+document.getElementById('submit-button').addEventListener('click', function() {
+  if (!selectedDate) {
+    alert('請選擇一個行程的天數來加入');
+    return;
+  }
+  document.getElementById('tourist_popup').style.display = 'none';
+      clearTPopup();
+
+  $.ajax({
+    url: 'submit-dselection.php',
+    type: 'POST',
+    data: {
+      tripName: tName,
+      sDate: selectedDate,
+      placeName: currentPlaceName
+    },
+    success: function(data) {
+        console.log(data);
+      const orderData = data.orderData;
+      const timeContainer = document.getElementById('time-content');
+      var i = 1;
+      for (const [key, value] of Object.entries(orderData)) {
+        const br = document.createElement("br");
+        const radio = document.createElement("input");
+        const timeDiv = document.createElement("div");
+      timeDiv.className = "time-div";
+        radio.type = "radio";
+        radio.name = "order";
+        radio.value = value; // 景點要插入的順序
+
+        const label = document.createElement("label");
+        if(i ==1){
+            label.innerText = currentPlaceName + "\n" + Object.keys(orderData)[1];
+        }else if(i == Object.entries(orderData).length){
+            label.innerText = key + "\n" + currentPlaceName;
+        }else{
+            label.innerText = key + "\n" + currentPlaceName + "\n" + Object.keys(orderData)[i+1];
+        }
+
+        timeDiv.appendChild(radio);
+      timeDiv.appendChild(label);
+      timeDiv.appendChild(br);
+
+      timeContainer.appendChild(timeDiv);
+      i++;
+      }
+      if (data.closeTimePopup) {
+        document.getElementById('time_popup').style.display = 'none';
+        clearTimePopup();
+    } else {
+        document.getElementById('time_popup').style.display = 'block';
+    }
+    //目前問題:提交後並未儲存正確的orderNum
+    document.getElementById('Tsubmit-button').addEventListener('click', function() {
+    if (selectedRadio) {
+        const selectedIndex = Array.prototype.indexOf.call(document.getElementsByName('order'), selectedRadio);
+        const orderData = data.orderData;
+        const n = selectedIndex + 1;
+        $.ajax({
+      url: 'submit-tselection.php',
+      type: 'POST',
+      data: {
+        orderNum: n,
+        tripName: tName,
+      placeName: currentPlaceName
+      },
       success: function(data) {
-        const tripArray = data.tripArray;
-        const dateArray = data.dateArray;
-        const sdateArray = data.sdateArray;
-        const tripContainer = $('#tpopup-content');
-        tripArray.forEach((tripName, index) => {
-          const tripDiv = $('<div></div>').addClass('trip-div'); // 創建一個 div 元素
-          const tripSelect = $('<select></select>').addClass('trip-selector');
-          tripSelect.change();
-          tripSelect.on('change', function() {
-            const selectedDate = $(this).val();
-            if (selectedDate) {
-              const tripDiv = $(this).closest('.trip-div');
-              const dateP = tripDiv.find('.date-container p:nth-child(1)'); // 選擇第一個 <p></p> 元素
-              const sdateP = tripDiv.find('.date-container p:nth-child(2)'); // 選擇第二個 <p></p> 元素
-              dateP.text(tripName);
-              sdateP.text(sdateArray[index]);
-            } 
-          });
-          // 在迴圈外部初始化預設選項
-          const blankOption = $('<option></option>').val('').text('請選擇一天').prop('disabled', true).prop('selected', true);
-          tripSelect.append(blankOption);
-          for (let i = 1; i <= dateArray[index]; i++) {
-            const option = $('<option></option>');
-            option.val(i);
-            option.text('第' + i + '天');
-            tripSelect.append(option);
-          }
-          tripSelect.val(''); // 選擇預設選項
-          const dateContainer = $('<div></div>').addClass('date-container'); // 創建一個父容器
-          const p1 = $('<p></p>');
-          p1.text(tripName);
-          const p2 = $('<p></p>');
-          p2.text(sdateArray[index]);
-          dateContainer.append(p1);
-          dateContainer.append(p2);
-          tripDiv.append(dateContainer);
-          tripDiv.append(tripSelect);
-          tripContainer.append(tripDiv);
-        });
+        document.getElementById('time_popup').style.display = 'none';
+        clearTimePopup();
       },
       error: function(error) {
         console.error('Error:', error);
       }
     });
-    document.getElementById('tourist_popup').style.display = 'block';
-    document.getElementById('popup').style.display = 'none';
-  }
-  $('#add_to_tourist').click(addToTouristHandler);
+    } else {
+        alert("請選擇一個時間點加入");
+    }
 });
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
+});
+
                     //打開google頁面
                     function openGoogleMapsPage(placeName, query) {
                         var searchQuery;
@@ -839,9 +993,24 @@ $(document).ready(function() { // 檔案準備完成時才執行
                         document.getElementById('popup').style.display = 'none';
                         clearPopup();
                     });
+
+                    document.getElementById('timepopup-close').addEventListener('click', function() {
+                        document.getElementById('time_popup').style.display = 'none';
+                        clearTimePopup();
+                    });
                     
+                    function clearTPopup() {
+                        $('#tpopup-content .trip-div').remove();
+                    }
+
+                    function clearTimePopup() {
+                        $('#time-content .time-div').remove();
+                    }
+
+                    //測試完可刪除，資料已寫入資料庫，需讓使用者完成景點排序
                     document.getElementById('tpopup-close').addEventListener('click', function() {
                         document.getElementById('tourist_popup').style.display = 'none';
+                        clearTPopup();
                     });
                 });
             } else { //無法定位使用者
