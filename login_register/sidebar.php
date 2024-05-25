@@ -1,8 +1,8 @@
 <?php
 session_start();
-$isLoggedIn = isset($_SESSION['username']); // 检查用户是否已登录
+$isLoggedIn = isset($_SESSION['username']); // 检查用户是否已登錄
 $username = $isLoggedIn ? $_SESSION['username'] : null;
-$profilePicture = "pixilart-drawing.png"; // 默认头像
+$profilePicture = "pixilart-drawing.png"; // 頭像
 ?>
 
 <!DOCTYPE html>

@@ -2,7 +2,6 @@
 session_start();
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
-    // 这里添加数据库验证逻辑
     $username = $_POST['username']; // 用戶名
     $password = $_POST['password']; // 密碼
 
