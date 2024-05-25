@@ -1,6 +1,6 @@
 <?php
 session_start();
-$isLoggedIn = isset($_SESSION['username']); // 检查用户是否已登錄
+$isLoggedIn = isset($_SESSION['username']); // 检查用戶是否已登錄
 $username = $isLoggedIn ? $_SESSION['username'] : null;
 $profilePicture = "pixilart-drawing.png"; // 頭像
 ?>
