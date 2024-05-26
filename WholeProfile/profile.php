@@ -45,6 +45,8 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        
     </style>
 
 </head>
@@ -85,10 +87,10 @@
     $password = "1225";
     $dbname = "userDB";
 
-    // Create connection
+    
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
+    
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -180,7 +182,20 @@
                 </div>
             </div>
         </div>
-        <div id="friends-list">
+        
+    </div>
+    <div id="friends-list">
+    <form id="addFriendForm" action="add_friend.php" method="POST">
+    <input type="text" name="friend_id" placeholder="Enter friend's ID">
+    <input type="submit" value="Add Friend">
+
+</form>
+
+<form id="deleteFriendForm" action="delete_friend.php" method="POST">
+        <input type="text" name="friend_id" placeholder="Enter friend's ID to delete">
+        <input type="submit" value="Delete Friend">
+        </form>
+
             <h3>Friends List</h3>
             <ul>
                 <?php
@@ -194,7 +209,6 @@
                 ?>
             </ul>
         </div>
-    </div>
     <div id="profile-lower">
         <?php
         if ($result->num_rows > 0) {
