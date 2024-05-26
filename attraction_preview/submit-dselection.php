@@ -15,18 +15,19 @@
     }
 
     $userID = "S00001";
-    $order_number = 0;
+    $order_number = 0; //預設值為0
 
+    //其他的$order_number也要更新
     $sql = "SELECT COUNT(*) as count FROM attraction WHERE uname = '$userID' AND tname = '$tripName' AND trip_day = '$selectedDate'";
     $result = $conn->query($sql);
     $row = mysqli_fetch_assoc($result);
     if ($row['count'] == 0) {
-        // 如果沒有，則將 order_number 設置為 1
+        // 若為第一筆資料，設為1
         $order_number = 1;
     }
 
     $stmt = mysqli_prepare($conn, "INSERT INTO attraction (tname, uname, aname, trip_day, order_number) VALUES (?, ?, ?, ?, ?)");
-    mysqli_stmt_bind_param($stmt, "sssii", $tripName, $userID, $placeName, $selectedDate, $order_number);
+    mysqli_stmt_bind_param($stmt, "sssid", $tripName, $userID, $placeName, $selectedDate, $order_number);
     if (!mysqli_stmt_execute($stmt)) {
         echo "ERROR: " . mysqli_stmt_error($stmt);
     }
