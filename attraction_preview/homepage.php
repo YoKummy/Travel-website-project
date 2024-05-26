@@ -45,6 +45,23 @@
     height: auto; 
     background-color:#efcf1a;
 }
+.rightDiv{
+    border-radius: 15px;
+    background-color: #E0E0E0;
+    margin-top: 10px;
+    position: relative;
+}
+.btn-group {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.btn-group > button {
+  margin-right: 15px;
+  border-radius: 15px;
+  padding: 5px;
+}
 /*景點時間選擇*/
 .time_popup{
     border-radius: 15px;
@@ -72,7 +89,7 @@
     transform: translate(-50%);
     background-color: #E0E0E0;
     border-radius: 15px;
-    margin: 20px;
+    margin: 25px;
     width: 70%;
     height: 14%;
 }
@@ -92,6 +109,7 @@
     border-radius: 15px;
     position: absolute;
     left: 43%;
+    padding: 6px;
 }
 /*行程插入景點*/
 .submit-button{
@@ -163,7 +181,35 @@
     padding-left: 20px;
     margin-top: 0px;
 }
-
+/*查看整個行程*/
+.aPopup{
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    height: 85vh;
+    width: 63vh;
+    z-index: 9999; /*顯示在其他元素上 */
+    display: none; /*不會直接顯示 */
+    overflow-y: auto;
+}
+.aname-div{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #E0E0E0;
+    border-radius: 15px;
+    margin: 16px;
+    width: 50%;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /*景點一覽*/
 .place-info { /*主頁面景點與照片 */
     margin-top: 20px;
@@ -517,36 +563,20 @@ html, body {
                     </div>
                 </div>
                 <button id="toggle-btn">切換至行程</button>
-            <nav class="Rightbar">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button> 
-                <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
+                <nav class="Rightbar">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">行程</button>
+                    <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程編輯</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <div class="d-flex justify-content-center"> 
-                                    <div class="btn-group">
-                                        <button class="nav-link btn btn-lg btn-primary me-2" onclick="showPage(1)">個人行程</button>
-                                        <button class="nav-link btn btn-lg btn-primary" onclick="showPage(2)">朋友行程</button>
-                                    </div>
-                                </div>
-                            </li>
-    
-                            <div id="page1Content" style="display: block;">
-                    <div class="button1 text-center">
-                        <a href="write.html" class="btn btn-primary checkAuth">創建行程</a>
-                    </div>
-                </div>
-
-                <div id="page2Content" style="display: none;">
-                    <p>待未來更新</p>
-                </div>
                         </ul>
+                        <div class="button1 text-center">
+                                <a href="write.html" class="btn btn-primary checkAuth">創建行程</a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -582,6 +612,13 @@ html, body {
             <h2 style="text-align: center;">要加在哪</h2>
             <button class="Tsubmit-button" id="Tsubmit-button">確認新增</button>
             <div id="time-content" class="time-content"></div>
+        </div>
+        <div id="aPopup" class="popup">
+            <div class="popup-content" id="popup-content">
+                <h2 id="trip-name"></h2>
+                <div id="day-buttons"></div>
+            </div>
+            <span id="spot-close" class="popup-close">✕</span>
         </div>
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
@@ -660,16 +697,141 @@ html, body {
                 mini = true;
             }
         }
-        //右側欄
-        function showPage(pageNumber) {
-            if (pageNumber === 1) {
-                document.getElementById("page1Content").style.display = "block";
-                document.getElementById("page2Content").style.display = "none";
-            } else if (pageNumber === 2) {
-                document.getElementById("page1Content").style.display = "none";
-                document.getElementById("page2Content").style.display = "block";
-            }        
+        //右側欄 取得目前行程
+        function loadTrips() {
+    $.ajax({
+        url: 'getTrip.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            const tripArray = data.tripArray;
+            const dateArray = data.dateArray;
+            const sdateArray = data.sdateArray;
+
+            for (let i = 0; i < tripArray.length; i++) {
+                const rightDiv = $('<div>').addClass('rightDiv').attr('id', `rightDiv-${i}`);
+                rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:5px;">${tripArray[i]}</h3>`);
+                rightDiv.append(`<p style="padding-left:15px;">出發日期：${sdateArray[i]}</p>`);
+                const btnGroup = $('<div>').addClass('btn-group');
+                const editBtn = $('<button>').addClass('edit-btn').text('查看');
+                btnGroup.append(editBtn);
+                const deleteBtn = $('<button>').addClass('delete-btn').text('刪除');
+                btnGroup.append(deleteBtn);
+                rightDiv.append(btnGroup);
+                $('.offcanvas-body').append(rightDiv);
+                //刪除整個行程
+                deleteBtn.on('click', function() {
+                    const trip = tripArray[i];
+                    if (confirm('你確定要刪除行程「' + trip + '」嗎？')) {
+                        $.ajax({
+                            url: 'deleteTrip.php',
+                            type: 'POST',
+                            data: { trip: trip },
+                            success: function() {
+                                console.log('成功刪除行程：' + trip);
+                                $('#rightDiv-' + i).remove();
+                            },
+                            error: function() {
+                                console.log('無法刪除行程：' + trip);
+                            }
+                        });
+                    } else {
+                        console.log('取消刪除行程：' + trip);
+                    }
+                });
+                //查看整個行程
+                editBtn.on('click', function() {
+                    const trip = tripArray[i];
+                    $.ajax({
+                        url: 'viewSpot.php',
+                        type: 'POST',
+                        data: { trip: trip },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response)
+                            const data = response.data;
+                            const sDate = response.sdate;
+                            const maxDay = Math.max(...data.map(item => item.trip_day));
+                            const aPopup = document.getElementById('aPopup');
+                            aPopup.style.display = 'block';
+                            const popupContent = document.getElementById('popup-content');
+                            const tripName = document.createElement('h2');
+                            tripName.innerText = trip;
+                            const dayButtons = document.createElement('div');
+                            for (let i = 1; i <= maxDay; i++) {
+                                const button = document.createElement('button');
+                                button.innerText = `第${i}天`;
+                                button.addEventListener('click', function(event) {
+                                    $('#aContent').remove();
+                                    const day = parseInt(event.target.innerText.slice(1, 2));
+                                    console.log(day);
+                                    const tripDayData = data.filter(item => item.trip_day == day);
+                                    console.log(tripDayData);
+                                    tripDayData.sort((a, b) => a.order_number - b.order_number);
+                                    const aContent = document.createElement('div');
+                                    aContent.id = 'aContent';
+                                    for (let j = 0; j < tripDayData.length; j++) {
+                                        const anameDiv = document.createElement('div');
+                                        anameDiv.className = 'aname-div';
+                                        anameDiv.innerText = tripDayData[j].aname;
+                                        const button = document.createElement('button');
+                                        button.innerText = '刪除';
+                                        button.addEventListener('click', function(event) {
+                                            const aname = anameDiv.textContent.trim().replace('刪除', ''); // 移除"刪除"按鈕的文字
+                                            const tripDay = i;
+                                            const tname = trip;
+                                            $.ajax({
+                                                url: 'deleteSpot.php',
+                                                type: 'POST',
+                                                data: { aname: aname, tripDay: tripDay, tname: tname },
+                                                dataType: 'json',
+                                                success: function(response) {
+                                                    console.log(aname, tripDay, tname)
+                                                    console.log(response);
+                                                    event.target.parentNode.remove();
+                                                    document.getElementById('aPopup').style.display = 'none';
+                                                    $('#popup-content').empty();
+                                                    alert('景點已成功刪除');
+                                                },
+                                                error: function() {
+                                                    console.log("無法刪除景點");
+                                                }
+                                            });
+                                        });
+                                        anameDiv.appendChild(button);
+                                        aContent.appendChild(anameDiv);
+                                    }
+                                    popupContent.appendChild(aContent);
+                                });
+                                dayButtons.appendChild(button);
+                            }
+                            popupContent.appendChild(tripName);
+                            popupContent.appendChild(dayButtons);
+                        },
+                        error: function() {
+                            console.log("無法獲取行程資訊")
+                        }
+                    });
+                });
+            }
+        },
+        error: function() {
+            console.log('無法獲取行程資料');
         }
+    });
+}
+
+$(document).ready(function() {
+    $('.navbar-toggler').on('click', function() {
+        loadTrips();
+    });
+    $('.btn-close').on('click', function() {
+        $('.rightDiv').each(function() {
+            $(this).remove();
+        });
+    });
+});
+
         //切換按鈕
         document.addEventListener('DOMContentLoaded', function() {
             var toggleBtn = document.getElementById('toggle-btn');
@@ -947,10 +1109,9 @@ html, body {
                                                 console.error('Error:', error);
                                             }
                                         });
-                                    } else {
-                                        alert("請選擇一個時間點加入");
-                                        return;
                                     }
+                                    document.getElementById('time_popup').style.display = 'none';
+                                    clearTimePopup();
                                 });
                             },
                             error: function(error) {
@@ -1003,10 +1164,9 @@ html, body {
                         $('#time-content .time-div').remove();
                     }
 
-                    //測試完可刪除，資料已寫入資料庫，需讓使用者完成景點排序
-                    document.getElementById('tpopup-close').addEventListener('click', function() {
-                        document.getElementById('tourist_popup').style.display = 'none';
-                        clearTPopup();
+                    document.getElementById('spot-close').addEventListener('click', function() {
+                        document.getElementById('aPopup').style.display = 'none';
+                        $('#popup-content').empty();
                     });
                 });
             } else { //無法定位使用者
