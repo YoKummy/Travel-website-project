@@ -29,7 +29,7 @@ header {
   left: 20px;
   bottom: 0;
   width: calc(100% - 40px); /* Adjusted width */
-  z-index: 2;
+  z-index: 0;
 }
 
 #profile-pic {
@@ -73,8 +73,7 @@ header {
 
 
 #profile-lower {
-  margin-right: 200px;
-  margin: 20px auto;
+  margin-top: 100px;
   width: 80%; 
   background-color: #0066ff;
   color: white;

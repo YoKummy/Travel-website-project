@@ -46,15 +46,52 @@
     background-color:#efcf1a;
 }
 /*景點時間選擇*/
-.timepopup-close { 
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
+.time_popup{
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    height: 85vh;
+    width: 87vh;
+    z-index: 9999; /*顯示在其他元素上 */
+    display: none; /*不會直接顯示 */
+    overflow-y: auto;
 }
 .time-content{
     height:100%;
     width:100%;
+    padding-top: 20px;
+}
+.time-div{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #E0E0E0;
+    border-radius: 15px;
+    margin: 20px;
+    width: 70%;
+    height: 14%;
+}
+.time-div label {
+    position: absolute;
+    top: 50%;
+    transform: translate(0% , -50%);
+    left: 33%;
+}
+.radio-button{
+    position: absolute;
+    top: 50%;
+    transform: translate(0% , -50%);
+    left: 10%;
+}
+.Tsubmit-button{
+    border-radius: 15px;
+    position: absolute;
+    left: 43%;
 }
 /*行程插入景點*/
 .submit-button{
@@ -68,8 +105,8 @@
 }
 .trip-div{
     display: flex;
-    flex-Direction: row;
-    align-Items: center;
+    justify-content: center;
+    align-items: center;
     margin: 20px;
     background-color: #E0E0E0;
     border-radius: 15px;
@@ -100,6 +137,7 @@
     width: 75vh;
     z-index: 9999; /*顯示在其他元素上 */
     display: none; /*不會直接顯示 */
+    overflow-y: auto;
 }
 .trip-selector{
     width:35%;
@@ -125,21 +163,7 @@
     padding-left: 20px;
     margin-top: 0px;
 }
-/*插入景點的時間*/
-.time_popup{
-    border-radius: 15px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ccc;
-    height: 85vh;
-    width: 107vh;
-    z-index: 9999; /*顯示在其他元素上 */
-    display: none; /*不會直接顯示 */
-}
+
 /*景點一覽*/
 .place-info { /*主頁面景點與照片 */
     margin-top: 20px;
@@ -499,7 +523,7 @@ html, body {
                 <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程分享</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程編輯</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -513,45 +537,15 @@ html, body {
                                 </div>
                             </li>
     
-                            <div id="page1Content">                    
-                                <section class="cards-section">
-                                    <div class="row">
-                                        <div class="card" style="background: transparent;">
-                                            <img src="post.jpeg" class="card-img-top" alt="Card 1" />
-                                            <div class="card-body text-center">
-                                                
-                                                <p class="card-text" id="cdt">
-                                                </p>
-                                                <div class="button1 text-center">
-                                                    
-                                                    <a href="write.html" class="btn btn-primary checkAuth">開始分享</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="card" style="background: transparent;">
-                                            <img src="read.jpg" class="card-img-top" alt="Card 2" />
-                                            <div class="card-body text-center">
-                                                
-                                                <p class="card-text" id="cdt">
-                                                </p>
-                                                <div class="button1 text-center">
-                                                    
-                                                    <a data-href="read.html" class="btn btn-primary checkAuth">瀏覽行程</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-    
-                            
-                            <div id="page2Content" style="display: none;">
-                                <p>待未來更新</p>
-                                
-                            </div>
+                            <div id="page1Content" style="display: block;">
+                    <div class="button1 text-center">
+                        <a href="write.html" class="btn btn-primary checkAuth">創建行程</a>
+                    </div>
+                </div>
+
+                <div id="page2Content" style="display: none;">
+                    <p>待未來更新</p>
+                </div>
                         </ul>
                     </div>
                 </div>
@@ -585,11 +579,9 @@ html, body {
             </div>
         </div> 
         <div class="time_popup" id="time_popup">
-            <div id="time-content" class="time-content">
-                <h2 style="text-align: center;">要加在哪</h2>
-                <span id="timepopup-close" class="timepopup-close">✕</span>
-                <button class="Tsubmit-button" id="Tsubmit-button">提交</button>
-            </div>
+            <h2 style="text-align: center;">要加在哪</h2>
+            <button class="Tsubmit-button" id="Tsubmit-button">確認新增</button>
+            <div id="time-content" class="time-content"></div>
         </div>
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
@@ -774,7 +766,7 @@ html, body {
                     clearPopup();
 
                     document.getElementById('place-name').textContent = place.name;
-                    currentPlaceName = place.name;
+                    currentPlaceName = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, '');
 
                     var ratingElement = document.getElementById('place-rating');
                     ratingElement.textContent = '';
@@ -872,91 +864,100 @@ html, body {
                     $('#add_to_tourist').click(addToTouristHandler);
                     });
 
-//創建景點排序視窗
-document.getElementById('submit-button').addEventListener('click', function() {
-  if (!selectedDate) {
-    alert('請選擇一個行程的天數來加入');
-    return;
-  }
-  document.getElementById('tourist_popup').style.display = 'none';
-      clearTPopup();
+                    //創建景點排序視窗
+                    document.getElementById('submit-button').addEventListener('click', function() {
+                        if (!selectedDate) {
+                            alert('請選擇一個行程的天數來加入');
+                            return;
+                        }
+                        document.getElementById('tourist_popup').style.display = 'none';
+                        clearTPopup();
 
-  $.ajax({
-    url: 'submit-dselection.php',
-    type: 'POST',
-    data: {
-      tripName: tName,
-      sDate: selectedDate,
-      placeName: currentPlaceName
-    },
-    success: function(data) {
-        console.log(data);
-      const orderData = data.orderData;
-      const timeContainer = document.getElementById('time-content');
-      var i = 1;
-      for (const [key, value] of Object.entries(orderData)) {
-        const br = document.createElement("br");
-        const radio = document.createElement("input");
-        const timeDiv = document.createElement("div");
-      timeDiv.className = "time-div";
-        radio.type = "radio";
-        radio.name = "order";
-        radio.value = value; // 景點要插入的順序
+                        $.ajax({
+                            url: 'submit-dselection.php',
+                            type: 'POST',
+                            data: {
+                            tripName: tName,
+                            sDate: selectedDate,
+                            placeName: currentPlaceName
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                const orderData = data.orderData;
+                                const timeContainer = document.getElementById('time-content');
+                                var i = 1;
+                                for (const [key, value] of Object.entries(orderData)) {
+                                    const br = document.createElement("br");
+                                    const radio = document.createElement("input");
+                                    radio.classList.add("radio-button");
+                                    const timeDiv = document.createElement("div");
+                                    timeDiv.className = "time-div";
+                                    radio.type = "radio";
+                                    radio.name = "order";
+                                    radio.value = value; // 景點要插入的順序
 
-        const label = document.createElement("label");
-        if(i ==1){
-            label.innerText = currentPlaceName + "\n" + Object.keys(orderData)[1];
-        }else if(i == Object.entries(orderData).length){
-            label.innerText = key + "\n" + currentPlaceName;
-        }else{
-            label.innerText = key + "\n" + currentPlaceName + "\n" + Object.keys(orderData)[i+1];
-        }
-
-        timeDiv.appendChild(radio);
-      timeDiv.appendChild(label);
-      timeDiv.appendChild(br);
-
-      timeContainer.appendChild(timeDiv);
-      i++;
-      }
-      if (data.closeTimePopup) {
-        document.getElementById('time_popup').style.display = 'none';
-        clearTimePopup();
-    } else {
-        document.getElementById('time_popup').style.display = 'block';
-    }
-    //目前問題:提交後並未儲存正確的orderNum
-    document.getElementById('Tsubmit-button').addEventListener('click', function() {
-    if (selectedRadio) {
-        const selectedIndex = Array.prototype.indexOf.call(document.getElementsByName('order'), selectedRadio);
-        const orderData = data.orderData;
-        const n = selectedIndex + 1;
-        $.ajax({
-      url: 'submit-tselection.php',
-      type: 'POST',
-      data: {
-        orderNum: n,
-        tripName: tName,
-      placeName: currentPlaceName
-      },
-      success: function(data) {
-        document.getElementById('time_popup').style.display = 'none';
-        clearTimePopup();
-      },
-      error: function(error) {
-        console.error('Error:', error);
-      }
-    });
-    } else {
-        alert("請選擇一個時間點加入");
-    }
-});
-    },
-    error: function(error) {
-      console.error('Error:', error);
-    }
-  });
-});
+                                    const label = document.createElement("label");
+                                    if(i ==1){
+                                        label.innerText = currentPlaceName + "\n" + Object.keys(orderData)[1];
+                                    }else if(i == Object.entries(orderData).length){
+                                        label.innerText = key + "\n" + currentPlaceName;
+                                    }else{
+                                        label.innerText = key + "\n" + currentPlaceName + "\n" + Object.keys(orderData)[i];
+                                    }
+                                    timeDiv.appendChild(radio);
+                                    timeDiv.appendChild(label);
+                                    timeDiv.appendChild(br);
+                                    timeContainer.appendChild(timeDiv);
+                                    i++;
+                                }
+                                if (data.closeTimePopup) {
+                                    document.getElementById('time_popup').style.display = 'none';
+                                    clearTimePopup();
+                                } else {
+                                    document.getElementById('time_popup').style.display = 'block';
+                                }
+                                document.getElementById('Tsubmit-button').addEventListener('click', function() {
+                                    var selectedRadio = null;
+                                    var radios = document.getElementsByName('order');
+                                    
+                                    for (var i = 0; i < radios.length; i++) {
+                                        if (radios[i].checked) {
+                                            selectedRadio = radios[i];
+                                            break;
+                                        }
+                                    }
+                                    if (selectedRadio) {
+                                        const selectedIndex = Array.prototype.indexOf.call(document.getElementsByName('order'), selectedRadio);
+                                        const orderData = data.orderData;
+                                        const n = selectedIndex;
+                                        $.ajax({
+                                            url: 'submit-tselection.php',
+                                            type: 'POST',
+                                            data: {
+                                                orderNum: n,
+                                                tripName: tName,
+                                                sDate: selectedDate,
+                                                placeName: currentPlaceName
+                                            },
+                                            success: function(data) {
+                                                document.getElementById('time_popup').style.display = 'none';
+                                                clearTimePopup();
+                                            },
+                                            error: function(error) {
+                                                console.error('Error:', error);
+                                            }
+                                        });
+                                    } else {
+                                        alert("請選擇一個時間點加入");
+                                        return;
+                                    }
+                                });
+                            },
+                            error: function(error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    });
 
                     //打開google頁面
                     function openGoogleMapsPage(placeName, query) {
@@ -992,11 +993,6 @@ document.getElementById('submit-button').addEventListener('click', function() {
                     document.getElementById('popup-close').addEventListener('click', function() {
                         document.getElementById('popup').style.display = 'none';
                         clearPopup();
-                    });
-
-                    document.getElementById('timepopup-close').addEventListener('click', function() {
-                        document.getElementById('time_popup').style.display = 'none';
-                        clearTimePopup();
                     });
                     
                     function clearTPopup() {
