@@ -8,7 +8,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入 jQuery 庫 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.15.0/font/bootstrap-icons.css" rel="stylesheet"> <!--右側欄-->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><!--聊天圖示-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><!--google font圖示-->
 <title>Travel website</title>
 <style>
 /*聊天室按鈕*/
@@ -273,7 +273,8 @@
     width: 107vh;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border: 1px solid #ccc;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     z-index: 9999; /*顯示在其他元素上 */
@@ -284,10 +285,25 @@
     overflow-y: auto;
     text-align: center;
 }
+.popup-content .material-symbols-outlined{
+    position: relative; 
+    top: 5px;
+}
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F0F0F0;
+  position: absolute;
+  right: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9D9D9D;
+  border-radius: 15px;
+}
 .popup-close { /*視窗關閉鈕 */
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 15px;
     cursor: pointer;
 }
 .place-image { /*視窗照片 */
@@ -593,8 +609,8 @@ html, body {
                 <div id="place-rating"></div>
                 <img id="place-image" class="place-image" src="" alt="Place Image">
                 <div class="buttons-container" style="padding-top: 10px;padding-bottom: 10px;">
-                    <button id="photo-button">查看圖片</button>
-                    <button id="article-button">在Google上搜尋</button>
+                    <button id="photo-button"><span class="material-symbols-outlined">image</span>查看圖片</button>
+                    <button id="article-button"><span class="material-symbols-outlined">search</span>在Google上搜尋</button>
                 </div>
                 <div id="place-details"></div>
                 <button id="add_to_tourist">添加至行程</button>
