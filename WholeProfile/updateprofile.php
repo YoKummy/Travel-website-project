@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+    $id = htmlspecialchars($_POST['id']);
     $pfp = htmlspecialchars($_POST["pfp"]);
     $bio = htmlspecialchars($_POST['bio']);
 
@@ -68,27 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } */
 
     // Update user data
-    $sql = "UPDATE user SET bio='$bio'";
+    $stmt = $conn->prepare("UPDATE user SET bio = ?, pfp = ? WHERE id = ?");
+    $stmt->bind_param("sss", $bio, $pfp, $id);
 
-    
-    /* $sql .= ", pfp='$pfp'";
-    
-    $sql .= " WHERE id='$id'"; */
-
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute() === TRUE) {
         echo "Record updated successfully";
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "Error updating record: " . $stmt->error;
     }
 
-    $sql = "UPDATE user SET pfp='$pfp'";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Record updated successfully";
-    } else {
-        echo "Error updating record: " . $conn->error;
-    }
-
+    $stmt->close();
     $conn->close();
 
     // Redirect to profile page after update
