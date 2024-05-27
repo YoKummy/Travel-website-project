@@ -63,8 +63,18 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     image_url VARCHAR(255), /*行程封面 */
     userId CHAR(6), /*創建行程的使用者*/
     total_date INT, /*行程的總天數*/
-    rating CHAR(1), /* 行程評分(限制0-5) */
-    rating_cnt VARCHAR /* 行程評分人數 */
+    average_score INT,
+    rating_num INT
+)";
+
+if(!mysqli_query($conn, $sql)){
+    echo "ERROR : " . mysqli_error($conn);
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_name VARCHAR(255) NOT NULL,
+    comment VARCHAR(255)
 )";
 
 if(!mysqli_query($conn, $sql)){
