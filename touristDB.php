@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "0305";
+$password = "0305"; //記得改成自己的密碼
 $conn = mysqli_connect($servername, $username, $password);
 
 if(!$conn){
