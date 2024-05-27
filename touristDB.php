@@ -63,7 +63,7 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     image_url VARCHAR(255), /*行程封面 */
     userId CHAR(6), /*創建行程的使用者*/
     total_date INT, /*行程的總天數*/
-    average_score INT,
+    average_score FLOAT,
     rating_num INT
 )";
 
