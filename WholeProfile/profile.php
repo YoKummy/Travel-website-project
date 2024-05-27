@@ -13,7 +13,7 @@
         .modal {
             display: none; 
             position: fixed; 
-            z-index: 1; 
+            z-index: 2; 
             left: 0;
             top: 0;
             width: 100%;
@@ -47,18 +47,6 @@
         }
     </style>
 
-</head>
-<body>
-
-<div id="mySidebar" class="sidebar">
-    <img src="" alt="" class="leftprofile-picture">
-    <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
-    <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
-    <a href="#"><i class="material-icons">email</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們<span></a>
-    <hr class="black_line">
-    <a href="SignIn-SignUp-Form-main\SignIn-SignUp-Form-main\index.html"><span><i class="material-icons">account_circle</i><span class="leftPfpText">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
-</div>
-
 <script>
     var mini = true;
     function toggleSidebar() {
@@ -73,7 +61,30 @@
             mini = true;
         }
     }
+
+    function toggleEditModal() {
+        var modal = document.getElementById("editModal");
+        modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
+    }
+
+    window.onclick = function(event) {
+        var modal = document.getElementById("editModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+    <img src="" alt="" class="leftprofile-picture">
+    <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
+    <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
+    <a href="#"><i class="material-icons">email</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們<span></a>
+    <hr class="black_line">
+    <a href="SignIn-SignUp-Form-main\SignIn-SignUp-Form-main\index.html"><span><i class="material-icons">account_circle</i><span class="leftPfpText">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
+</div>
 
 <?php
     $servername = "localhost";
@@ -90,7 +101,7 @@
     }
 
 // Get the username of the profile to view from the URL, default to the logged-in user if not specified
-$profileUsername = "ola"/* isset($_GET['user']) ? $_GET['user'] : $_SESSION['username'] */;
+$profileUsername = "mario"/* isset($_GET['user']) ? $_GET['user'] : $_SESSION['username'] */;
 $loggedInUsername = "mario"/* $_SESSION['username'] */;
 
     // Fetch user details
@@ -103,14 +114,14 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
     // Fetch friends list
     $friendsSql = "SELECT fname FROM FriendList WHERE uname = ?";
     $stmt = $conn->prepare($friendsSql);
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("s", $loggedInUsername);
     $stmt->execute();
     $friendsResult = $stmt->get_result();
 
     // Fetch friend count
     $countSql = "SELECT COUNT(*) AS total FROM FriendList WHERE uname = ?";
     $stmt = $conn->prepare($countSql);
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("s", $loggedInUsername);
     $stmt->execute();
     $countResult = $stmt->get_result();
     $totalFriends = 0;
@@ -121,7 +132,7 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
 
     if ($userResult->num_rows > 0) {
         $user = $userResult->fetch_assoc();
-        $uname = htmlspecialchars($user['uname']);
+        $uname = $profileUsername; /* htmlspecialchars($user['uname']); */
         $email = htmlspecialchars($user['email']);
         $bio = htmlspecialchars($user['bio']);
         $pfp = htmlspecialchars($user['pfp']);
@@ -139,8 +150,7 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
             </div>
             <div id="u-name"><?php echo $uname ?></div>
             <div id="bio">
-            <?php if ($loggedInUsername === $uname): ?>
-                <div id="editModal" class="modal">
+            <div id="editModal" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="toggleEditModal()">&times;</span>
                         <h2>Edit Profile</h2>
@@ -154,17 +164,17 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
                         </form>
                     </div>
                 </div>
-                <?php endif; ?>
-            </div>
-
-            <div id="bio">
                 Bio: <?php echo $bio ?>
             </div>
+
+            
 
             <div id="friend">
                 Followers count: <?php echo $totalFriends?>
                 <div id="button-container">
-                    <button id="setting">Edit</button>
+                <?php if ($loggedInUsername === $profileUsername): ?>
+                    <button id="setting" onclick="toggleEditModal()">Edit</button>
+                <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -194,7 +204,7 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
         // Assuming you have a query to fetch attractions created by the user
         $attractionSql = "SELECT tname, uname FROM attraction WHERE uname = ?";
         $stmt = $conn->prepare($attractionSql);
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $loggedInUsername);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -214,20 +224,6 @@ $loggedInUsername = "mario"/* $_SESSION['username'] */;
     </div>
 </div>
 
-<script>
-    function toggleEditModal() {
-        var modal = document.getElementById("editModal");
-        modal.style.display = (modal.style.display === "block") ? "none" : "block";
-    }
 
-    window.onclick = function(event) {
-        var modal = document.getElementById("editModal");
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    document.getElementById("setting").addEventListener("click", toggleEditModal);
-</script>
 </body>
 </html>
