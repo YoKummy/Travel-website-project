@@ -82,3 +82,38 @@ if(mysqli_multi_query($conn, $sql)){
     ?>
 </body>
 </html>
+
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "1225";
+    $conn = mysqli_connect($servername, $username, $password);
+
+    if(!$conn){
+        die("Connection failed: ".mysqli_connect_errno());
+    }
+
+    $sql = "CREATE DATABASE IF NOT EXISTS AttractionDB";
+    if(!mysqli_query($conn, $sql)){
+        echo "ERROR creating database: " . mysqli_error($conn);
+    } 
+
+    $sql = "CREATE TABLE IF NOT EXISTS attraction (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_number FLOAT, /*景點的先後順序 */
+        tname VARCHAR(255) NOT NULL, /*行程名稱*/
+        uname VARCHAR(30) NOT NULL, /*使用者名稱*/
+        aname VARCHAR(30) NOT NULL, /*景點名稱*/
+        trip_day INT NOT NULL
+        )";
+
+    $dbname = "AttractionDB";
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    if(!$conn){
+        die("Connection failed: ".mysqli_connect_errno());
+    }
+
+    if(!mysqli_query($conn, $sql)){
+        echo "ERROR : " . mysqli_error($conn);
+    }
+    ?>;

@@ -45,17 +45,13 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-        
     </style>
 
 </head>
 <body>
 
 <div id="mySidebar" class="sidebar">
-
     <img src="" alt="" class="leftprofile-picture">
-
     <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
     <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
     <a href="#"><i class="material-icons">email</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們<span></a>
@@ -65,10 +61,8 @@
 
 <script>
     var mini = true;
-
     function toggleSidebar() {
         var sidebar = document.getElementById("mySidebar");
-        
         if (mini) {
             console.log("opening sidebar");
             sidebar.style.width = "250px";
@@ -87,62 +81,53 @@
     $password = "1225";
     $dbname = "userDB";
 
-    
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Assuming we have a user ID to fetch data for
-    $userId = "S00001";
-
-    // Fetch user details
-    $userSql = "SELECT * FROM user WHERE id = '$userId'";
-    $userResult = $conn->query($userSql);
-
-    // Fetch friends list
-    $friendsSql = "
-        SELECT f.fname
-        FROM FriendList f
-        JOIN user u
-        WHERE f.id = u.id
-    ";
-    $friendsResult = $conn->query($friendsSql);
-    
-    $countSql = "SELECT COUNT(*) AS total FROM FriendList";
-    $countResult = $conn->query($countSql);
-    $totalFriends = 0;
-    if ($countResult && $countResult->num_rows > 0) {
-        $countRow = $countResult->fetch_assoc();
-        $totalFriends = $countRow['total'];
-    }
-
-
-    if ($userResult->num_rows > 0) {
-        $user = $userResult->fetch_assoc();
-        $id = htmlspecialchars($user['id']);
-        $uname = htmlspecialchars($user['uname']);
-        $email = htmlspecialchars($user['email']);
-        $bio = htmlspecialchars($user['bio']);
-        $pfp = htmlspecialchars($user['pfp']);
-
-    } else {
-        echo "No user found.";
-        $uname = $email = $bio = $pfp = "";
-    }
-
-    // grab data from attraction db
-    $sql = "SELECT tname, uname FROM attraction";
-    $result = $conn->query($sql);
-
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
+    }
+
+// Get the username of the profile to view from the URL, default to the logged-in user if not specified
+$profileUsername = "ola"/* isset($_GET['user']) ? $_GET['user'] : $_SESSION['username'] */;
+$loggedInUsername = "mario"/* $_SESSION['username'] */;
+
+    // Fetch user details
+    $userSql = "SELECT * FROM user WHERE uname = ?";
+    $stmt = $conn->prepare($userSql);
+    $stmt->bind_param("s", $profileUsername);
+    $stmt->execute();
+    $userResult = $stmt->get_result();
+
+    // Fetch friends list
+    $friendsSql = "SELECT fname FROM FriendList WHERE uname = ?";
+    $stmt = $conn->prepare($friendsSql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $friendsResult = $stmt->get_result();
+
+    // Fetch friend count
+    $countSql = "SELECT COUNT(*) AS total FROM FriendList WHERE uname = ?";
+    $stmt = $conn->prepare($countSql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $countResult = $stmt->get_result();
+    $totalFriends = 0;
+    if ($countResult->num_rows > 0) {
+        $countRow = $countResult->fetch_assoc();
+        $totalFriends = $countRow['total'];
+    }
+
+    if ($userResult->num_rows > 0) {
+        $user = $userResult->fetch_assoc();
+        $uname = htmlspecialchars($user['uname']);
+        $email = htmlspecialchars($user['email']);
+        $bio = htmlspecialchars($user['bio']);
+        $pfp = htmlspecialchars($user['pfp']);
+    } else {
+        echo "No user found.";
+        $uname = $email = $bio = $pfp = "";
     }
 ?>
 
@@ -152,8 +137,9 @@
             <div id="profile-pic">
                 <img src="<?php echo $pfp ?>" alt="Profile picture" width="100%" height="100%">
             </div>
-            <div id="u-name"><?php echo $uname ?>#<?php echo $id ?></div>
+            <div id="u-name"><?php echo $uname ?></div>
             <div id="bio">
+            <?php if ($loggedInUsername === $uname): ?>
                 <div id="editModal" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="toggleEditModal()">&times;</span>
@@ -168,6 +154,7 @@
                         </form>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
 
             <div id="bio">
@@ -177,7 +164,6 @@
             <div id="friend">
                 Followers count: <?php echo $totalFriends?>
                 <div id="button-container">
-                    <button id="follow-button">Follow</button>
                     <button id="setting">Edit</button>
                 </div>
             </div>
@@ -185,47 +171,48 @@
         
     </div>
     <div id="friends-list">
-    <form id="addFriendForm" action="add_friend.php" method="POST">
-    <input type="text" name="friend_id" placeholder="Enter friend's ID">
-    <input type="submit" value="Add Friend">
-
-</form>
-
-<form id="deleteFriendForm" action="delete_friend.php" method="POST">
-        <input type="text" name="friend_id" placeholder="Enter friend's ID to delete">
-        <input type="submit" value="Delete Friend">
+        <form id="friendForm" action="friend_action.php" method="POST">
+            <input type="text" name="friend_name" placeholder="Enter friend's name" required>
+            <input type="submit" name="action" value="Follow">
+            <input type="submit" name="action" value="Unfollow">
         </form>
-
-            <h3>Friends List</h3>
-            <ul>
-                <?php
-                    if ($friendsResult->num_rows > 0) {
-                        while($friend = $friendsResult->fetch_assoc()) {
-                            echo "<li>" . htmlspecialchars($friend['fname']) . "</li>";
-                        }
-                    } else {
-                        echo "<li>No friends found.</li>";
-                    }
-                ?>
-            </ul>
-        </div>
+        <h3>Friends List</h3>
+        <ul>
+            <?php
+            if ($friendsResult->num_rows > 0) {
+                while($friend = $friendsResult->fetch_assoc()) {
+                    echo "<li>" . htmlspecialchars($friend['fname']) . "</li>";
+                }
+            } else {
+                echo "<li>No friends found.</li>";
+            }
+            ?>
+        </ul>
+    </div>
     <div id="profile-lower">
         <?php
+        // Assuming you have a query to fetch attractions created by the user
+        $attractionSql = "SELECT tname, uname FROM attraction WHERE uname = ?";
+        $stmt = $conn->prepare($attractionSql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         if ($result->num_rows > 0) {
             echo "<ul>";
-            // output data of each row
             while($row = $result->fetch_assoc()) {
-                echo "<li>" . $row["tname"]. " - Created by: " . $row["uname"]. "</li>";
+                echo "<li>" . htmlspecialchars($row["tname"]) . " - Created by: " . htmlspecialchars($row["uname"]) . "</li>";
             }
             echo "</ul>";
         } else {
             echo "No attractions found.";
         }
+
+        // Close the connection
+        $conn->close();
         ?>
     </div>
 </div>
-
-
 
 <script>
     function toggleEditModal() {
@@ -233,7 +220,6 @@
         modal.style.display = (modal.style.display === "block") ? "none" : "block";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         var modal = document.getElementById("editModal");
         if (event.target == modal) {
@@ -241,7 +227,6 @@
         }
     }
 
-    // Add event listener to the edit button
     document.getElementById("setting").addEventListener("click", toggleEditModal);
 </script>
 </body>
