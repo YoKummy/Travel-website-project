@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "1040501";
 $dbname = "itinerary_db";
 
 // 建立資料庫連線
