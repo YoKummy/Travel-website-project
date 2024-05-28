@@ -49,6 +49,14 @@
   border-radius: 15px;
   padding: 5px;
 }
+.trip-img{ /*行程封面圖片*/
+    width: 144px;
+    height: 81px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 /*景點時間選擇*/
 .time_popup{
     border-radius: 15px;
