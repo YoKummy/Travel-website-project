@@ -9,7 +9,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "0305";
-    $dbname = "attractiondb"; 
+    $dbname = "touristDB"; 
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     if(!$conn){
@@ -25,8 +25,8 @@
         echo "Error: " . mysqli_error($conn);
         exit;
     }
-    //未更新上方的update，這邊要用select
-
+    
+    //更新景點的order_number
     $sql = "SELECT aname, order_number FROM attraction WHERE uname = '$userID' AND tname = '$tripName' AND trip_day = '$sDate' ORDER BY order_number ASC";
     $result = mysqli_query($conn, $sql);
     $data = array();

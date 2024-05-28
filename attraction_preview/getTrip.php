@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 $servername = "localhost"; 
 $username = "root"; 
 $password = "0305"; 
-$dbname = "travel_planner"; 
+$dbname = "touristDB"; 
 $conn = new mysqli($servername, $username, $password, $dbname); 
 if ($conn->connect_error) { 
     die("Connection failed: " . $conn->connect_error); 
