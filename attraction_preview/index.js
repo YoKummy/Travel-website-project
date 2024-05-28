@@ -78,11 +78,14 @@ success: function(data) {
     const tripArray = data.tripArray;
     const dateArray = data.dateArray;
     const sdateArray = data.sdateArray;
+    const urlArray = data.urlArray;
 
     for (let i = 0; i < tripArray.length; i++) {
         const rightDiv = $('<div>').addClass('rightDiv').attr('id', `rightDiv-${i}`);
-        rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:5px;">${tripArray[i]}</h3>`);
-        rightDiv.append(`<p style="padding-left:15px;">出發日期：${sdateArray[i]}</p>`);
+        const img = $('<img>').addClass('trip-img').attr('src', urlArray[i]);
+        rightDiv.append(img);
+        rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:200px;">${tripArray[i]}</h3>`);
+        rightDiv.append(`<p class="trip-date">出發日期：${sdateArray[i]}</p>`);
         const btnGroup = $('<div>').addClass('btn-group');
         const editBtn = $('<button>').addClass('edit-btn').text('查看');
         btnGroup.append(editBtn);
@@ -98,12 +101,9 @@ success: function(data) {
                     url: 'deleteTrip.php',
                     type: 'POST',
                     data: { trip: trip },
-                    success: function() {
-                        console.log('成功刪除行程：' + trip);
+                    complete: function() {
+                        alert('成功刪除行程：' + trip);
                         $('#rightDiv-' + i).remove();
-                    },
-                    error: function() {
-                        console.log('無法刪除行程：' + trip);
                     }
                 });
             } else {
