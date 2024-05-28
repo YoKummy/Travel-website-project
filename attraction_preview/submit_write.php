@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 } 
 
 // 檢查文件上傳情形
-$image_url = "";
+$image_url = "write.jpg";
 if (isset($_FILES['image']) && $_FILES['image']['name']) {
     $target_dir = "uploads/";
     if (!is_dir($target_dir)) {

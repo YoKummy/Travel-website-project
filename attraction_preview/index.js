@@ -78,6 +78,7 @@ success: function(data) {
     const tripArray = data.tripArray;
     const dateArray = data.dateArray;
     const sdateArray = data.sdateArray;
+    const urlArray = data.urlArray;
 
     for (let i = 0; i < tripArray.length; i++) {
         const rightDiv = $('<div>').addClass('rightDiv').attr('id', `rightDiv-${i}`);
@@ -98,12 +99,9 @@ success: function(data) {
                     url: 'deleteTrip.php',
                     type: 'POST',
                     data: { trip: trip },
-                    success: function() {
-                        console.log('成功刪除行程：' + trip);
+                    complete: function() {
+                        alert('成功刪除行程：' + trip);
                         $('#rightDiv-' + i).remove();
-                    },
-                    error: function() {
-                        console.log('無法刪除行程：' + trip);
                     }
                 });
             } else {
