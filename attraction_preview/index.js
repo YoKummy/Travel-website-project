@@ -165,13 +165,21 @@ success: function(data) {
                                     });
                                 });
                                 anameDiv.appendChild(button);
-                                aContent.appendChild(anameDiv); // Append anameDiv to aContent
+                                aContent.appendChild(anameDiv);
                             }
-                            popupContent.appendChild(aContent); // Append aContent to popupContent
+                            popupContent.appendChild(aContent);
                         });
                         dayButtons.appendChild(dayButton);
+                        if (i == maxDay) { // 只在最右邊的dayButton添加按鈕
+                            const addDay = document.createElement('button');
+                            addDay.innerText = '新增天數';
+                            dayButtons.appendChild(addDay);
+                            /*addSpotButton.addEventListener('click', function() {
+
+                            });*/
+                        }
                     }
-                    popupContent.appendChild(dayButtons); // Append dayButtons to popupContent
+                    popupContent.appendChild(dayButtons);
                     popupContent.appendChild(tripName);
                 },
                 error: function() {
