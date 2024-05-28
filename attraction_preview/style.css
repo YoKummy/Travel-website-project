@@ -50,12 +50,12 @@
   padding: 5px;
 }
 .trip-img{ /*行程封面圖片*/
-    width: 144px;
-    height: 81px;
+    width: 320px;
+    height: 180px;
     position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
 }
 /*景點時間選擇*/
 .time_popup{
