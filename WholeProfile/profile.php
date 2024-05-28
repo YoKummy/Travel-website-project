@@ -63,6 +63,7 @@
     }
 
     function toggleEditModal() {
+        console.log("Toggle modal");
         var modal = document.getElementById("editModal");
         modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
     }
