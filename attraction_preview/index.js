@@ -84,8 +84,8 @@ success: function(data) {
         const rightDiv = $('<div>').addClass('rightDiv').attr('id', `rightDiv-${i}`);
         const img = $('<img>').addClass('trip-img').attr('src', urlArray[i]);
         rightDiv.append(img);
-        rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:5px;">${tripArray[i]}</h3>`);
-        rightDiv.append(`<p style="padding-left:15px;">出發日期：${sdateArray[i]}</p>`);
+        rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:200px;">${tripArray[i]}</h3>`);
+        rightDiv.append(`<p class="trip-date">出發日期：${sdateArray[i]}</p>`);
         const btnGroup = $('<div>').addClass('btn-group');
         const editBtn = $('<button>').addClass('edit-btn').text('查看');
         btnGroup.append(editBtn);
