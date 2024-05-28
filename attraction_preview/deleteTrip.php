@@ -27,3 +27,4 @@ if (!mysqli_query($conn, $sql)) {
 } 
 echo json_encode(array('status' => 'success'));
 ?>
+<!--這個程式目前會刪除所有同名的行程，要注意-->

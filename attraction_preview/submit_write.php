@@ -50,7 +50,8 @@ if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST[
     $total_date = $interval->days + 1; //獲取確切天數
 
     if ($stmt->execute()) {
-        echo "New trip created successfully<br>";
+        header("Location: homepage.html");
+        exit;
     } else {
         echo "Error: " . $stmt->error . "<br>";
     }
