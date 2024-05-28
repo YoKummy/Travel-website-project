@@ -10,44 +10,12 @@
 $servername = "localhost";
 $username = "root";
 $password = "0305";
-$dbname = "travel_planner";
+$dbname = "touristDB";
 
-// 建立連線
-$conn = new mysqli($servername, $username, $password);
-
-// 檢查連線
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// 建立資料庫
-$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully or already exists<br>";
-} else {
-    die("Error creating database: " . $conn->error);
-}
-
-// 選擇資料庫
-$conn->select_db($dbname);
-
-// 建立表格
-$sql = "CREATE TABLE IF NOT EXISTS trips (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    trip_name VARCHAR(255) NOT NULL,
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    transport VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255),
-    userId CHAR(6), /*創建行程的使用者*/
-    total_date INT /*行程的總天數*/
-)";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Table created successfully or already exists<br>";
-} else {
-    die("Error creating table: " . $conn->error);
-}
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) { 
+    die("Connection failed: " . $conn->connect_error); 
+} 
 
 // 檢查文件上傳情形
 $image_url = "";
