@@ -3,7 +3,7 @@ input = document.querySelector("input"),
 tagNumb = document.querySelector(".details span");
 
 let maxTags = 10,
-tags = ["coding", "nepal"];
+tags = [];
 
 countTags();
 createTag();
