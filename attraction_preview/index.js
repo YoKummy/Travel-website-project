@@ -70,6 +70,8 @@ function toggleSidebar() {
 }
 
 //右側欄 取得目前行程
+let selectedDay;
+let trip;
 function loadTrips() {
 $.ajax({
 url: 'getTrip.php',
@@ -96,7 +98,7 @@ success: function(data) {
         $('.offcanvas-body').append(rightDiv);
         //刪除整個行程
         deleteBtn.on('click', function() {
-            const trip = tripArray[i];
+            trip = tripArray[i];
             if (confirm('你確定要刪除行程「' + trip + '」嗎？')) {
                 $.ajax({
                     url: 'deleteTrip.php',
@@ -113,7 +115,7 @@ success: function(data) {
         });
         //查看整個行程
         editBtn.on('click', function() {
-            const trip = tripArray[i];
+            trip = tripArray[i];
             $('#day-buttons').empty();
             $.ajax({
                 url: 'viewSpot.php',
@@ -121,20 +123,20 @@ success: function(data) {
                 data: { trip: trip },
                 dataType: 'json',
                 success: function(response) {
-                    const data = response.data;
-                    const sDate = response.sdate;
-                    const maxDay = Math.max(...data.map(item => item.trip_day));
+                    var data = response.data;
+                    var sDate = response.sdate;
                     const aPopup = document.getElementById('aPopup');
                     aPopup.style.display = 'block';
                     const popupContent = document.getElementById('apopup-content');
                     const tripName = document.getElementById('trip-name');
                     tripName.innerText = trip;
                     const dayButtons = document.getElementById('day-buttons');
-                    for (let i = 1; i <= maxDay; i++) { //創建天數按鈕
+                    for (let i = 1; i <= sDate; i++) { //創建天數按鈕
                         const dayButton = document.createElement('button');
                         dayButton.innerText = `第${i}天`;
-                        dayButton.addEventListener('click', function(event) {
+                        dayButton.addEventListener('click', function(event) { //取出各自天數的行程
                             $('#aContent').remove();
+                            selectedDay = i;
                             const day = parseInt(event.target.innerText.slice(1, 2));
                             const tripDayData = data.filter(item => item.trip_day == day);
                             tripDayData.sort((a, b) => a.order_number - b.order_number);
@@ -170,25 +172,31 @@ success: function(data) {
                             popupContent.appendChild(aContent);
                         });
                         dayButtons.appendChild(dayButton);
-                        if (i == maxDay) { // 只在最右邊的dayButton添加按鈕
+                        // 為行程新增天數
+                        if (i == sDate) { 
                             const addDay = document.createElement('button');
                             addDay.innerText = '新增天數';
                             dayButtons.appendChild(addDay);
-                            /*addSpotButton.addEventListener('click', function() {
+                            addDay.addEventListener('click', function() {
                                 $.ajax({
                                     url: 'addDay.php',
                                     type: 'POST',
                                     data: { trip: trip },
                                     dataType: 'json',
-                                    success: function(response) {
-                                        const total_day = response.total_day;
-
+                                    success: function() {
+                                        const newButton = document.createElement('button');
+                                        sDate++;
+                                        newButton.innerText = `第${sDate}天`;
+                                        addDay.before(newButton);
+                                        newButton.addEventListener('click', function(event) { //新增的天數不會有任何資料
+                                            $('#aContent').remove();
+                                        });
                                     },
                                     error: function() {
                                         alert("無法新增天數")
                                     }
                                 });
-                            });*/
+                            });
                         }
                     }
                     popupContent.appendChild(dayButtons);
@@ -216,6 +224,29 @@ $('.rightDiv').each(function() {
     $(this).remove();
 });
 });
+});
+document.addEventListener('DOMContentLoaded', function(){
+    const delDay = document.getElementById('delDay');
+    delDay.addEventListener('click', function() {
+        if (confirm('你確定要刪除這一天嗎？')) {
+            $.ajax({
+                url: 'delDay.php',
+                type: 'POST',
+                data: { selectedDay: selectedDay, trip: trip },
+                dataType: 'json',
+                success: function() {
+                    alert("成功刪除這一天");
+                    $('#aContent').remove();
+                    document.getElementById('aPopup').style.display = 'none';
+                },
+                error: function() {
+                    alert("無法刪除這一天");
+                }
+            });
+        }else {
+            alert('取消刪除這一天');
+        }
+    });
 });
 
 //切換按鈕

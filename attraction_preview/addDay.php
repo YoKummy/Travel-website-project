@@ -19,8 +19,5 @@ if (!mysqli_query($conn, $sql)) {
     exit;
 }
 
-$sql = "SELECT total_date WHERE trip_name = '$tripName'"; 
-$result = mysqli_query($conn, $sql);
-
-echo json_encode(array('status' => 'success', 'total_day' => $result));
+echo json_encode(array('status' => 'success'));
 ?>

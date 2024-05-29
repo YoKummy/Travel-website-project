@@ -63,6 +63,12 @@
     top:200px;
     right:72px;
 }
+.delDay {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 /*景點時間選擇*/
 .time_popup{
     border-radius: 15px;
