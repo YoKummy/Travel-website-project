@@ -18,9 +18,10 @@ if ($conn->connect_error) {
 } 
 
 // 檢查文件上傳情形
-$image_url = "write.jpg";
+//目前不能準確將圖片上傳至右側欄
+$image_url = "";
 if (isset($_FILES['image']) && $_FILES['image']['name']) {
-    $target_dir = "uploads/";
+    $target_dir = "trip-img/";
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
@@ -30,6 +31,9 @@ if (isset($_FILES['image']) && $_FILES['image']['name']) {
     } else {
         echo "Sorry, there was an error uploading your file.<br>";
     }
+}
+if (!$image_url) {
+    $image_url = 'write.jpg';
 }
 
 // 確認所有欄位

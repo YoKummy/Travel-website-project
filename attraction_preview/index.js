@@ -68,6 +68,7 @@ function toggleSidebar() {
         mini = true;
     }
 }
+
 //右側欄 取得目前行程
 function loadTrips() {
 $.ajax({
@@ -113,35 +114,33 @@ success: function(data) {
         //查看整個行程
         editBtn.on('click', function() {
             const trip = tripArray[i];
+            $('#day-buttons').empty();
             $.ajax({
                 url: 'viewSpot.php',
                 type: 'POST',
                 data: { trip: trip },
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response)
                     const data = response.data;
                     const sDate = response.sdate;
                     const maxDay = Math.max(...data.map(item => item.trip_day));
                     const aPopup = document.getElementById('aPopup');
                     aPopup.style.display = 'block';
-                    const popupContent = document.getElementById('popup-content');
-                    const tripName = document.createElement('h2');
+                    const popupContent = document.getElementById('apopup-content');
+                    const tripName = document.getElementById('trip-name');
                     tripName.innerText = trip;
-                    const dayButtons = document.createElement('div');
-                    for (let i = 1; i <= maxDay; i++) {
-                        const button = document.createElement('button');
-                        button.innerText = `第${i}天`;
-                        button.addEventListener('click', function(event) {
+                    const dayButtons = document.getElementById('day-buttons');
+                    for (let i = 1; i <= maxDay; i++) { //創建天數按鈕
+                        const dayButton = document.createElement('button');
+                        dayButton.innerText = `第${i}天`;
+                        dayButton.addEventListener('click', function(event) {
                             $('#aContent').remove();
                             const day = parseInt(event.target.innerText.slice(1, 2));
-                            console.log(day);
                             const tripDayData = data.filter(item => item.trip_day == day);
-                            console.log(tripDayData);
                             tripDayData.sort((a, b) => a.order_number - b.order_number);
                             const aContent = document.createElement('div');
                             aContent.id = 'aContent';
-                            for (let j = 0; j < tripDayData.length; j++) {
+                            for (let j = 0; j < tripDayData.length; j++) { //為每個景點添加按鈕
                                 const anameDiv = document.createElement('div');
                                 anameDiv.className = 'aname-div';
                                 anameDiv.innerText = tripDayData[j].aname;
@@ -157,11 +156,7 @@ success: function(data) {
                                         data: { aname: aname, tripDay: tripDay, tname: tname },
                                         dataType: 'json',
                                         success: function(response) {
-                                            console.log(aname, tripDay, tname)
-                                            console.log(response);
                                             event.target.parentNode.remove();
-                                            document.getElementById('aPopup').style.display = 'none';
-                                            $('#popup-content').empty();
                                             alert('景點已成功刪除');
                                         },
                                         error: function() {
@@ -174,10 +169,30 @@ success: function(data) {
                             }
                             popupContent.appendChild(aContent);
                         });
-                        dayButtons.appendChild(button);
+                        dayButtons.appendChild(dayButton);
+                        if (i == maxDay) { // 只在最右邊的dayButton添加按鈕
+                            const addDay = document.createElement('button');
+                            addDay.innerText = '新增天數';
+                            dayButtons.appendChild(addDay);
+                            /*addSpotButton.addEventListener('click', function() {
+                                $.ajax({
+                                    url: 'addDay.php',
+                                    type: 'POST',
+                                    data: { trip: trip },
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        const total_day = response.total_day;
+
+                                    },
+                                    error: function() {
+                                        alert("無法新增天數")
+                                    }
+                                });
+                            });*/
+                        }
                     }
-                    popupContent.appendChild(tripName);
                     popupContent.appendChild(dayButtons);
+                    popupContent.appendChild(tripName);
                 },
                 error: function() {
                     console.log("無法獲取行程資訊")
@@ -536,8 +551,8 @@ function initMap() {
             }
 
             document.getElementById('spot-close').addEventListener('click', function() {
+                $('#aContent').remove();
                 document.getElementById('aPopup').style.display = 'none';
-                $('#popup-content').empty();
             });
         });
     } else { //無法定位使用者
