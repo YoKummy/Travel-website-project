@@ -236,7 +236,7 @@ var currentPlaceName = ''; //儲存目前選擇的地點
 var selectedDate; //儲存目前選擇的日期
 var tName = ''; //儲存目前選擇的行程
 
-function initMap() {
+async function initMap() {
     // 獲取使用者的地理位置
     if (navigator.geolocation) { /*檢查能否獲取使用者位置 */
         navigator.geolocation.getCurrentPosition(function(position) {
