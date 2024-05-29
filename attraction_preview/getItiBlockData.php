@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+header('Content-Type: application/json');
+
 $servername = "localhost"; 
 $username = "root"; 
 $password = "1040501"; 
@@ -7,13 +11,12 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { 
     die("Connection failed: " . $conn->connect_error); 
 } 
-/* $userId = "S00001";//預設使用者ID，可用session在使用者登入後儲存  */
 $sql = "SELECT trip_name, img_url, total_date, average_score FROM trips"; 
 $Result = $conn->query($sql); 
-if ($Result->num_rows > 0) { 
+if ($Result-> num_rows > 0) { 
     $itis = array();
     while ($row = $Result->fetch_assoc()) { 
-        $iti[] = array(
+        $iti = array(
             "trip_name" => $row["trip_name"],
             "img_url" => $row["img_url"],
             "total_date" => $row["total_date"],
@@ -25,5 +28,5 @@ if ($Result->num_rows > 0) {
 } else {
     echo json_encode(array());
 }
-
+$conn->close();
 ?>
