@@ -32,6 +32,7 @@ if (isset($_FILES['image']) && $_FILES['image']['name']) {
         echo "Sorry, there was an error uploading your file.<br>";
     }
 }
+//若沒有上傳任何圖片，使用預設的圖片
 if (!$image_url) {
     $image_url = 'write.jpg';
 }
