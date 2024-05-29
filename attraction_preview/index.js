@@ -121,19 +121,18 @@ success: function(data) {
                 data: { trip: trip },
                 dataType: 'json',
                 success: function(response) {
-                    const data = response.data;
-                    const sDate = response.sdate;
-                    const maxDay = Math.max(...data.map(item => item.trip_day));
+                    var data = response.data;
+                    var sDate = response.sdate;
                     const aPopup = document.getElementById('aPopup');
                     aPopup.style.display = 'block';
                     const popupContent = document.getElementById('apopup-content');
                     const tripName = document.getElementById('trip-name');
                     tripName.innerText = trip;
                     const dayButtons = document.getElementById('day-buttons');
-                    for (let i = 1; i <= maxDay; i++) { //創建天數按鈕
+                    for (let i = 1; i <= sDate; i++) { //創建天數按鈕
                         const dayButton = document.createElement('button');
                         dayButton.innerText = `第${i}天`;
-                        dayButton.addEventListener('click', function(event) {
+                        dayButton.addEventListener('click', function(event) { //取出各自天數的行程
                             $('#aContent').remove();
                             const day = parseInt(event.target.innerText.slice(1, 2));
                             const tripDayData = data.filter(item => item.trip_day == day);
@@ -170,25 +169,31 @@ success: function(data) {
                             popupContent.appendChild(aContent);
                         });
                         dayButtons.appendChild(dayButton);
-                        if (i == maxDay) { // 只在最右邊的dayButton添加按鈕
+                        // 為行程新增天數
+                        if (i == sDate) { 
                             const addDay = document.createElement('button');
                             addDay.innerText = '新增天數';
                             dayButtons.appendChild(addDay);
-                            /*addSpotButton.addEventListener('click', function() {
+                            addDay.addEventListener('click', function() {
                                 $.ajax({
                                     url: 'addDay.php',
                                     type: 'POST',
                                     data: { trip: trip },
                                     dataType: 'json',
-                                    success: function(response) {
-                                        const total_day = response.total_day;
-
+                                    success: function() {
+                                        const newButton = document.createElement('button');
+                                        sDate++;
+                                        newButton.innerText = `第${sDate}天`;
+                                        addDay.before(newButton);
+                                        newButton.addEventListener('click', function(event) { //新增的天數不會有任何資料
+                                            $('#aContent').remove();
+                                        });
                                     },
                                     error: function() {
                                         alert("無法新增天數")
                                     }
                                 });
-                            });*/
+                            });
                         }
                     }
                     popupContent.appendChild(dayButtons);
