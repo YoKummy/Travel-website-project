@@ -70,6 +70,8 @@ function toggleSidebar() {
 }
 
 //右側欄 取得目前行程
+let selectedDay;
+let trip;
 function loadTrips() {
 $.ajax({
 url: 'getTrip.php',
@@ -96,7 +98,7 @@ success: function(data) {
         $('.offcanvas-body').append(rightDiv);
         //刪除整個行程
         deleteBtn.on('click', function() {
-            const trip = tripArray[i];
+            trip = tripArray[i];
             if (confirm('你確定要刪除行程「' + trip + '」嗎？')) {
                 $.ajax({
                     url: 'deleteTrip.php',
@@ -113,7 +115,7 @@ success: function(data) {
         });
         //查看整個行程
         editBtn.on('click', function() {
-            const trip = tripArray[i];
+            trip = tripArray[i];
             $('#day-buttons').empty();
             $.ajax({
                 url: 'viewSpot.php',
@@ -134,6 +136,7 @@ success: function(data) {
                         dayButton.innerText = `第${i}天`;
                         dayButton.addEventListener('click', function(event) { //取出各自天數的行程
                             $('#aContent').remove();
+                            selectedDay = i;
                             const day = parseInt(event.target.innerText.slice(1, 2));
                             const tripDayData = data.filter(item => item.trip_day == day);
                             tripDayData.sort((a, b) => a.order_number - b.order_number);
@@ -221,6 +224,29 @@ $('.rightDiv').each(function() {
     $(this).remove();
 });
 });
+});
+document.addEventListener('DOMContentLoaded', function(){
+    const delDay = document.getElementById('delDay');
+    delDay.addEventListener('click', function() {
+        if (confirm('你確定要刪除這一天嗎？')) {
+            $.ajax({
+                url: 'delDay.php',
+                type: 'POST',
+                data: { selectedDay: selectedDay, trip: trip },
+                dataType: 'json',
+                success: function() {
+                    alert("成功刪除這一天");
+                    $('#aContent').remove();
+                    document.getElementById('aPopup').style.display = 'none';
+                },
+                error: function() {
+                    alert("無法刪除這一天");
+                }
+            });
+        }else {
+            alert('取消刪除這一天');
+        }
+    });
 });
 
 //切換按鈕
