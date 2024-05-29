@@ -11,14 +11,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { 
     die("Connection failed: " . $conn->connect_error); 
 } 
-$sql = "SELECT trip_name, img_url, total_date, average_score FROM trips"; 
+$sql = "SELECT trip_name, image_url, total_date, average_score FROM trips"; 
 $Result = $conn->query($sql); 
 if ($Result-> num_rows > 0) { 
     $itis = array();
     while ($row = $Result->fetch_assoc()) { 
         $iti = array(
             "trip_name" => $row["trip_name"],
-            "img_url" => $row["img_url"],
+            "img_url" => $row["image_url"],
             "total_date" => $row["total_date"],
             "average_score" => $row["average_score"]
         );

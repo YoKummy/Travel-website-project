@@ -1,5 +1,5 @@
 //搜尋列
-const ul = document.querySelector("ul"),
+/* const ul = document.querySelector("ul"),
 input = document.querySelector("input"),
 tagNumb = document.querySelector(".details span");
 
@@ -53,7 +53,7 @@ removeBtn.addEventListener("click", () =>{
     ul.querySelectorAll("li").forEach(li => li.remove());
     countTags();
 });
-var mini = true;
+var mini = true; */
 //左側欄
 function toggleSidebar() {
     var sidebar = document.querySelector(".Leftbar");
@@ -591,6 +591,14 @@ async function initMap() {
     }
 }
 
+// Set the initial display state
+document.addEventListener("DOMContentLoaded", function() {
+    var page1 = document.querySelector("#Body_Attraction");
+    var page2 = document.querySelector("#Body_Itinerary");
+    page1.style.display = "block";
+    page2.style.display = "none";
+});
+
 //Attraction-Itinerary switch button
 function togglePages() {
     var page1 = document.querySelector("#Body_Attraction");
@@ -605,7 +613,7 @@ function togglePages() {
 }
 
 //ititnerary blocks popup
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     var iti_blocks = document.querySelectorAll(".blocks");
     var iti_popup = document.querySelector(".iti_popup");
     var iti_closeBtn = document.querySelector(".iti_popup-close");
@@ -621,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iti_popup.style.display = "none";
     });
 
-});
+}); */
 
 /* 
 window.onclick = function(event) {
