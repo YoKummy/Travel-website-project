@@ -607,8 +607,8 @@ if ($result->num_rows > 0) {
     const data = {
     currentUser: {
         image: {
-        png: "./images/avatars/image-juliusomo.png",
-        webp: "./images/avatars/image-juliusomo.webp",
+        png: "comments-section/images/avatars/image-juliusomo.png",
+        webp: "comments-section/images/avatars/image-juliusomo.webp",
         },
         username: "juliusomo",
     },
@@ -622,8 +622,8 @@ if ($result->num_rows > 0) {
         score: 12,
         user: {
             image: {
-            png: "./images/avatars/image-amyrobson.png",
-            webp: "./images/avatars/image-amyrobson.webp",
+            png: "comments-section/images/avatars/image-amyrobson.png",
+            webp: "comments-section/images/avatars/image-amyrobson.webp",
             },
             username: "amyrobson",
         },
@@ -638,8 +638,8 @@ if ($result->num_rows > 0) {
         score: 5,
         user: {
             image: {
-            png: "./images/avatars/image-maxblagun.png",
-            webp: "./images/avatars/image-maxblagun.webp",
+            png: "comments-section/images/avatars/image-maxblagun.png",
+            webp: "comments-section/images/avatars/image-maxblagun.webp",
             },
             username: "maxblagun",
         },
@@ -654,8 +654,8 @@ if ($result->num_rows > 0) {
             replyingTo: "maxblagun",
             user: {
                 image: {
-                png: "./images/avatars/image-ramsesmiron.png",
-                webp: "./images/avatars/image-ramsesmiron.webp",
+                png: "comments-section/images/avatars/image-ramsesmiron.png",
+                webp: "comments-section/images/avatars/image-ramsesmiron.webp",
                 },
                 username: "ramsesmiron",
             },
@@ -670,8 +670,8 @@ if ($result->num_rows > 0) {
             replyingTo: "ramsesmiron",
             user: {
                 image: {
-                png: "./images/avatars/image-juliusomo.png",
-                webp: "./images/avatars/image-juliusomo.webp",
+                png: "comments-section/images/avatars/image-juliusomo.png",
+                webp: "comments-section/images/avatars/image-juliusomo.webp",
                 },
                 username: "juliusomo",
             },
