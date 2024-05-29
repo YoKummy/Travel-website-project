@@ -175,7 +175,19 @@ success: function(data) {
                             addDay.innerText = '新增天數';
                             dayButtons.appendChild(addDay);
                             /*addSpotButton.addEventListener('click', function() {
+                                $.ajax({
+                                    url: 'addDay.php',
+                                    type: 'POST',
+                                    data: { trip: trip },
+                                    dataType: 'json',
+                                    success: function(response) {
+                                        const total_day = response.total_day;
 
+                                    },
+                                    error: function() {
+                                        alert("無法新增天數")
+                                    }
+                                });
                             });*/
                         }
                     }
@@ -194,42 +206,6 @@ error: function() {
 }
 });
 }
-
-/*
-function addDay() {
-        dayCount++;
-        const dayButtons = document.getElementById('day-buttons');
-        const newDayButton = document.createElement('button');
-        newDayButton.type = 'button';
-        newDayButton.className = 'btn btn-primary';
-        newDayButton.innerText = '第' + dayCount + '天';
-        newDayButton.setAttribute('onclick', 'showDay(' + dayCount + ')');
-        dayButtons.insertBefore(newDayButton, dayButtons.lastElementChild);
-
-        const daysContent = document.getElementById('days-content');
-        const newDayContent = document.createElement('div');
-        newDayContent.id = 'day' + dayCount;
-        newDayContent.className = 'day-content';
-        newDayContent.innerHTML = `
-            <textarea name="days[${dayCount - 1}][intro]" class="form-control mb-3 intro-textarea" rows="3" placeholder="編輯第${dayCount}天的簡介"></textarea>
-            <div class="attractions-list">
-                <div class="attraction">
-                    <input type="file" name="days[${dayCount - 1}][attractions][0][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
-                    <img src="https://via.placeholder.com/350x250" alt="New Attraction" onclick="triggerFileInput(this)">
-                    <div class="attraction-info">
-                        <input type="text" name="days[${dayCount - 1}][attractions][0][name]" class="form-control mb-2" placeholder="景點名稱">
-                        <textarea name="days[${dayCount - 1}][attractions][0][description]" class="form-control" rows="2" placeholder="景點描述"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="add-btns">
-                <button type="button" class="btn btn-secondary" onclick="addAttraction('day${dayCount}', ${dayCount - 1})">新增景點</button>
-            </div>
-        `;
-        daysContent.appendChild(newDayContent);
-        document.getElementById('dayCount').value = dayCount;
-    }
-*/
 
 $(document).ready(function() {
 $('.navbar-toggler').on('click', function() {
