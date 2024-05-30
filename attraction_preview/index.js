@@ -355,7 +355,7 @@ function initMap() {
             }
             
 
-            /* function showPlaces(places) {
+            function showPlaces(places) {
                 var placesContainer = document.getElementById('places'); //取得id為places的元素
                 places.forEach(function(place) { //遍歷所有place
                     var placeInfo = document.createElement('div'); //在這邊建立一個區塊存到placeInfo中
@@ -403,7 +403,7 @@ function initMap() {
                         openPopup(place);
                     });
                 });
-            } */
+            }
 
             //跳出視窗
             function openPopup(place) {
@@ -448,6 +448,7 @@ function initMap() {
             currentPlace = place;
 
             document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
             }
 
             //創建選擇行程的視窗
@@ -503,6 +504,7 @@ function initMap() {
                 }
                 });
                 document.getElementById('tourist_popup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
                 document.getElementById('popup').style.display = 'none';
             }
             $('#add_to_tourist').click(addToTouristHandler);
@@ -515,6 +517,7 @@ function initMap() {
                     return;
                 }
                 document.getElementById('tourist_popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
                 clearTPopup();
 
                 $.ajax({
@@ -604,9 +607,11 @@ function initMap() {
                         }
                         if (data.closeTimePopup) {
                             document.getElementById('time_popup').style.display = 'none';
+                            document.getElementById('overlay').style.display = 'none';
                             clearTimePopup();
                         } else {
                             document.getElementById('time_popup').style.display = 'block';
+                            document.getElementById('overlay').style.display = 'block';
                         }
                         document.getElementById('Tsubmit-button').addEventListener('click', function() {
                             var selectedRadio = null;
@@ -633,6 +638,7 @@ function initMap() {
                                     },
                                     success: function(data) {
                                         document.getElementById('time_popup').style.display = 'none';
+                                        document.getElementById('overlay').style.display = 'none';
                                         clearTimePopup();
                                     },
                                     error: function(error) {
@@ -641,6 +647,7 @@ function initMap() {
                                 });
                             }
                             document.getElementById('time_popup').style.display = 'none';
+                            document.getElementById('overlay').style.display = 'none';
                             clearTimePopup();
                         });
                     },
@@ -683,6 +690,7 @@ function initMap() {
 
             document.getElementById('popup-close').addEventListener('click', function() {
                 document.getElementById('popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
                 clearPopup();
             });
             
