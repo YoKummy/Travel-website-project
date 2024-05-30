@@ -174,6 +174,7 @@ success: function(data) {
                             popupContent.appendChild(aContent);
                         });
                         dayButtons.appendChild(dayButton);
+                        dayButtons.children[0].click(); //默認顯示第一天的景點
                         // 為行程新增天數
                         if (i == sDate) { 
                             const addDay = document.createElement('button');
@@ -270,7 +271,7 @@ var selectedDate; //儲存目前選擇的日期
 var tName = ''; //儲存目前選擇的行程
 let placeArray = []; /* store placeName and element */
 
-async function initMap() {
+function initMap() {
     // 獲取使用者的地理位置
     if (navigator.geolocation) { /*檢查能否獲取使用者位置 */
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -535,14 +536,62 @@ async function initMap() {
                             radio.type = "radio";
                             radio.name = "order";
                             radio.value = value; // 景點要插入的順序
-
                             const label = document.createElement("label");
-                            if(i ==1){
-                                label.innerText = currentPlaceName + "\n" + Object.keys(orderData)[1];
-                            }else if(i == Object.entries(orderData).length){
-                                label.innerText = key + "\n" + currentPlaceName;
+                            const addedSpot = document.createElement("span");
+                            addedSpot.className = "material-symbols-outlined";
+                            addedSpot.innerText = "add_location";
+                            addedSpot.style.color = "#FF8040";
+                            addedSpot.style.marginLeft = "-2px";
+                            addedSpot.style.marginRight = "2px";
+                            addedSpot.style.marginTop = "4px";
+                            addedSpot.style.marginBottom = "10px";
+                            const spotNum = document.createElement("span");
+                            spotNum.style.display = "inline-block";
+                            spotNum.style.width = "20px"; 
+                            spotNum.style.height = "20px";
+                            spotNum.style.color = "white";
+                            spotNum.style.textAlign = "center";
+                            spotNum.style.borderRadius = "50%";
+                            spotNum.style.marginRight = "4px";
+                            spotNum.style.backgroundColor = "#7B7B7B";
+                            if(i == 1){
+                                label.appendChild(addedSpot);
+                                label.appendChild(document.createTextNode(currentPlaceName));
+                                label.appendChild(document.createElement("br"));
+                                const textNode = document.createTextNode(i);
+                                spotNum.appendChild(textNode);
+                                label.appendChild(spotNum);
+                                label.appendChild(document.createTextNode(Object.keys(orderData)[1]));
+                            }else if(i == Object.entries(orderData).length){                                
+                                const textNode = document.createTextNode(i);
+                                spotNum.appendChild(textNode);
+                                label.appendChild(spotNum);
+                                label.appendChild(document.createTextNode(key));
+                                label.appendChild(document.createElement("br"));
+                                label.appendChild(addedSpot);
+                                label.appendChild(document.createTextNode(currentPlaceName));
                             }else{
-                                label.innerText = key + "\n" + currentPlaceName + "\n" + Object.keys(orderData)[i];
+                                const textNode = document.createTextNode(i-1);
+                                spotNum.appendChild(textNode);
+                                label.appendChild(spotNum);
+                                label.appendChild(document.createTextNode(key));
+                                label.appendChild(document.createElement("br"));
+                                label.appendChild(addedSpot);
+                                label.appendChild(document.createTextNode(currentPlaceName));
+                                label.appendChild(document.createElement("br"));
+                                const textNode1 = document.createTextNode(i);
+                                const spotNum1 = document.createElement("span");
+                                spotNum1.style.display = "inline-block";
+                                spotNum1.style.borderRadius = "50%";
+                                spotNum1.style.width = "20px"; 
+                                spotNum1.style.height = "20px";
+                                spotNum1.style.color = "white";
+                                spotNum1.style.textAlign = "center";
+                                spotNum1.style.marginRight = "4px";
+                                spotNum1.style.backgroundColor = "#7B7B7B";
+                                spotNum1.appendChild(textNode1);
+                                label.appendChild(spotNum1);
+                                label.appendChild(document.createTextNode(Object.keys(orderData)[i]));
                             }
                             timeDiv.appendChild(radio);
                             timeDiv.appendChild(label);
@@ -652,14 +701,6 @@ async function initMap() {
     }
 }
 
-// Set the initial display state
-document.addEventListener("DOMContentLoaded", function() {
-    var page1 = document.querySelector("#Body_Attraction");
-    var page2 = document.querySelector("#Body_Itinerary");
-    page1.style.display = "block";
-    page2.style.display = "none";
-});
-
 //Attraction-Itinerary switch button
 function togglePages() {
     searchInput.value = '';
@@ -675,7 +716,7 @@ function togglePages() {
 }
 
 //ititnerary blocks popup
-/* document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var iti_blocks = document.querySelectorAll(".blocks");
     var iti_popup = document.querySelector(".iti_popup");
     var iti_closeBtn = document.querySelector(".iti_popup-close");
@@ -691,7 +732,7 @@ function togglePages() {
         iti_popup.style.display = "none";
     });
 
-}); */
+});
 
 /* 
 window.onclick = function(event) {

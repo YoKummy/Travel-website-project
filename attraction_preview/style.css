@@ -22,6 +22,11 @@
     color: white;
 }
 /*右側欄*/
+.addedSpot::before {
+    color: rgb(252, 143, 9);
+    background-color: rgb(252, 143, 9);
+    font-size: 24px;
+}
 .offcanvas-backdrop {
     display: none; /*移除bootstrap造成的背景暗化*/
 }
@@ -64,7 +69,7 @@
     right:72px;
 }
 .delDay {
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
@@ -98,7 +103,7 @@
     border-radius: 15px;
     margin: 25px;
     width: 70%;
-    height: 14%;
+    height: 90px;
 }
 .time-div label {
     position: absolute;
@@ -286,6 +291,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     z-index: 9999; /*顯示在其他元素上 */
     display: none; /*不會直接顯示 */
+    overflow-y: auto;
 }
 .popup-content { /*景點視窗內容 */
     max-height: 80vh;
