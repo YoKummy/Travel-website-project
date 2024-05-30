@@ -717,7 +717,7 @@ function togglePages() {
 }
 
 //ititnerary blocks popup
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     var iti_blocks = document.querySelectorAll(".blocks");
     var iti_popup = document.querySelector(".iti_popup");
     var iti_closeBtn = document.querySelector(".iti_popup-close");
@@ -733,7 +733,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iti_popup.style.display = "none";
     });
 
-});
+}); */
 
 /* 
 window.onclick = function(event) {
