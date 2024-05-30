@@ -353,57 +353,6 @@ function initMap() {
             
                 /* return placeArray; */
             }
-            
-
-            function showPlaces(places) {
-                var placesContainer = document.getElementById('places'); //取得id為places的元素
-                places.forEach(function(place) { //遍歷所有place
-                    var placeInfo = document.createElement('div'); //在這邊建立一個區塊存到placeInfo中
-                    placeInfo.classList.add('place-info'); //為placeInfo添加css樣式
-                    var placeName = document.createElement('h3');
-                    placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.* /g, ''); //用正規表達式篩選名稱，避免名字過長
-
-                    var imageContainer = document.createElement('div');
-                    imageContainer.classList.add('image-container');
-
-                    var placePhoto = document.createElement('img');
-                    placePhoto.classList.add('place-image');
-
-                    //確認景點是否提供照片
-                    if (place.photos && place.photos[0]) {
-                        placePhoto.src = place.photos[0].getUrl();
-                    } else {
-                        var loadingDiv = document.createElement('div');
-                        loadingDiv.classList.add('loading');
-                        loadingDiv.textContent = '未提供圖片'; // 添加文本元素
-                        imageContainer.appendChild(loadingDiv);
-                    }
-
-                    placeInfo.appendChild(placeName);
-                    imageContainer.appendChild(placePhoto); //把placePhoto(子)添加到imageContainer(父)
-                    placeInfo.appendChild(imageContainer);
-
-                    var placeDetails = document.createElement('div');
-                    placeDetails.classList.add('place-info-details');
-
-                    var ratingElement = document.createElement('p');
-                    ratingElement.classList.add('place-info-rating');
-                    ratingElement.textContent = 'Google評價: ' + (place.rating ? place.rating.toFixed(1) : '');
-                    placeDetails.appendChild(ratingElement);
-
-                    var vicinityElement = document.createElement('p');
-                    vicinityElement.classList.add('place-info-vicinity');
-                    vicinityElement.textContent = '位置: ' + (place.vicinity ? place.vicinity.substring(0, 3) : '');
-                    placeDetails.appendChild(vicinityElement);
-
-                    placeInfo.appendChild(placeDetails);
-                    placesContainer.appendChild(placeInfo);
-
-                    placeInfo.addEventListener('click', function() {
-                        openPopup(place);
-                    });
-                });
-            }
 
             //跳出視窗
             function openPopup(place) {
