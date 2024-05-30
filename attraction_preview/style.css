@@ -69,8 +69,8 @@
     right:72px;
 }
 .delDay {
-    position: fixed;
-    bottom: 10px;
+    position: relative;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
 }

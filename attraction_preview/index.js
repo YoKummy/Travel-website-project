@@ -129,13 +129,14 @@ success: function(data) {
                     aPopup.style.display = 'block';
                     const popupContent = document.getElementById('apopup-content');
                     const tripName = document.getElementById('trip-name');
-                    tripName.innerText = trip;
+                    tripName.innerText = trip + " - 第1天";
                     const dayButtons = document.getElementById('day-buttons');
                     for (let i = 1; i <= sDate; i++) { //創建天數按鈕
                         const dayButton = document.createElement('button');
                         dayButton.innerText = `第${i}天`;
                         dayButton.addEventListener('click', function(event) { //取出各自天數的行程
                             $('#aContent').remove();
+                            tripName.innerText = `${trip} - 第${i}天`;
                             selectedDay = i;
                             const day = parseInt(event.target.innerText.slice(1, 2));
                             const tripDayData = data.filter(item => item.trip_day == day);
@@ -169,6 +170,8 @@ success: function(data) {
                                 anameDiv.appendChild(button);
                                 aContent.appendChild(anameDiv);
                             }
+                            popupContent.appendChild(dayButtons);
+                            popupContent.appendChild(tripName);
                             popupContent.appendChild(aContent);
                         });
                         dayButtons.appendChild(dayButton);
@@ -200,8 +203,6 @@ success: function(data) {
                             });
                         }
                     }
-                    popupContent.appendChild(dayButtons);
-                    popupContent.appendChild(tripName);
                 },
                 error: function() {
                     console.log("無法獲取行程資訊")
