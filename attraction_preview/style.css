@@ -230,6 +230,31 @@
     align-items: center;
 }
 /*景點一覽*/
+.add_to_tourist{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: #FF9224;
+    color: white;
+    font-size: 18px;
+    height: 43px;
+    width: 153px;
+    padding-right: 4px;
+}
+.circle {
+    border-radius: 50%;
+    background-color: white; /* 更改顏色如需 */
+    display: inline-block;
+    margin-left: 5px; /* 調整margin如需 */
+    width: 30px;
+    height: 30px;
+    text-align: center; /* 置中span */
+    line-height: 30px; /* 置中span */
+}
+.circle-icon {
+    font-size: 26px; /* 調整字體大小如需 */
+    color: #FF9224; /* 調整字體顏色如需 */
+  }
 .place-info { /*主頁面景點與照片 */
     margin-top: 20px;
     margin-bottom: 20px;
@@ -299,6 +324,7 @@
     z-index: 9999; /*顯示在其他元素上 */
     display: none; /*不會直接顯示 */
     overflow-y: auto;
+    border-radius: 20px;
 }
 .popup-content { /*景點視窗內容 */
     max-height: 80vh;
@@ -313,6 +339,7 @@
   background-color: #F0F0F0;
   position: absolute;
   right: 0;
+  border-radius: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -344,6 +371,12 @@
     font-size: 0.8em;
     margin-right: 10px;
 }
+.buttons-container button {
+    border-radius: 15px;
+    margin: 10px;
+    background-color:#FFD306;
+    text-align: center;
+  }
 /*左側欄*/
 .Leftbar a {
     padding: 8px 8px 8px 32px;
