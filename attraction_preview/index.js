@@ -272,6 +272,48 @@ var selectedDate; //儲存目前選擇的日期
 var tName = ''; //儲存目前選擇的行程
 let placeArray = []; /* store placeName and element */
 
+// use Google Maps Places API textsearch to search certain att
+async function findPlaces() {
+    const { Place } = await google.maps.importLibrary("places");
+    //@ts-ignore
+    /* const { AdvancedMarkerElement } = await google.maps.importLibrary("marker"); */
+    const request = {
+        textQuery: att_value, //att_value is the input value of search bar
+        fields: ["displayName", "location", "businessStatus"], 
+        /* includedType: "restaurant",
+        isOpenNow: true,
+        language: "en-US",
+        maxResultCount: 7,
+        minRating: 3.2,
+        region: "us",
+        useStrictTypeFiltering: false, */
+    };
+    //@ts-ignore
+    const { places } = await Place.searchByText(request);
+
+    /* if (places.length) {
+        console.log(places);
+
+        const { LatLngBounds } = await google.maps.importLibrary("core");
+        const bounds = new LatLngBounds();
+
+        // Loop through and get all the results.
+        places.forEach((place) => {
+        const markerView = new AdvancedMarkerElement({
+            map,
+            position: place.location,
+            title: place.displayName,
+        });
+
+        bounds.extend(place.location);
+        console.log(place);
+        });
+        map.setCenter(bounds.getCenter());
+    } else {
+        console.log("No results");
+    } */
+}
+
 function initMap() {
     // 獲取使用者的地理位置
     if (navigator.geolocation) { /*檢查能否獲取使用者位置 */
@@ -291,7 +333,6 @@ function initMap() {
             }, function(results, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     showPlaces(results); //result存放了搜尋到的地點資訊
-                    /* const placesData = results; */
                 }
             });
             
@@ -702,11 +743,20 @@ function initMap() {
     }
 }
 
+// Set the initial display state
+document.addEventListener("DOMContentLoaded", function() {
+    var page1 = document.querySelector("#Body_Attraction");
+    var page2 = document.querySelector("#Body_Itinerary");
+    page1.style.display = "block";
+    page2.style.display = "none";
+});
+
 //Attraction-Itinerary switch button
 function togglePages() {
     searchInput.value = '';
     var page1 = document.querySelector("#Body_Attraction");
     var page2 = document.querySelector("#Body_Itinerary");
+
     if (page1.style.display === "block") {
         page1.style.display = "none";
         page2.style.display = "block";
