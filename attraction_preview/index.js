@@ -127,6 +127,7 @@ success: function(data) {
                     var sDate = response.sdate;
                     const aPopup = document.getElementById('aPopup');
                     aPopup.style.display = 'block';
+                    document.getElementById('overlay').style.display = 'block';
                     const popupContent = document.getElementById('apopup-content');
                     const tripName = document.getElementById('trip-name');
                     tripName.innerText = trip + " - 第1天";
@@ -240,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     alert("成功刪除這一天");
                     $('#aContent').remove();
                     document.getElementById('aPopup').style.display = 'none';
+                    document.getElementById('overlay').style.display = 'none';
                 },
                 error: function() {
                     alert("無法刪除這一天");
@@ -634,6 +636,7 @@ function initMap() {
             document.getElementById('spot-close').addEventListener('click', function() {
                 $('#aContent').remove();
                 document.getElementById('aPopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
             });
         });
     } else { //無法定位使用者
