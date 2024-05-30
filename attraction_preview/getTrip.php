@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $servername = "localhost"; 
 $username = "root"; 
-$password = "1040501"; 
+$password = "0305"; 
 $dbname = "touristDB"; 
 $conn = new mysqli($servername, $username, $password, $dbname); 
 if ($conn->connect_error) { 
