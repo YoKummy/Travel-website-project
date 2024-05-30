@@ -1,5 +1,5 @@
 //搜尋列
-const ul = document.querySelector("ul"),
+/* const ul = document.querySelector("ul"),
 input = document.querySelector("input"),
 tagNumb = document.querySelector(".details span");
 
@@ -52,9 +52,11 @@ removeBtn.addEventListener("click", () =>{
     tags.length = 0;
     ul.querySelectorAll("li").forEach(li => li.remove());
     countTags();
-});
-var mini = true;
+}); */
+
 //左側欄
+var mini = true;
+
 function toggleSidebar() {
     var sidebar = document.querySelector(".Leftbar");
     
@@ -270,6 +272,7 @@ var currentPlace = null; /*儲存使用者目前點選的景點 */
 var currentPlaceName = ''; //儲存目前選擇的地點
 var selectedDate; //儲存目前選擇的日期
 var tName = ''; //儲存目前選擇的行程
+let placeArray = []; /* store placeName and element */
 
 function initMap() {
     // 獲取使用者的地理位置
@@ -290,17 +293,75 @@ function initMap() {
             }, function(results, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     showPlaces(results); //result存放了搜尋到的地點資訊
+                    /* const placesData = results; */
                 }
             });
             
             // 顯示搜尋到的景點
             function showPlaces(places) {
+                var placesContainer = document.getElementById('places');
+                placesContainer.innerHTML = ''; // Clear existing places
+            
+                placeArray = places.map(function(place) {
+                    var placeInfo = document.createElement('div');
+                    placeInfo.classList.add('place-info');
+            
+                    var placeName = document.createElement('h3');
+                    placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, '');
+            
+                    var imageContainer = document.createElement('div');
+                    imageContainer.classList.add('image-container');
+            
+                    var placePhoto = document.createElement('img');
+                    placePhoto.classList.add('place-image');
+            
+                    if (place.photos && place.photos[0]) {
+                        placePhoto.src = place.photos[0].getUrl();
+                    } else {
+                        var loadingDiv = document.createElement('div');
+                        loadingDiv.classList.add('loading');
+                        loadingDiv.textContent = '未提供圖片';
+                        imageContainer.appendChild(loadingDiv);
+                    }
+            
+                    placeInfo.appendChild(placeName);
+                    imageContainer.appendChild(placePhoto);
+                    placeInfo.appendChild(imageContainer);
+            
+                    var placeDetails = document.createElement('div');
+                    placeDetails.classList.add('place-info-details');
+            
+                    var ratingElement = document.createElement('p');
+                    ratingElement.classList.add('place-info-rating');
+                    ratingElement.textContent = 'Google評價: ' + (place.rating ? place.rating.toFixed(1) : '');
+                    placeDetails.appendChild(ratingElement);
+            
+                    var vicinityElement = document.createElement('p');
+                    vicinityElement.classList.add('place-info-vicinity');
+                    vicinityElement.textContent = '位置: ' + (place.vicinity ? place.vicinity.substring(0, 3) : '');
+                    placeDetails.appendChild(vicinityElement);
+            
+                    placeInfo.appendChild(placeDetails);
+                    placesContainer.appendChild(placeInfo);
+            
+                    placeInfo.addEventListener('click', function() {
+                        openPopup(place);
+                    });
+            
+                    return { name: placeName.textContent, element: placeInfo };
+                });
+            
+                /* return placeArray; */
+            }
+            
+
+            /* function showPlaces(places) {
                 var placesContainer = document.getElementById('places'); //取得id為places的元素
                 places.forEach(function(place) { //遍歷所有place
                     var placeInfo = document.createElement('div'); //在這邊建立一個區塊存到placeInfo中
                     placeInfo.classList.add('place-info'); //為placeInfo添加css樣式
                     var placeName = document.createElement('h3');
-                    placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.*/g, ''); //用正規表達式篩選名稱，避免名字過長
+                    placeName.textContent = place.name.replace(/\([^)]*\)|（[^）]*）|(?<=.{6})\s.* /g, ''); //用正規表達式篩選名稱，避免名字過長
 
                     var imageContainer = document.createElement('div');
                     imageContainer.classList.add('image-container');
@@ -342,7 +403,7 @@ function initMap() {
                         openPopup(place);
                     });
                 });
-            }
+            } */
 
             //跳出視窗
             function openPopup(place) {
@@ -646,6 +707,7 @@ function initMap() {
 
 //Attraction-Itinerary switch button
 function togglePages() {
+    searchInput.value = '';
     var page1 = document.querySelector("#Body_Attraction");
     var page2 = document.querySelector("#Body_Itinerary");
     if (page1.style.display === "block") {
@@ -658,7 +720,7 @@ function togglePages() {
 }
 
 //ititnerary blocks popup
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     var iti_blocks = document.querySelectorAll(".blocks");
     var iti_popup = document.querySelector(".iti_popup");
     var iti_closeBtn = document.querySelector(".iti_popup-close");
@@ -674,7 +736,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iti_popup.style.display = "none";
     });
 
-});
+}); */
 
 /* 
 window.onclick = function(event) {

@@ -244,9 +244,9 @@
     background-color: white;
     border-radius: 17%;
 }
-.place-info:nth-child(5n) {
+/* .place-info:nth-child(5n) {
     margin-right: 0;
-}
+} */
 .place-info .place-info-details {
     position: relative; 
     margin: 0;
