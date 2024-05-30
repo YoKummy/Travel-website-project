@@ -618,3 +618,15 @@ html, body {
 .blocks h3, .blocks p{
     color: black;
 }
+
+.hide {
+    display: none !important;
+  }
+
+#Body_Attraction{
+    display: block;
+}
+
+#Body_Itinerary {
+    display: none;
+}

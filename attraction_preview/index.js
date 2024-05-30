@@ -1,5 +1,5 @@
 //搜尋列
-const ul = document.querySelector("ul"),
+/* const ul = document.querySelector("ul"),
 input = document.querySelector("input"),
 tagNumb = document.querySelector(".details span");
 
@@ -53,7 +53,7 @@ removeBtn.addEventListener("click", () =>{
     ul.querySelectorAll("li").forEach(li => li.remove());
     countTags();
 });
-var mini = true;
+var mini = true; */
 //左側欄
 function toggleSidebar() {
     var sidebar = document.querySelector(".Leftbar");
@@ -267,7 +267,7 @@ var currentPlaceName = ''; //儲存目前選擇的地點
 var selectedDate; //儲存目前選擇的日期
 var tName = ''; //儲存目前選擇的行程
 
-function initMap() {
+async function initMap() {
     // 獲取使用者的地理位置
     if (navigator.geolocation) { /*檢查能否獲取使用者位置 */
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -639,6 +639,14 @@ function initMap() {
     }
 }
 
+// Set the initial display state
+document.addEventListener("DOMContentLoaded", function() {
+    var page1 = document.querySelector("#Body_Attraction");
+    var page2 = document.querySelector("#Body_Itinerary");
+    page1.style.display = "block";
+    page2.style.display = "none";
+});
+
 //Attraction-Itinerary switch button
 function togglePages() {
     var page1 = document.querySelector("#Body_Attraction");
@@ -653,7 +661,7 @@ function togglePages() {
 }
 
 //ititnerary blocks popup
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     var iti_blocks = document.querySelectorAll(".blocks");
     var iti_popup = document.querySelector(".iti_popup");
     var iti_closeBtn = document.querySelector(".iti_popup-close");
@@ -669,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iti_popup.style.display = "none";
     });
 
-});
+}); */
 
 /* 
 window.onclick = function(event) {
