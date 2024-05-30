@@ -1,4 +1,11 @@
 <?php
+session_start();
+$isLoggedIn = isset($_SESSION['uname']); // 是否登入
+$currentuname = $isLoggedIn ? $_SESSION['uname'] : null;
+$profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
+?>
+
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "1225";
@@ -15,7 +22,7 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['friend_name']) && isset($_POST['action'])) {
         $friendName = $_POST['friend_name'];
-        $username = "mario"; // This should be dynamically set based on the logged-in user
+        $username = $currentuname; // This should be dynamically set based on the logged-in user
 
         if ($_POST['action'] == 'Follow') {
             // Check if the friend name exists

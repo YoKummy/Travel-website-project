@@ -105,6 +105,7 @@
         <!-- <div id="floating-button">
             <a href="Five_group_Chatroom\UI_Web_Chat-master\index.html"><span class="material-symbols-outlined">forum</span></a>
         </div> -->
+        <div id="overlay" class="overlay"></div>
         <div id="popup" class="popup">
             <div class="popup-content">
                 <h2 id="place-name"></h2>
@@ -115,7 +116,7 @@
                     <button id="article-button"><span class="material-symbols-outlined">search</span>在Google上搜尋</button>
                 </div>
                 <div id="place-details"></div>
-                <button id="add_to_tourist">添加至行程</button>
+                <button id="add_to_tourist" style = "margin-bottom: 10px;">添加至行程</button>
             </div>
             <span id="popup-close" class="popup-close">✕</span>
         </div>
@@ -134,11 +135,11 @@
         </div>
         <div id="aPopup" class="popup">
             <div class="apopup-content" id="apopup-content">
-                <h2 id="trip-name"></h2>
+                <h2 id="trip-name" class = "center-text"></h2>
+                <button id="delDay" class="delDay">刪除這一天</button>
                 <div id="day-buttons"></div>
             </div>
             <span id="spot-close" class="popup-close">✕</span>
-            <button id="delDay" class="delDay">刪除這一天</button>
         </div>
             <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
