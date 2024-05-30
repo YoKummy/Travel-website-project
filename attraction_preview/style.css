@@ -409,10 +409,8 @@
 }
 
 .pfp {
-    vertical-align: middle;
-    
+    vertical-align: middle; 
 }
-
 hr.black_line {
     border-top: 3px solid black;
 }
@@ -549,7 +547,6 @@ html, body {
   flex-direction: column; /* 讓元素由上到下排列 */
   width:94%;
   min-height:110vh;
-  margin-left: 5%; /* 留出左側欄的寬度 */
   overflow-y: hidden;
   margin-left: 6%;
 }
