@@ -17,9 +17,10 @@
     }
     $userID = "S00001";
 
-    // 更新之前新增的資料
+    // 插入新的資料
     $newOrder = $orderNum + 0.5; //便於插入資料
-    $sql = "UPDATE attraction SET order_number = '$newOrder' WHERE uname = '$userID' AND tname = '$tripName' AND aname = '$placeName' AND trip_day = '$sDate'";
+    $sql = "UPDATE attraction SET order_number = '$newOrder' 
+    WHERE uname = '$userID' AND tname = '$tripName' AND aname = '$placeName' AND trip_day = '$sDate'";
     $result = mysqli_query($conn, $sql);
     if (!$result) {
         echo "Error: " . mysqli_error($conn);
@@ -27,7 +28,9 @@
     }
     
     //更新景點的order_number
-    $sql = "SELECT aname, order_number FROM attraction WHERE uname = '$userID' AND tname = '$tripName' AND trip_day = '$sDate' ORDER BY order_number ASC";
+    $sql = "SELECT aname, order_number FROM attraction 
+    WHERE uname = '$userID' AND tname = '$tripName' AND trip_day = '$sDate' 
+    ORDER BY order_number ASC";
     $result = mysqli_query($conn, $sql);
     $data = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -35,7 +38,8 @@
     }
     $n = 1;
     foreach ($data as $key => $value) {
-        $sql = "UPDATE attraction SET order_number = '$n' WHERE uname = '$userID' AND tname = '$tripName' AND aname = '$key' AND trip_day = '$sDate'";
+        $sql = "UPDATE attraction SET order_number = '$n' 
+        WHERE uname = '$userID' AND tname = '$tripName' AND aname = '$key' AND trip_day = '$sDate'";
         if (!mysqli_query($conn, $sql)) {
             echo "Error updating table: " . mysqli_error($conn);
             exit;
