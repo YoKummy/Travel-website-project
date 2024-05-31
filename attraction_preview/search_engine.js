@@ -13,7 +13,7 @@
     var page1 = document.querySelector("#Body_Attraction");
     /* var page2 = document.querySelector("#Body_Itinerary"); */
     if (page1.style.display === "block") {
-      findPlaces();
+      /* findPlaces(); */
       /* console.log(placeArray)
       placeArray.forEach(function(place) {
         const isVisible = place.name.toLowerCase().includes(att_value.toLowerCase());

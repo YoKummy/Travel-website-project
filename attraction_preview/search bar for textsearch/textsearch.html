@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Places Search</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="search-input" placeholder="Search for places">
+    <input type="text" id="region-input" placeholder="Region (optional)">
+    <button id="search-button">Search</button>
+    <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrg019oeLqn9I3RPG5PZm94sRi4pdN_cA&loading=async&libraries=places" async defer></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrg019oeLqn9I3RPG5PZm94sRi4pdN_cA&loading=async&libraries=places" async defer></script> -->
