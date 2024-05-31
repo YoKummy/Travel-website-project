@@ -454,8 +454,7 @@ if ($conn->connect_error) {
 }
 
 //這段應要透過帳密登入後的id去連接自己的行程id
-$itineraryId = 1; // 設定要查看的行程id
-
+$itineraryId = 2; // 測資行程id
 $sql = "SELECT * FROM itineraries WHERE id = $itineraryId";
 $result = $conn->query($sql);
 $itineraryTitle = "";
