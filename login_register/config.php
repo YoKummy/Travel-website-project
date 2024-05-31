@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "5253";//密碼
-$dbname = "userDB1";//改的地方
+$dbname = "touristDB";//改的地方
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
