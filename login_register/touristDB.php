@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "0305"; //記得改成自己的密碼
+$password = "5253"; //記得改成自己的密碼
 $conn = mysqli_connect($servername, $username, $password);
 
 if(!$conn){
@@ -34,10 +34,10 @@ $sql = "CREATE TABLE IF NOT EXISTS attraction (
 $sql = "CREATE TABLE IF NOT EXISTS user (
     uname VARCHAR(20) PRIMARY KEY UNIQUE,
     email VARCHAR(30) NOT NULL,
-    sex INT(1) NOT NULL,
+    sex INT(1) ,
     bio VARCHAR(150),
     pfp VARCHAR(400),
-    pwd VARCHAR(255)
+    password VARCHAR(255) NOT NULL
     )";
 
     if(!mysqli_query($conn, $sql)){
@@ -76,21 +76,6 @@ $sql = "CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     trip_name VARCHAR(255) NOT NULL,
     comment VARCHAR(255)
-)";
-
-if(!mysqli_query($conn, $sql)){
-    echo "ERROR : " . mysqli_error($conn);
-}
-
-$sql = "CREATE TABLE IF NOT EXISTS day_description (
-    uname VARCHAR(255),
-    tname VARCHAR(255),
-    trip_day INT,
-    day_description VARCHAR(255),
-    FOREIGN KEY (uname) REFERENCES attraction(uname),
-    FOREIGN KEY (tname) REFERENCES attraction(tname),
-    FOREIGN KEY (trip_day) REFERENCES attraction(trip_day),
-    PRIMARY KEY (uname, tname, trip_day)
 )";
 
 if(!mysqli_query($conn, $sql)){

@@ -318,7 +318,7 @@ async function findPlaces() {
 
 function initMap() {
     // 獲取使用者的地理位置
-    if (navigator.geolocation) { /*檢查能否獲取使用者位置 */
+    if (navigator.geolocation) { // 檢查能否獲取使用者位置
         navigator.geolocation.getCurrentPosition(function(position) {
             var userLocation = {
                 lat: position.coords.latitude,
