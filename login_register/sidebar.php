@@ -507,7 +507,7 @@ html, body {
     <?php else: ?>
         <!-- SignIn-SignUp-Form-main/SignIn-SignUp-Form-main/ -->
         <!-- 登入的檔名 -->
-        <a href="index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
+        <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
     <?php endif; ?>
 </div>
 
