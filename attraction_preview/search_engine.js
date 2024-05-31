@@ -4,22 +4,25 @@
   const searchInput = document.querySelector("[data-search]");
 
   let itis = [];
+  const att_value = "";
 
   searchInput.addEventListener("input", e => {
-    const value = e.target.value.toLowerCase();
+    att_value = e.target.value;
+    const iti_value = e.target.value.toLowerCase();
 
     var page1 = document.querySelector("#Body_Attraction");
-    var page2 = document.querySelector("#Body_Itinerary");
+    /* var page2 = document.querySelector("#Body_Itinerary"); */
     if (page1.style.display === "block") {
-      console.log(placeArray)
+      /* findPlaces(); */
+      /* console.log(placeArray)
       placeArray.forEach(function(place) {
-      const isVisible = place.name.toLowerCase().includes(value);
-      place.element.classList.toggle("hide", !isVisible);
-      });
+        const isVisible = place.name.toLowerCase().includes(att_value.toLowerCase());
+        place.element.classList.toggle("hide", !isVisible);
+      }); */
     } else {
       console.log(itis)
       itis.forEach(iti => {
-        const isVisible = iti.name.toLowerCase().includes(value);
+        const isVisible = iti.name.toLowerCase().includes(iti_value);
         iti.element.classList.toggle("hide", !isVisible);
         console.log(iti.element);
       });

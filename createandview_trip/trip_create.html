@@ -66,7 +66,7 @@
         border: none;
         background: transparent;
     }
-    .submit-btn {
+    .submit-btn, .cancel-btn {
         display: flex;
         justify-content: center;
         margin-top: 20px;
@@ -75,9 +75,26 @@
         max-width: 45%;
         margin: 0 auto;
     }
+    .cancel-btn-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .btn-cancel {
+        background-color: red;
+        color: white;
+    }
+    .btn-remove-day {
+        background-color: red;
+        color: white;
+    }
 </style>
 </head>
 <body>
+
+<div class="cancel-btn-container">
+    <button type="button" class="btn btn-cancel" onclick="cancelCreation()">取消</button>
+</div>
 
 <form method="post" action="trip_create.php" enctype="multipart/form-data">
     <div class="title-container">
@@ -90,14 +107,15 @@
         <div class="day-buttons" id="day-buttons">
             <!-- 初始天數按鈕 -->
             <button type="button" class="btn btn-primary" onclick="showDay(1)">第1天</button>
-            <button type="button" class="btn btn-secondary" onclick="addDay()">新增天數</button>
+            <button type="button" class="btn btn-secondary" id="add-day-btn" onclick="addDay()">新增天數</button>
+            <button type="button" class="btn btn-remove-day" style="display:none;" id="remove-day-btn" onclick="removeDay()">取消天數</button>
         </div>
 
         <div id="days-content">
             <div id="day1" class="day-content active">
                 <textarea name="days[0][intro]" class="form-control mb-3 intro-textarea" rows="3" placeholder="編輯第1天的簡介"></textarea>
-                <div class="attractions-list">
-                    <div class="attraction">
+                <div class="attractions-list" id="day1-attractions">
+                    <div class="attraction" id="day1-attraction0">
                         <input type="file" name="days[0][attractions][0][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
                         <img src="https://via.placeholder.com/350x250" alt="Attraction 1" onclick="triggerFileInput(this)">
                         <div class="attraction-info">
@@ -106,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="add-btns">
+                <div class="add-btns" id="day1-btns">
                     <button type="button" class="btn btn-secondary" onclick="addAttraction('day1', 0)">新增景點</button>
                 </div>
             </div>
@@ -133,12 +151,19 @@
     function addDay() {
         dayCount++;
         const dayButtons = document.getElementById('day-buttons');
+        const addDayBtn = document.getElementById('add-day-btn');
+        const removeDayBtn = document.getElementById('remove-day-btn');
+
         const newDayButton = document.createElement('button');
         newDayButton.type = 'button';
         newDayButton.className = 'btn btn-primary';
         newDayButton.innerText = '第' + dayCount + '天';
         newDayButton.setAttribute('onclick', 'showDay(' + dayCount + ')');
-        dayButtons.insertBefore(newDayButton, dayButtons.lastElementChild);
+        dayButtons.insertBefore(newDayButton, addDayBtn);
+
+        if (dayCount > 1) {
+            removeDayBtn.style.display = 'inline-block';
+        }
 
         const daysContent = document.getElementById('days-content');
         const newDayContent = document.createElement('div');
@@ -146,8 +171,8 @@
         newDayContent.className = 'day-content';
         newDayContent.innerHTML = `
             <textarea name="days[${dayCount - 1}][intro]" class="form-control mb-3 intro-textarea" rows="3" placeholder="編輯第${dayCount}天的簡介"></textarea>
-            <div class="attractions-list">
-                <div class="attraction">
+            <div class="attractions-list" id="day${dayCount}-attractions">
+                <div class="attraction" id="day${dayCount}-attraction0">
                     <input type="file" name="days[${dayCount - 1}][attractions][0][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
                     <img src="https://via.placeholder.com/350x250" alt="New Attraction" onclick="triggerFileInput(this)">
                     <div class="attraction-info">
@@ -156,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="add-btns">
+            <div class="add-btns" id="day${dayCount}-btns">
                 <button type="button" class="btn btn-secondary" onclick="addAttraction('day${dayCount}', ${dayCount - 1})">新增景點</button>
             </div>
         `;
@@ -164,11 +189,34 @@
         document.getElementById('dayCount').value = dayCount;
     }
 
+    function removeDay() {
+        if (dayCount > 1) {
+            const dayButtons = document.getElementById('day-buttons');
+            const daysContent = document.getElementById('days-content');
+            const lastDayButton = dayButtons.querySelector(`button[onclick="showDay(${dayCount})"]`);
+            const lastDayContent = document.getElementById(`day${dayCount}`);
+            
+            if (lastDayButton && lastDayContent) {
+                dayButtons.removeChild(lastDayButton);
+                daysContent.removeChild(lastDayContent);
+                dayCount--;
+                document.getElementById('dayCount').value = dayCount;
+                
+                if (dayCount <= 1) {
+                    document.getElementById('remove-day-btn').style.display = 'none';
+                }
+                
+                showDay(dayCount); // Show the last remaining day as active
+            }
+        }
+    }
+
     function addAttraction(dayId, dayIndex) {
-        const dayContent = document.getElementById(dayId).querySelector('.attractions-list');
+        const dayContent = document.getElementById(`${dayId}-attractions`);
         const attractionCount = dayContent.querySelectorAll('.attraction').length;
         const newAttraction = document.createElement('div');
         newAttraction.className = 'attraction';
+        newAttraction.id = `${dayId}-attraction${attractionCount}`;
         newAttraction.innerHTML = `
             <input type="file" name="days[${dayIndex}][attractions][${attractionCount}][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
             <img src="https://via.placeholder.com/350x250" alt="New Attraction" onclick="triggerFileInput(this)">
@@ -178,6 +226,19 @@
             </div>
         `;
         dayContent.appendChild(newAttraction);
+
+        updateAddBtns(dayId, dayIndex);
+    }
+
+    function updateAddBtns(dayId, dayIndex) {
+        const addBtns = document.getElementById(`${dayId}-btns`);
+        const dayContent = document.getElementById(`${dayId}-attractions`);
+        const attractionCount = dayContent.querySelectorAll('.attraction').length;
+
+        addBtns.innerHTML = `
+            <button type="button" class="btn btn-secondary" onclick="addAttraction('${dayId}', ${dayIndex})">新增景點</button>
+            ${attractionCount > 1 ? `<button type="button" class="btn btn-danger ms-2" onclick="removeLastAttraction('${dayId}', ${dayIndex})">取消景點</button>` : ''}
+        `;
     }
 
     function triggerFileInput(imgElement) {
@@ -189,6 +250,23 @@
         const imgElement = inputElement.nextElementSibling;
         imgElement.src = URL.createObjectURL(event.target.files[0]);
     }
+
+    function cancelCreation() {
+        if (confirm("你確定要取消這次的行程創建嗎？")) {
+            window.location.href = 'homepage.html'; 
+        }
+    }
+
+    function removeLastAttraction(dayId, dayIndex) {
+        const dayContent = document.getElementById(`${dayId}-attractions`);
+        const lastAttraction = dayContent.lastElementChild;
+
+        if (lastAttraction) {
+            lastAttraction.remove();
+            updateAddBtns(dayId, dayIndex);
+        }
+    }
 </script>
 </body>
 </html>
+
