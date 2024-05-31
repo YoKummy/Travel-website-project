@@ -68,11 +68,11 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             }
         }
 
-        function toggleEditModal() {
+        function toggleEditModal() { //左側欄位範本  css請看leftbar.css
             console.log("Toggle modal");
             var modal = document.getElementById("editModal");
             modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
-        }
+        }//左側欄位範本結尾  css請看leftbar.css
 
         window.onclick = function(event) {
             var modal = document.getElementById("editModal");
@@ -84,12 +84,11 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
+<div id="mySidebar" class="sidebar"><!-- 左側欄位範本  css請看leftbar.css -->
     <img src="" alt="" class="leftprofile-picture">
     <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
     <a href="sidebar.php"><span><i class="material-icons">home</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 返回首頁</span></a><br>
     <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
-    <a href="#"><i class="material-icons">email</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們<span></a>
     <hr class="black_line">
     <?php if ($isLoggedIn): ?>
         <a href="profile.php"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($currentuname); ?></span></a><br>
@@ -105,6 +104,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         <a href="index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
     <?php endif; ?>
 </div>
+<!-- 左側欄位範本結尾  css請看leftbar.css -->
 
 <?php
     $servername = "localhost";

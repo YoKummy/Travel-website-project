@@ -36,7 +36,8 @@ $sql = "CREATE TABLE IF NOT EXISTS user (
     email VARCHAR(30) NOT NULL,
     sex INT(1) NOT NULL,
     bio VARCHAR(150),
-    pfp VARCHAR(400)
+    pfp VARCHAR(400),
+    pwd VARCHAR(255)
     )";
 
     if(!mysqli_query($conn, $sql)){
@@ -62,7 +63,31 @@ $sql = "CREATE TABLE IF NOT EXISTS trips (
     transport VARCHAR(255) NOT NULL,
     image_url VARCHAR(255), /*行程封面 */
     userId CHAR(6), /*創建行程的使用者*/
-    total_date INT /*行程的總天數*/
+    total_date INT, /*行程的總天數*/
+    average_score DECIMAL(2,1),
+    rating_num INT
+)";
+
+if(!mysqli_query($conn, $sql)){
+    echo "ERROR : " . mysqli_error($conn);
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_name VARCHAR(255) NOT NULL,
+    comment VARCHAR(255)
+)";
+
+if(!mysqli_query($conn, $sql)){
+    echo "ERROR : " . mysqli_error($conn);
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS day_description (
+    PRIMARY KEY (uname, tname, trip_day),
+    uname VARCHAR(255),
+    tname VARCHAR(255),
+    trip_day INT,
+    day_description VARCHAR(255)
 )";
 
 if(!mysqli_query($conn, $sql)){
