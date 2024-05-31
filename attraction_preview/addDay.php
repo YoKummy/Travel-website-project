@@ -1,14 +1,7 @@
 <?php
-session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['username'])) {
-    http_redirect("login_register\login.php");
-    exit;
-}
-
 $tripName = $_POST['trip'];
-$userId = $_SESSION['username'];
 
 $servername = "localhost"; 
 $username = "root"; 
