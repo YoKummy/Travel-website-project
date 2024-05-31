@@ -83,14 +83,11 @@ if(!mysqli_query($conn, $sql)){
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS day_description (
+    PRIMARY KEY (uname, tname, trip_day),
     uname VARCHAR(255),
     tname VARCHAR(255),
     trip_day INT,
-    day_description VARCHAR(255),
-    FOREIGN KEY (uname) REFERENCES attraction(uname),
-    FOREIGN KEY (tname) REFERENCES attraction(tname),
-    FOREIGN KEY (trip_day) REFERENCES attraction(trip_day),
-    PRIMARY KEY (uname, tname, trip_day)
+    day_description VARCHAR(255)
 )";
 
 if(!mysqli_query($conn, $sql)){
