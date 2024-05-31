@@ -62,11 +62,11 @@ function toggleSidebar() {
     
     if (mini) {
         console.log("opening sidebar");
-        sidebar.style.width = "15%";
+        sidebar.style.width = "250px";
         mini = false;
     } else {
         console.log("closing sidebar");
-        sidebar.style.width = "6%";
+        sidebar.style.width = "85px";
         mini = true;
     }
 }

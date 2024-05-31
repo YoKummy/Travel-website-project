@@ -4,7 +4,7 @@
   const searchInput = document.querySelector("[data-search]");
 
   let itis = [];
-  const att_value = "";
+  let att_value = "";
 
   searchInput.addEventListener("input", e => {
     att_value = e.target.value;
