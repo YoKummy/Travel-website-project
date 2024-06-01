@@ -275,7 +275,9 @@ $profilePicture = "pixilart-drawing.png"; // 默認頭像
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 18px;
-    color: #000000;
+    width: 250px;
+    background-color: #e0f2f1;
+    color: #004d40;
     display: block;
     transition: 0.3s;
 }
@@ -344,6 +346,8 @@ hr.black_line {
     display: flex;
     align-items: center;
     justify-content: space-between; /* 將兩個按鈕推到容器的兩側 */
+    background-color: #004d40;
+    color: #fff;
 }
 .content ul{
   display: flex;
@@ -443,7 +447,9 @@ html, body {
     justify-content: center;
     display: flex;
     align-items: center;
-    background-color: #4e9fda;
+    background-color: #004d40;
+    color: #fff;
+    padding: 10px;
 }
 .Footer{
     height:10vh;
@@ -452,7 +458,9 @@ html, body {
     display: flex;
     flex-wrap: wrap; /* 強制換行 */
     align-items: center;
-    background-color: #4e9fda;
+    background-color: #004d40;
+    color: #fff;
+    padding: 20px;
 }
 .Leftbar{
     background-color: rgba(115, 199, 255);
