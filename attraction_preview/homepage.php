@@ -275,7 +275,9 @@ $profilePicture = "pixilart-drawing.png"; // 默認頭像
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 18px;
-    color: #000000;
+    width: 250px;
+    background-color: #e0f2f1;
+    color: #004d40;
     display: block;
     transition: 0.3s;
 }
@@ -344,6 +346,8 @@ hr.black_line {
     display: flex;
     align-items: center;
     justify-content: space-between; /* 將兩個按鈕推到容器的兩側 */
+    background-color: #004d40;
+    color: #fff;
 }
 .content ul{
   display: flex;
@@ -443,7 +447,9 @@ html, body {
     justify-content: center;
     display: flex;
     align-items: center;
-    background-color: #4e9fda;
+    background-color: #004d40;
+    color: #fff;
+    padding: 10px;
 }
 .Footer{
     height:10vh;
@@ -452,7 +458,9 @@ html, body {
     display: flex;
     flex-wrap: wrap; /* 強制換行 */
     align-items: center;
-    background-color: #4e9fda;
+    background-color: #004d40;
+    color: #fff;
+    padding: 20px;
 }
 .Leftbar{
     background-color: rgba(115, 199, 255);
@@ -488,28 +496,45 @@ html, body {
 </head>
 <body>
     <div class="wrap">
-    <div class="Leftbar">
-    <!-- Profile Picture -->
-    <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture" id="profilePicture">
-    <!-- Sidebar Menu Items -->
-    <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
-    <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
-    <a href="#"><i class="material-icons">email</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們</span></a>
-    <hr class="black_line">
-    <?php if ($isLoggedIn): ?>
-        <a href="#"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
-        <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
-        <!--
-        <script>
-            document.getElementById("profilePicture").style.display = "block";
-        </script>
-        -->
-    <?php else: ?>
-        <!-- SignIn-SignUp-Form-main/SignIn-SignUp-Form-main/ -->
-        <!-- 登入的檔名 -->
-        <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
-    <?php endif; ?>
-</div>
+        <div class="Leftbar" style="background-color: #e0f2f1; color: #004d40;">
+            <!-- Profile Picture -->
+            <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture" id="profilePicture">
+            <!-- Sidebar Menu Items -->
+            <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
+            <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
+            <a href="#"><i class="material-icons">email</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們</span></a>
+            <hr class="black_line">
+            <?php if ($isLoggedIn): ?>
+                <a href="#"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
+                <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
+            <?php else: ?>
+                <!-- SignIn-SignUp-Form-main/SignIn-SignUp-Form-main/ -->
+                <!-- 登入的檔名 -->
+                <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
+            <?php endif; ?>
+        </div>
+        <div class="body_container">
+            <!-- Header Section -->
+            <div class ="Header" style="background-color: #004d40; color: #fff;">
+                <b class="wname">旅遊行程分享</b>
+                <!-- Tag Input Section -->
+                <div class="wrapper">
+                    <div class="content">
+                        <ul><input type="text" spellcheck="false" placeholder="Press enter or add a comma after each tag"></ul>
+                    </div>
+                    <!-- Tag Details Section -->
+                    <div class="details">
+                        <p style="margin-top: 5px;"><span>10</span> tags are remaining</p>
+                        <div class="button_container">
+                            <button>Remove All</button>
+                            <button>Search</button><!--列出tag相關的地點，未完成-->
+                        </div>
+                    </div>
+                </div>
+                <button id="toggle-btn">切換至行程</button>
+            </div>
+        </div>
+    </div>
 
 <script>
     var mini = true;
