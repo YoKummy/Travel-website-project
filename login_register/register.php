@@ -1,6 +1,13 @@
 <?php
 session_start();
-require 'config.php';
+$servername = "localhost"; 
+$username = "root"; 
+$password = "0305"; 
+$dbname = "touristDB"; 
+$conn = new mysqli($servername, $username, $password, $dbname); 
+if ($conn->connect_error) { 
+    die("Connection failed: " . $conn->connect_error); 
+} 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -8,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO user (uname, email, sex, bio, pfp, password) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $pdo->prepare($sql);
+    $stmt = $conn->prepare($sql);
 
     // 自動生成6位數的用戶ID
     //$id = 'S' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);

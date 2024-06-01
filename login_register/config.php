@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "5253";//密碼
+$password = "0305";//密碼
 $dbname = "touristDB";//改的地方
 
 try {
