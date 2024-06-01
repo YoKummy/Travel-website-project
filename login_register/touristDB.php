@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "5253"; //記得改成自己的密碼
+$password = "0305"; //記得改成自己的密碼
 $conn = mysqli_connect($servername, $username, $password);
 
 if(!$conn){
@@ -76,6 +76,14 @@ $sql = "CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     trip_name VARCHAR(255) NOT NULL,
     comment VARCHAR(255)
+)";
+
+$sql = "CREATE TABLE IF NOT EXISTS day_description (
+    tname VARCHAR(255) NOT NULL,
+    uname VARCHAR(30) NOT NULL,
+    trip_day INT NOT NULL,
+    description VARCHAR(255),
+    PRIMARY KEY (uname, tname, trip_day)
 )";
 
 if(!mysqli_query($conn, $sql)){
