@@ -109,7 +109,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
     $servername = "localhost";
     $username = "root";
-    $password = "1225";
+    $password = "0305";
     $dbname = "touristDB";
 
     // Create connection
@@ -216,27 +216,40 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         </ul>
     </div>
     <div id="profile-lower">
+    <?php
+    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE userId =?";
+    $stmt = $conn->prepare($attractionSql);
+    $stmt->bind_param("s", $loggedInUsername);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $tripName = $row['trip_name'];
+        $startDate = $row['start_date'];
+        $imageUrl = $row['image_url'];
+    
+       ?>
+        <div class="rightDiv">
+            <img class="trip-img" src="<?php echo $imageUrl;?>">
+            <h3 style="padding-left:15px;position:relative;top:200px;"><?php echo $tripName;?></h3>
+            <p class="trip-date">出發日期：<?php echo $startDate;?></p>
+            <div class="btn-group">
+                <button class="edit-btn">查看</button>
+                <button class="delete-btn">刪除</button>
+            </div>
+        </div>
         <?php
-        // Assuming you have a query to fetch attractions created by the user
-        $attractionSql = "SELECT tname, uname FROM attraction WHERE uname = ?";
-        $stmt = $conn->prepare($attractionSql);
-        $stmt->bind_param("s", $loggedInUsername);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            echo "<ul>";
-            while($row = $result->fetch_assoc()) {
-                echo '<li><a href="' . htmlspecialchars($row["url"], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($row["tname"], ENT_QUOTES, 'UTF-8') . '</a> - Created by: ' . htmlspecialchars($row["uname"], ENT_QUOTES, 'UTF-8') . '</li>';
-            }
-            echo "</ul>";
-        } else {
-            echo "沒有創建的行程";
-        }
-
-        // Close the connection
-        $conn->close();
+    }
+    if ($result->num_rows == 0) {
         ?>
+         <div class="no-result">
+             <h2>查詢結果為空！</h2>
+         </div>
+         <?php
+    }
+    // Close the connection
+    $conn->close();
+    ?>
     </div>
 </div>
 

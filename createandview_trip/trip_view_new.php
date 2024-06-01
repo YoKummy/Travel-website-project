@@ -532,7 +532,7 @@ if ($result->num_rows > 0) {
         </script>
 
         <?php 
-        $sql = "SELECT average_score rating_num FROM trips WHERE trip_name = $itineraryTitle";
+        $sql = "SELECT average_score rating_num FROM trips WHERE trip_name = '$itineraryTitle'";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             $avg_rating = $row['average_score'];
