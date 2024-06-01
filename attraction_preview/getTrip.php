@@ -1,6 +1,9 @@
 <?php
 header('Content-Type: application/json');
 
+session_start();
+$uname = $_SESSION['username'];
+
 $servername = "localhost"; 
 $username = "root"; 
 $password = "0305"; 
@@ -9,8 +12,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) { 
     die("Connection failed: " . $conn->connect_error); 
 } 
-$userId = "S00001";//預設使用者ID，可用session在使用者登入後儲存 
-$sql = "SELECT trip_name, total_date, image_url, start_date FROM trips WHERE userId = '$userId'"; 
+
+$sql = "SELECT trip_name, total_date, image_url, start_date FROM trips WHERE userId = '$uname'"; 
 $Result = $conn->query($sql); 
 if ($Result->num_rows > 0) { 
     while ($row = $Result->fetch_assoc()) { 
