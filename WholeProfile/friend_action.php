@@ -9,7 +9,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 $servername = "localhost";
 $username = "root";
 $password = "1225";
-$dbname = "userDB";
+$dbname = "touristDB";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($friendResult->num_rows > 0) {
                 // Check if the friend is already added
-                $checkExistingFriendSql = "SELECT * FROM FriendList WHERE uname = ? AND fname = ?";
+                $checkExistingFriendSql = "SELECT * FROM friendlist WHERE uname = ? AND fname = ?";
                 $stmt = $conn->prepare($checkExistingFriendSql);
                 $stmt->bind_param("ss", $username, $friendName);
                 $stmt->execute();
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($existingFriendResult->num_rows == 0) {
                     // Insert the new friend into the FriendList table
-                    $addFriendSql = "INSERT INTO FriendList (uname, fname) VALUES (?, ?)";
+                    $addFriendSql = "INSERT INTO friendlist (uname, fname) VALUES (?, ?)";
                     $stmt = $conn->prepare($addFriendSql);
                     $stmt->bind_param("ss", $username, $friendName);
                     if ($stmt->execute()) {
