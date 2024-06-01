@@ -7,6 +7,9 @@
 </head>
 <body>
 <?php
+session_start();
+$uname = $_SESSION['username'];
+
 $servername = "localhost";
 $username = "root";
 $password = "0305";
@@ -48,7 +51,7 @@ if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST[
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $transport = $_POST['transport'];
-    $userId = "S00001"; //測試資料
+    $userId = $uname;
     $start_day = new DateTime($_POST['start_date']);
     $end_day = new DateTime($_POST['end_date']); 
     $interval = $start_day->diff($end_day); //獲取相隔的天數

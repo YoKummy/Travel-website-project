@@ -1,5 +1,7 @@
 <?php
 header('Content-Type: application/json');
+session_start();
+$uname = $_SESSION['username'];
 
 $tripName = $_POST['trip'];
 
@@ -12,7 +14,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error); 
 } 
 
-$sql = "UPDATE trips SET total_date = total_date + 1 WHERE trip_name = '$tripName'"; 
+$sql = "UPDATE trips SET total_date = total_date + 1 WHERE trip_name = '$tripName' AND userId = '$uname'"; 
 if (!mysqli_query($conn, $sql)) {
     echo "Error updating table: " . mysqli_error($conn);
     exit;
