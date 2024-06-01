@@ -471,7 +471,7 @@ if ($result->num_rows > 0) {
 <div class="container">
     <div class="day-buttons" id="day-buttons">
         <?php
-        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = $itineraryTitle ORDER BY trip_day ASC";
+        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = '$itineraryTitle' ORDER BY trip_day ASC";
         $result = $conn->query($sql);
         $dayCount = 0;
         while ($row = $result->fetch_assoc()) {
