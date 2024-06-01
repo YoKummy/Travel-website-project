@@ -1,7 +1,7 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['uname']); // 是否登入
-$currentuname = $isLoggedIn ? $_SESSION['uname'] : null;
+$uname = $_SESSION['username'];
 $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
 ?>
 
@@ -22,7 +22,6 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['friend_name']) && isset($_POST['action'])) {
         $friendName = $_POST['friend_name'];
-        $username = $currentuname; // This should be dynamically set based on the logged-in user
 
         if ($_POST['action'] == 'Follow') {
             // Check if the friend name exists
@@ -36,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if the friend is already added
                 $checkExistingFriendSql = "SELECT * FROM friendlist WHERE uname = ? AND fname = ?";
                 $stmt = $conn->prepare($checkExistingFriendSql);
-                $stmt->bind_param("ss", $username, $friendName);
+                $stmt->bind_param("ss", $uname, $friendName);
                 $stmt->execute();
                 $existingFriendResult = $stmt->get_result();
 
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Insert the new friend into the FriendList table
                     $addFriendSql = "INSERT INTO friendlist (uname, fname) VALUES (?, ?)";
                     $stmt = $conn->prepare($addFriendSql);
-                    $stmt->bind_param("ss", $username, $friendName);
+                    $stmt->bind_param("ss", $uname, $friendName);
                     if ($stmt->execute()) {
                         echo "New friend added successfully";
                     } else {
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Delete the friend from the FriendList table
             $deleteFriendSql = "DELETE FROM FriendList WHERE uname = ? AND fname = ?";
             $stmt = $conn->prepare($deleteFriendSql);
-            $stmt->bind_param("ss", $username, $friendName);
+            $stmt->bind_param("ss", $uname, $friendName);
             if ($stmt->execute()) {
                 echo "Friend deleted successfully";
             } else {
