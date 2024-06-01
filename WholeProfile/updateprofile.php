@@ -15,7 +15,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "0305";
+$password = "1225";
 $dbname = "touristDB";
 
 // Create connection

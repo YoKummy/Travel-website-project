@@ -109,7 +109,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
     $servername = "localhost";
     $username = "root";
-    $password = "0305";
+    $password = "1225";
     $dbname = "touristDB";
 
     // Create connection
@@ -210,7 +210,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
                     echo '<li><a href="profile.php?user=' . htmlspecialchars($friend['fname']) . '">' . htmlspecialchars($friend['fname']) . '</a></li>';
                 }
             } else {
-                echo "<li>No friends found.</li>";
+                echo "<li>沒有好友</li>";
             }
             ?>
         </ul>
@@ -227,11 +227,11 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         if ($result->num_rows > 0) {
             echo "<ul>";
             while($row = $result->fetch_assoc()) {
-                echo "<li>" . htmlspecialchars($row["tname"]) . " - Created by: " . htmlspecialchars($row["uname"]) . "</li>";
+                echo '<li><a href="' . htmlspecialchars($row["url"], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($row["tname"], ENT_QUOTES, 'UTF-8') . '</a> - Created by: ' . htmlspecialchars($row["uname"], ENT_QUOTES, 'UTF-8') . '</li>';
             }
             echo "</ul>";
         } else {
-            echo "No attractions found.";
+            echo "沒有創建的行程";
         }
 
         // Close the connection
