@@ -32,7 +32,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         $hashed_password = $row['password'];
         if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $username;
-            header("Location: homepage.html");
+            header("Location: homepage.php");
             exit();
         } else {
             echo "帳號或密碼錯誤";
