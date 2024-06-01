@@ -80,6 +80,14 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
                 modal.style.display = "none";
             }
         }
+
+        $(document).ready(function() {
+            $(".edit-btn").on("click", function() {
+                var tripName = $(this).parents(".rightDiv").find(".tripname").text();
+                // 在這裡你可以儲存 trip-name 或執行其他操作
+                console.log("Edit button clicked for trip:", tripName);
+            });
+        });
     </script>
 </head>
 <body>
@@ -217,7 +225,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     </div>
     <div id="profile-lower">
     <?php
-    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE uname =?";
+    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE userId =?";
     $stmt = $conn->prepare($attractionSql);
     $stmt->bind_param("s", $loggedInUsername);
     $stmt->execute();
@@ -231,11 +239,10 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
        ?>
         <div class="rightDiv">
             <img class="trip-img" src="<?php echo $imageUrl;?>">
-            <h3 style="padding-left:15px;position:relative;top:200px;"><?php echo $tripName;?></h3>
+            <h3 class = "tripname"><?php echo $tripName;?></h3>
             <p class="trip-date">出發日期：<?php echo $startDate;?></p>
             <div class="btn-group">
                 <button class="edit-btn">查看</button>
-                <button class="delete-btn">刪除</button>
             </div>
         </div>
         <?php
@@ -243,7 +250,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     if ($result->num_rows == 0) {
         ?>
          <div class="no-result">
-             <h2>查詢結果為空！</h2>
+             <h2>沒有任何行程</h2>
          </div>
          <?php
     }

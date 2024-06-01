@@ -445,7 +445,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1040501";
+$password = "0305";
 $dbname = "touristDB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -455,7 +455,7 @@ if ($conn->connect_error) {
 
 //這段應要透過帳密登入後的id去連接自己的行程id
 $tripId = 1; // 測資行程id
-$sql = "SELECT trip_name FROM trips WHERE id = $tripId";
+$sql = "SELECT trip_name FROM trips WHERE id = '$tripId'";
 $result = $conn->query($sql);
 $itineraryTitle = "";
 if ($result->num_rows > 0) {
@@ -532,14 +532,17 @@ if ($result->num_rows > 0) {
         </script>
 
         <?php 
-        $sql = "SELECT average_score rating_num FROM trips WHERE trip_name = '$itineraryTitle'";
+        $avg_rating = 0; // 初始化變數
+        $rating_num = 0;
+
+        $sql = "SELECT average_score, rating_num FROM trips WHERE trip_name = '$itineraryTitle'";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             $avg_rating = $row['average_score'];
             $rating_num = $row['rating_num'];
         }
 
-        $ratingValue =  $_COOKIE['ratingValue'];
+        $ratingValue = intval($_COOKIE["ratingValue"]);
         $avg_rating = ($ratingValue + $avg_rating * $rating_num) / ($rating_num + 1);
         $rating_num ++;
 

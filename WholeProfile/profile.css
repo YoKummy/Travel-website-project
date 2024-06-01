@@ -9,7 +9,11 @@ img {
   width: 100%;
   border: 0;
 }
-
+.tripname{
+  padding-left: 15px;
+  position: relative; 
+  top: 10px;
+}
 /* Profile image header */
 #profile-upper {
   display: flex;
