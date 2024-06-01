@@ -1,31 +1,24 @@
 body {
-  margin: 40px 0;
   background-color: #008d76;
   font-family: Helvetica, Arial, sans-serif;
+  height: 100vh;
+  overflow-y: auto;
 }
-
 img {
   display: block;
   width: 100%;
   border: 0;
 }
 
-/* Header */
-header {
-  padding: 15px 20px;
-  background-color: #4267b2;
-}
-
-/* Header finished */
-
 /* Profile image header */
 #profile-upper {
+  display: flex;
   position: relative;
-  padding-bottom: 400px;
 }
 
 #profile-d {
-  position: absolute;
+  margin-top: 5px;
+  position: relative;
   left: 20px;
   bottom: 0;
   width: calc(100% - 40px); /* Adjusted width */
@@ -58,9 +51,28 @@ header {
   margin-top: 20px;
   color: #fff;
   font-size: 22px;
-  max-width: 600px; /* Ensures bio does not exceed a certain width */
+  max-width: 600px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-x: hidden; /* 取消水平滾動條 */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  padding: 4px;
+}
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F0F0F0;
+  position: absolute;
+  right: 0;
+  border-radius: 15px;
 }
 
+::-webkit-scrollbar-thumb {
+  background-color: #9D9D9D;
+  border-radius: 15px;
+}
 #friend {
   margin-top: 20px;
   color: #fff;
@@ -73,14 +85,15 @@ header {
 
 
 #profile-lower {
-  margin-top: 100px;
+  margin-top: 20px;
   width: 80%; 
   background-color: #0066ff;
   color: white;
   box-shadow: 0px 8px 30px #1d2d4f;
   border-radius: 4px;
   overflow: hidden;
-  padding: 20px; 
+  padding: 20px;
+  margin-bottom: 20px; 
 }
 
 #friends-list {
@@ -118,4 +131,5 @@ header {
 #main{
   margin-left: 300px;
   color: #008d76;
+  height: 100vh;
 }

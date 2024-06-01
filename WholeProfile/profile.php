@@ -1,7 +1,7 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['uname']); // 是否登入
-$currentuname = $isLoggedIn ? $_SESSION['uname'] : null;
+$uname = $_SESSION['username'];
 $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
 ?>
 <!DOCTYPE html>
@@ -91,7 +91,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
     <hr class="black_line">
     <?php if ($isLoggedIn): ?>
-        <a href="profile.php"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($currentuname); ?></span></a><br>
+        <a href="profile.php"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($uname); ?></span></a><br>
         <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
         <!--
         <script>
@@ -109,7 +109,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
     $servername = "localhost";
     $username = "root";
-    $password = "1225";
+    $password = "0305";
     $dbname = "touristDB";
 
     // Create connection
@@ -121,8 +121,8 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     }
 
     // Get the username of the profile to view from the URL, default to the logged-in user if not specified
-    $profileUsername = isset($_GET['user']) ? $_GET['user'] : $currentuname; // Replace "mario" with $_SESSION['username'] if you have session management
-    $loggedInUsername = $currentuname; // Replace with $_SESSION['username']
+    $profileUsername = isset($_GET['user']) ? $_GET['user'] : $uname; // Replace "mario" with $_SESSION['username'] if you have session management
+    $loggedInUsername = $uname; // Replace with $_SESSION['username']
 
     // Fetch user details
     $userSql = "SELECT * FROM user WHERE uname = ?";
@@ -173,25 +173,24 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
                 <div id="editModal" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="toggleEditModal()">&times;</span>
-                        <h2>Edit Profile</h2>
+                        <h2>編輯個人檔案</h2>
                         <form id="editForm" action="updateprofile.php" method="POST" enctype="multipart/form-data">
-                            <label for="bio">Bio: </label><br>
+                            <label for="bio">個人簡介: </label><br>
                             <textarea id="bio" name="bio" style="color: blue; width: 800px"><?php echo $bio; ?></textarea><br><br>
-                            <label for="pfp">Profile Picture(put image link here):</label><br>
+                            <label for="pfp">個人頭像(請放入圖片的url):</label><br>
                             <textarea id="bio" name="pfp" style="color: red; width: 800px"><?php echo $pfp; ?></textarea><br><br>
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <input type="submit" value="Save Changes">
                         </form>
                     </div>
-                </div>
-                Bio: <?php echo $bio ?>
+                </div>個人簡介: <?php echo $bio ?>
             </div>
 
             <div id="friend">
-                Followers count: <?php echo $totalFriends ?>
+                追蹤數: <?php echo $totalFriends ?>
                 <div id="button-container">
                     <?php if ($loggedInUsername === $profileUsername): ?>
-                        <button id="setting" onclick="toggleEditModal()">Edit</button>
+                        <button id="setting" onclick="toggleEditModal()">編輯個人檔案</button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -200,10 +199,10 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     <div id="friends-list">
         <form id="friendForm" action="friend_action.php" method="POST">
             <input type="text" name="friend_name" placeholder="Enter friend's name" required>
-            <input type="submit" name="action" value="Follow">
-            <input type="submit" name="action" value="Unfollow">
+            <input type="submit" name="action" value="追蹤">
+            <input type="submit" name="action" value="取消追蹤">
         </form>
-        <h3>Friends List</h3>
+        <h3>好友列表</h3>
         <ul>
             <?php
             if ($friendsResult->num_rows > 0) {

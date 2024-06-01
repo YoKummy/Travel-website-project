@@ -1,7 +1,7 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['uname']); // 是否登入
-$currentuname = $isLoggedIn ? $_SESSION['uname'] : null;
+$uname = $_SESSION['username'];
 $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1225";
+$password = "0305";
 $dbname = "touristDB";
 
 // Create connection
@@ -27,7 +27,6 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $uname = $_SESSION['uname'];
     $pfp = htmlspecialchars($_POST["pfp"]);
     $bio = htmlspecialchars($_POST['bio']);
 
