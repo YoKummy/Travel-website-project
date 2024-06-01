@@ -1,7 +1,9 @@
 /* document.addEventListener("DOMContentLoaded", function() { */
+
   const itiBlockTemplate = document.querySelector("[iti-block-template]");
   const itiBlockContainer = document.querySelector("[iti-block-container]");
   const searchInput = document.querySelector("[data-search]");
+  const searchBtn = document.querySelector("[search-btn]");
 
   let itis = [];
   let att_value = "";
@@ -71,4 +73,5 @@
   }
 
   loadItiBlocks();
+
 /* }); */

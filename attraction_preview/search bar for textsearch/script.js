@@ -1,9 +1,8 @@
-const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 let map;
 let service;
 let markers = [];
 let fetchCount = 0;
-const maxFetchCount = 100;
+const maxFetchCount = 10;
 
 function initMap() {
     const center = { lat: 37.4161493, lng: -122.0812166 };
@@ -18,7 +17,7 @@ function initMap() {
 function searchPlaces(query, region) {
     let request = {
         query: query,
-        fields: ["displayName", "location", "rating", "businessStatus", "photos"]
+        fields: ["name", "geometry", "rating", "business_status", "photos"]
     };
 
     if (region) {
@@ -30,14 +29,14 @@ function searchPlaces(query, region) {
     fetchAllResults(request);
 }
 
-function fetchAllResults(request, pageToken = null) {
+function fetchAllResults(request, pagetoken = null) {
     if (fetchCount >= maxFetchCount) {
         console.log(`Reached max fetch count of ${maxFetchCount}`);
         return;
     }
 
-    if (pageToken) {
-        request.pageToken = pageToken;
+    if (request.next_page_token) {
+        pagetoken = request.next_page_token;
     }
 
     service.textSearch(request, (results, status, pagination) => {
@@ -46,10 +45,10 @@ function fetchAllResults(request, pageToken = null) {
 
             results.forEach(place => {
                 if (place.geometry && place.geometry.location) {
-                    const marker = new google.maps.marker.AdvancedMarkerElement({
+                    const marker = new google.maps.Marker({
                         map: map,
-                        position: place.location,
-                        title: place.displayName,
+                        position: place.geometry.location,
+                        title: place.name,
                     });
 
                     markers.push(marker);

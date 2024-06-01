@@ -275,25 +275,25 @@ var tName = ''; //儲存目前選擇的行程
 let placeArray = []; /* store placeName and element */
 
 // use Google Maps Places API textsearch to search certain att
-async function findPlaces() {
+/* async function findPlaces() {
     const { Place } = await google.maps.importLibrary("places");
     //@ts-ignore
-    /* const { AdvancedMarkerElement } = await google.maps.importLibrary("marker"); */
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
     const request = {
         textQuery: att_value, //att_value is the input value of search bar
         fields: ["displayName", "location", "businessStatus"], 
-        /* includedType: "restaurant",
+        includedType: "restaurant",
         isOpenNow: true,
         language: "en-US",
         maxResultCount: 7,
         minRating: 3.2,
         region: "us",
-        useStrictTypeFiltering: false, */
+        useStrictTypeFiltering: false,
     };
     //@ts-ignore
     const { places } = await Place.searchByText(request);
 
-    /* if (places.length) {
+    if (places.length) {
         console.log(places);
 
         const { LatLngBounds } = await google.maps.importLibrary("core");
@@ -313,8 +313,9 @@ async function findPlaces() {
         map.setCenter(bounds.getCenter());
     } else {
         console.log("No results");
-    } */
+    }
 }
+ */
 
 function initMap() {
     // 獲取使用者的地理位置
@@ -328,6 +329,26 @@ function initMap() {
           
             // 使用 Google Maps Places API 搜尋附近的旅遊景點
             var service = new google.maps.places.PlacesService(document.createElement('div'));
+
+            searchBtn.addEventListener("click", () => {
+                const query = searchInput.value;
+                /* const region = document.getElementById("region-input").value; */
+            
+                if(query){
+                    searchPlaces(query);
+                }else{
+                    service.nearbySearch({
+                        location: userLocation,
+                        radius: 5000, // 搜尋半徑（單位：公尺）
+                        type: ['tourist_attraction'] // 指定搜尋類型為旅遊景點                    
+                    }, function(results, status) {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            showPlaces(results); //result存放了搜尋到的地點資訊
+                        }
+                    });
+                }
+            });
+            
             service.nearbySearch({
                 location: userLocation,
                 radius: 5000, // 搜尋半徑（單位：公尺）
@@ -337,6 +358,48 @@ function initMap() {
                     showPlaces(results); //result存放了搜尋到的地點資訊
                 }
             });
+
+            //function that textsearch will use
+            let fetchCount = 0;
+            const maxFetchCount = 10;
+
+
+            function searchPlaces(query, region) {
+                let request = {
+                    query: query,
+                    /* type: ['tourist_attraction'] */
+                };
+
+                if (region) {
+                    request.region = region;
+                }
+
+                fetchCount = 0;
+                fetchAllResults(request);
+            }
+
+            function fetchAllResults(request, pagetoken = null) {
+                if (request.next_page_token) {
+                    pagetoken = request.next_page_token;
+                }
+
+                service.textSearch(request, (results, status, pagetoken) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+
+                        fetchCount++; // Increment fetch count
+
+                        showPlaces(results);
+
+                        if (request.next_page_token && fetchCount < maxFetchCount) {
+                            // Fetch the next page after a short delay to avoid quota issues
+                            setTimeout(() => fetchAllResults(request, pagetoken), 2000);
+                        }
+                    } else {
+                        console.log('No more results found or an error occurred.');
+                    }
+                });
+            }
+                
             
             // 顯示搜尋到的景點
             function showPlaces(places) {
@@ -379,7 +442,19 @@ function initMap() {
             
                     var vicinityElement = document.createElement('p');
                     vicinityElement.classList.add('place-info-vicinity');
-                    vicinityElement.textContent = '位置: ' + (place.vicinity ? place.vicinity.substring(0, 3) : '');
+                    var adr = '';
+                    if(place.vicinity){
+                        adr = place.vicinity ? place.vicinity.substring(0, 3) : "未提供"
+                    }else {
+                        if(!place.formatted_address.includes('區')){
+                            adr = "格式不符"
+                        }else if(place.formatted_address){
+                            adr = place.formatted_address.substring(place.formatted_address.indexOf('市')+1, place.formatted_address.indexOf('區')+1)
+                        }else{
+                            adr = "未提供"
+                        }
+                    }
+                    vicinityElement.textContent = '位置: ' + (adr);
                     placeDetails.appendChild(vicinityElement);
             
                     placeInfo.appendChild(placeDetails);
@@ -432,7 +507,13 @@ function initMap() {
             });
 
             var addressElement = document.createElement('p');
-            addressElement.textContent = "地址：" + (place.vicinity ? place.vicinity : "未提供");
+            var adr = '';
+                    if(place.vicinity){
+                        adr = place.vicinity
+                    }else {
+                        adr = place.formatted_address
+                    }
+            addressElement.textContent = "地址：" + (adr ? adr : "未提供");
             document.getElementById('place-details').appendChild(addressElement);
 
             currentPlace = place;
