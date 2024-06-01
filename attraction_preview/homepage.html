@@ -38,10 +38,17 @@
             </a><br>
         </div>
         <div class="body_container">
-            <div class ="Header" style="background-color: #94785A; color: #fff;">
+            <div class ="Header" style="background-color: #94785A; color: #fff; " >
                 <b class="wname">旅遊行程分享</b>
                 <div class="wrapper">
                     <div class="content">
+                    <ul>
+                        <input type="search" spellcheck="false" placeholder="Press enter or add a comma after each tag" data-search>
+                        <div class="details">
+                            <div class="button_container">
+                                <button style="background-color:#c7945d;" search-btn>Search</button><!--列出tag相關的地點，未完成-->
+                            </div>
+                    </ul>
                     <ul><input type="search" spellcheck="false" placeholder="Press enter or add a comma after each tag" data-search></ul>
                     </div>
                     <div class="details">
@@ -60,14 +67,14 @@
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="background-color:#c7945d;">行程</button>
                     <div class="offcanvas offcanvas-end pink-bg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #157dc7 ">行程編輯</h5>
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: #94785A ">行程編輯</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             </ul>
                             <div class="button1 text-center">
-                                    <a href="write.html" class="btn btn-primary checkAuth">創建行程</a>
+                                    <a href="write.html" class="btn btn-primary checkAuth" style="background-color:#c7945d;">創建行程</a>
                             </div>
                         </div>
                     </div>
