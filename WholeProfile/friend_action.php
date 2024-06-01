@@ -8,7 +8,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1225";
+$password = "0305";
 $dbname = "touristDB";
 
 // Create connection
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['friend_name']) && isset($_POST['action'])) {
         $friendName = $_POST['friend_name'];
 
-        if ($_POST['action'] == 'Follow') {
+        if ($_POST['action'] == '追蹤') {
             // Check if the friend name exists
             $checkFriendSql = "SELECT uname FROM user WHERE uname = ?";
             $stmt = $conn->prepare($checkFriendSql);
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Friend name not found.";
             }
-        } elseif ($_POST['action'] == 'Unfollow') {
+        } elseif ($_POST['action'] == '取消追蹤') {
             // Delete the friend from the FriendList table
             $deleteFriendSql = "DELETE FROM FriendList WHERE uname = ? AND fname = ?";
             $stmt = $conn->prepare($deleteFriendSql);
