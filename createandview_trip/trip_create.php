@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,7 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if itinerary-title is set and not empty
     if(isset($_POST['itinerary-title']) && !empty($_POST['itinerary-title'])) {
         $tripName = $_POST['itinerary-title'];
-        $uname = "default_user"; // 這裡設置一個默認的使用者名稱，實際應根據實際情況設置
+        if (isset($_SESSION['username'])) {
+            $uname = $_SESSION['username']; // Get the username from the session
+        } else {
+            die("User not logged in."); // Handle the case where the user is not logged in
+        }
 
         // Save each day's attraction information to the database
         foreach ($_POST['days'] as $dayIndex => $day) {
@@ -49,9 +55,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->close();
             }
 
-            // Insert into day_description table
-            $stmt = $conn->prepare("INSERT INTO day_description (uname, tname, trip_day, day_description) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssis", $uname, $tripName, $tripDay, $intro);
+            // Check if the record already exists in day_description table
+            $stmt = $conn->prepare("SELECT * FROM day_description WHERE uname = ? AND tname = ? AND trip_day = ?");
+            $stmt->bind_param("ssi", $uname, $tripName, $tripDay);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Update existing record
+                $stmt = $conn->prepare("UPDATE day_description SET day_description = ? WHERE uname = ? AND tname = ? AND trip_day = ?");
+                $stmt->bind_param("sssi", $intro, $uname, $tripName, $tripDay);
+            } else {
+                // Insert new record
+                $stmt = $conn->prepare("INSERT INTO day_description (uname, tname, trip_day, day_description) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("ssis", $uname, $tripName, $tripDay, $intro);
+            }
+
             $stmt->execute();
             $stmt->close();
         }
@@ -67,4 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
+
+
+
+
 
