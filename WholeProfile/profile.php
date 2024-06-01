@@ -217,7 +217,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     </div>
     <div id="profile-lower">
     <?php
-    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE userId =?";
+    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE uname =?";
     $stmt = $conn->prepare($attractionSql);
     $stmt->bind_param("s", $loggedInUsername);
     $stmt->execute();
