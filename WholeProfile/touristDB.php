@@ -75,7 +75,8 @@ if(!mysqli_query($conn, $sql)){
 $sql = "CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     trip_name VARCHAR(255) NOT NULL,
-    comment VARCHAR(255)
+    comment VARCHAR(255),
+    uname VARCHAR(20) UNIQUE
 )";
 
 if(!mysqli_query($conn, $sql)){
