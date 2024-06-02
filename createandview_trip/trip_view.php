@@ -496,7 +496,7 @@ if ($result->num_rows > 0) {
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 echo '<div class="intro-text-container">';
-                echo '<div class="intro-text">' . nl2br(htmlspecialchars($row['intro'])) . '</div>'; /* trips裡面沒有intro */
+                echo '<div class="intro-text">' . nl2br(htmlspecialchars($row['description'])) . '</div>'; /* trips裡面沒有intro */
                 echo '</div>';
                 echo '<div class="attractions-list">';
                 
