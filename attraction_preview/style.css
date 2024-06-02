@@ -408,7 +408,7 @@
 }
 
 .Leftbar a:hover {
-    color: #f1f1f1;
+    color: #0072E3;
 }
 
 .material-icons,
@@ -604,7 +604,7 @@ html, body {
     flex-direction: column; /* 讓元素由上到下排列 */
     float:left;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     white-space: nowrap;
     overflow-x: hidden;
     transition: 0.5s;

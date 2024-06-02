@@ -25,11 +25,11 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username']; // 用戶名
     $password = $_POST['password']; // 密碼
 
-    $sql = "SELECT password FROM user WHERE uname = '$username'";
+    $sql = "SELECT pwd FROM user WHERE uname = '$username'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $hashed_password = $row['password'];
+        $hashed_password = $row['pwd'];
         if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $username;
             header("Location: homepage.php");

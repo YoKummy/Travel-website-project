@@ -1,6 +1,6 @@
 <?php
 session_start();
-$isLoggedIn = isset($_SESSION['uname']); // 是否登入
+$isLoggedIn = isset($_SESSION['username']); // 是否登入
 $uname = $_SESSION['username']; //記錄登入的用戶
 $userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
 $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
@@ -14,6 +14,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="leftBar.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--引入jQuery庫-->
 
     <style>
         /* Style for the modal */
@@ -99,7 +100,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
     <hr class="black_line">
     <?php if ($isLoggedIn): ?>
-        <a href="profile.php?userId=<?php echo $username; ?>"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
+        <a href="profile.php?userId=<?php echo $uname; ?>"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($uname); ?></span></a><br>
         <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
     <?php else: ?>
         <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
@@ -171,7 +172,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
                         <span class="close" onclick="toggleEditModal()">&times;</span>
                         <h2>編輯個人檔案</h2>
                         <form id="editForm" action="updateprofile.php" method="POST" enctype="multipart/form-data">
-                            <label for="bio">個人簡介: </label><br>
+                            <label for="bio">個人簡介:</br></label><br>
                             <textarea id="bio" name="bio" style="color: blue; width: 800px"><?php echo $bio; ?></textarea><br><br>
                             <label for="pfp">個人頭像(請放入圖片的url):</label><br>
                             <textarea id="bio" name="pfp" style="color: red; width: 800px"><?php echo $pfp; ?></textarea><br><br>
@@ -203,7 +204,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             <?php
             if ($friendsResult->num_rows > 0) {
                 while($friend = $friendsResult->fetch_assoc()) {
-                    echo '<li><a href="profile.php?user=' . htmlspecialchars($friend['fname']) . '">' . htmlspecialchars($friend['fname']) . '</a></li>';
+                    echo '<li><a href="profile.php?userId='. htmlspecialchars($friend['fname']). '">'. htmlspecialchars($friend['fname']). '</a></li>';
                 }
             } else {
                 echo "<li>沒有好友</li>";
