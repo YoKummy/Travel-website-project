@@ -450,7 +450,7 @@ $uname = $_SESSION['username']; //記錄登入的用戶
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1040501";
+$password = "0305";
 $dbname = "touristDB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -45,7 +45,7 @@ $sql = "CREATE TABLE IF NOT EXISTS user (
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS FriendList (
-    uname VARCHAR(20) NOT NULL UNIQUE,
+    uname VARCHAR(20) NOT NULL ,/*不能唯一 */
     fname VARCHAR(30) NOT NULL,
     PRIMARY KEY (uname, fname),
     FOREIGN KEY (uname) REFERENCES user(uname)
