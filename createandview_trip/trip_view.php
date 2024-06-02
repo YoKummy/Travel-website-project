@@ -494,7 +494,7 @@ if ($result->num_rows > 0) {
         for ($day = 1; $day <= $dayCount; $day++) {
             echo '<div id="day' . $day . '" class="day-content ' . ($day == 1 ? 'active' : '') . '">';
             
-            $sql = "SELECT * FROM attraction WHERE tname = $tname AND trip_day = $day";
+            $sql = "SELECT * FROM attraction WHERE tname = '$tname' AND trip_day = '$day'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
@@ -558,7 +558,7 @@ if ($result->num_rows > 0) {
             $avg_rating = ($ratingValue + $avg_rating * $rating_num) / ($rating_num + 1);
             $rating_num ++;
 
-            $sql = "UPDATE trips SET average_score = $avg_rating, rating_num = $rating_num WHERE trip_name = '$tname'";
+            $sql = "UPDATE trips SET average_score = '$avg_rating', rating_num = '$rating_num' WHERE trip_name = '$tname'";
             if (!mysqli_query($conn, $sql)) {
                 echo "Error updating table: " . mysqli_error($conn);
                 exit;
@@ -716,7 +716,7 @@ error: function() {
         parent: 0,
         id: 1,
         content:
-            "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
+            "不錯的行程。",
         createdAt: "1 month ago",
         score: 12,
         user: {
@@ -732,7 +732,7 @@ error: function() {
         parent: 0,
         id: 2,
         content:
-            "Woah, your project looks awesome! How long have you been coding for? I'm still new, but think I want to dive into React as well soon. Perhaps you can give me an insight on where I can learn React? Thanks!",
+            "我也想要來一趟這樣的旅程!",
         createdAt: "2 weeks ago",
         score: 5,
         user: {
@@ -747,7 +747,7 @@ error: function() {
             parent: 2,
             id: 1,
             content:
-                "If you're still new, I'd recommend focusing on the fundamentals of HTML, CSS, and JS before considering React. It's very tempting to jump ahead but lay a solid foundation first.",
+                "如果你有興趣的話，可以加入我們的旅遊團一起享受愉快的旅途。",
             createdAt: "1 week ago",
             score: 4,
             replyingTo: "maxblagun",
@@ -763,7 +763,7 @@ error: function() {
             parent: 2,
             id: 1,
             content:
-                "I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant.",
+                "我可以+1嗎?",
             createdAt: "2 days ago",
             score: 2,
             replyingTo: "ramsesmiron",
