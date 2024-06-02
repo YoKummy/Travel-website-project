@@ -75,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->close();
         }
 
-        echo "Itinerary successfully saved!";
+        header('Location:../attraction_preview/homepage.php');
+        exit;
     } else {
         echo "Trip name is required!";
         var_dump($_POST); // debug: output the POST data

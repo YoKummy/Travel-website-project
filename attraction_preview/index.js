@@ -47,6 +47,8 @@ success: function(data) {
         //編輯行程描述
         tripBtn.on('click', function() {
             const tripName = rightDiv.find('h3').text();
+            const url = "../createandview_trip/trip_create_page.php?tripName=" + encodeURIComponent(tripName);
+            window.location.href = url;
         });
         //刪除整個行程
         deleteBtn.on('click', function() {

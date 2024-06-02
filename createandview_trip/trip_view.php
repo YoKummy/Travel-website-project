@@ -458,7 +458,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$tname = $_GET['tname']
+$tname = isset($_GET['tripName']) ? $_GET['tripName'] : null;
 /* $itineraryId = 1; // 測資行程id
 $sql = "SELECT * FROM trips WHERE id = $itineraryId";
 $result = $conn->query($sql);

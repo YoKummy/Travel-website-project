@@ -2,12 +2,11 @@
 session_start();
 $isLoggedIn = isset($_SESSION['username']); // 是否登入
 $uname = $_SESSION['username']; //記錄登入的用戶
-$userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
 
 // Database connection
 $servername = "localhost";
 $username = "root"; // Replace with your database username
-$password = "5253"; // Replace with your database password
+$password = "0305"; // Replace with your database password
 $dbname = "touristdb";
 
 // Create connection
@@ -19,7 +18,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch trip data
-$tripId = isset($_GET['tripId']) ? $_GET['tripId'] : null;
+$tripId = isset($_GET['tripName']) ? $_GET['tripName'] : null;
 $trip = null;
 if ($tripId) {
     $tripSql = "SELECT total_date, trip_name FROM trips WHERE id = ?";
@@ -33,7 +32,7 @@ if ($tripId) {
 // Fetch attractions data
 $attractions = [];
 if ($tripId) {
-    $attractionSql = "SELECT order_number, aname FROM attraction WHERE trip_id = ? ORDER BY order_number";
+    $attractionSql = "SELECT order_number, aname FROM attraction WHERE tname = ? ORDER BY order_number";
     $stmt = $conn->prepare($attractionSql);
     $stmt->bind_param("i", $tripId);
     $stmt->execute();
@@ -148,7 +147,7 @@ $conn->close();
 <form method="post" action="trip_create.php" enctype="multipart/form-data">
     <div class="title-container">
         <h1 class="title">
-            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱" value="<?php echo htmlspecialchars($trip['trip_name'] ?? '', ENT_QUOTES); ?>">
+            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱" value="<?php echo $tripId? $tripId : '';?>">
         </h1>
     </div>
 
@@ -304,7 +303,7 @@ $conn->close();
 
     function cancelCreation() {
         if (confirm("你確定要取消這次的行程創建嗎？")) {
-            window.location.href = 'homepage.html'; 
+            window.location.href = '../attraction_preview/homepage.php'; 
         }
     }
 
