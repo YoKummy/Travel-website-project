@@ -95,21 +95,14 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <div id="mySidebar" class="sidebar"><!-- 左側欄位範本  css請看leftbar.css -->
     <img src="" alt="" class="leftprofile-picture">
     <a href="#"><span><i class="material-icons" onclick="toggleSidebar()">menu</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span></a><br>
-    <a href="sidebar.php"><span><i class="material-icons">home</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 返回首頁</span></a><br>
+    <a href="homepage.php"><span><i class="material-icons">home</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 返回首頁</span></a><br>
     <a href="about us.html"><span><i class="material-icons">info</i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span></a><br>
     <hr class="black_line">
     <?php if ($isLoggedIn): ?>
-        <a href="profile.php"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($uname); ?></span></a><br>
+        <a href="profile.php?userId=<?php echo $username; ?>"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
         <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
-        <!--
-        <script>
-            document.getElementById("profilePicture").style.display = "block";
-        </script>
-        -->
     <?php else: ?>
-        <!-- SignIn-SignUp-Form-main/SignIn-SignUp-Form-main/ -->
-        <!-- 登入的檔名 -->
-        <a href="index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
+        <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
     <?php endif; ?>
 </div>
 <!-- 左側欄位範本結尾  css請看leftbar.css -->

@@ -23,21 +23,17 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
 </head>
 <body>
     <div class="wrap">
-        <div class="Leftbar" style="background-color:  #F6F5F3; color: #fff;"><!-- Profile Picture -->
+        <div class="Leftbar"><!-- Profile Picture -->
             <!-- <img src="pixilart-drawing.png" alt="Profile Picture" class="profile-picture"> unused-->
             <!-- Sidebar Menu Items -->
             <a href="#">
                 <span><i class="material-icons" onclick="toggleSidebar()">menu</i>
                 <span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 選單</span>
             </a><br>
-            <a href="rightbottom_aboutus\aboutus.html">
+            <a href="aboutus.php">
                 <span><i class="material-icons">info</i>
                 <span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 關於我們</span>
             </a><br>
-            <a href="#">
-                <i class="material-icons">email</i>
-                <span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp; 聯絡我們</span>
-            </a>
             <hr class="black_line">
             <?php if ($isLoggedIn): ?>
                 <a href="profile.php?userId=<?php echo $username; ?>"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
@@ -47,7 +43,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             <?php endif; ?>
         </div>
         <div class="body_container">
-            <div class ="Header" style="background-color: #94785A; color: #fff; " >
+            <div class ="Header" >
                 <b class="wname">旅遊行程分享</b>
                 <div class="wrapper">
                     <div class="content">
@@ -83,11 +79,11 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
 
         </div>
         <!-- Attraction Page -->
-        <div class="Body" id="Body_Attraction"  style="background-color: #E0D9D3; color: #000;">
+        <div class="Body" id="Body_Attraction">
             <div id="places"></div>   
         </div>
         <!-- Itinerary Page -->
-        <div class="Body" id="Body_Itinerary"  style="background-color: #E0D9D3; color: #000;">
+        <div class="Body" id="Body_Itinerary">
             <!-- <p class="this_is">This is itinerary page</p> -->
             <div class="itinerarys">
                 <div class="iti-blocks" iti-block-container></div>
@@ -153,9 +149,9 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             </div>
             <span id="spot-close" class="popup-close">✕</span>
         </div>
-            <footer class="Footer" style="background-color: #94785A; color: #fff;">
+            <footer class="Footer">
                 <p style="color: white;">© 2024 Copyright</p>
-                <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="about us.html">關於我們</a>
+                <a style="flex-basis: 100%;text-align: center; "class="btn btn-rounded" href="aboutus.php">關於我們</a>
             </footer>
         </div>
     </div>

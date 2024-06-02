@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO user (uname, email, sex, bio, pfp, password) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (uname, email, sex, bio, pfp, pwd) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     $sex = 0;
