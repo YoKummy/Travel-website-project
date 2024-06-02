@@ -1,7 +1,10 @@
 /* document.addEventListener("DOMContentLoaded", function() { */
 
   const itiBlockTemplate = document.querySelector("[iti-block-template]");
+  /* const blockContent = itiBlockTemplate.content; */
   const itiBlockContainer = document.querySelector("[iti-block-container]");
+  /* const itiBlockLink = document.querySelector("[iti-block-link]");
+  const itiBlock = document.querySelector("[iti_block]") */
   const searchInput = document.querySelector("[data-search]");
   const searchBtn = document.querySelector("[search-btn]");
 
@@ -55,6 +58,13 @@
             period.textContent = "天數: " + iti.total_date + "天";
             
             itiBlockContainer.append(block);
+
+            block.addEventListener("click", function(){
+              var tripName = '';
+              tripName = iti.trip_name;
+              var tripNameUrl = "../createandview_trip/trip_view.php?data="+tripName
+              window.open(tripNameUrl, '_blank');
+            });
   
             return { 
               name: iti.trip_name,
@@ -71,6 +81,5 @@
     });
   }
 
-  loadItiBlocks();
-
+loadItiBlocks();
 /* }); */

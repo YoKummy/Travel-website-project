@@ -88,20 +88,21 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             <div class="itinerarys">
                 <div class="iti-blocks" iti-block-container></div>
                 <template iti-block-template>
-                    <a href="../createandview_trip/trip_view.php?v=<?php echo time(); ?>" target=”_blank”>
-                        <div class="blocks" iti_block>
-                            <h3 data-header></h3>
-                            <div class="image_container2" data-img>
-                                <img src="img/Taipei101_dayview.jpg" alt="Taipei101_dayview">
-                                <img src="img/Taipei101_nightview.jpg" alt="Taipei101_nightview">
-                                <img src="img/Taipei101_lowerview.webp" alt="Taipei101_lowerview">
-                            </div>
-                            <div class="itinerary-info-details">
-                                <p class="itinerary-info-rating" data-rating></p>
-                                <p class="itinerary-info-timespan" data-period></p>
-                            </div>
+                    <div class="blocks" iti_block>
+                        <h3 data-header></h3>
+                        <div class="image_container2" data-img>
+                            <img src="img/Taipei101_dayview.jpg" alt="Taipei101_dayview">
+                            <img src="img/Taipei101_nightview.jpg" alt="Taipei101_nightview">
+                            <img src="img/Taipei101_lowerview.webp" alt="Taipei101_lowerview">
                         </div>
-                    </a>
+                        <div class="itinerary-info-details">
+                            <p class="itinerary-info-rating" data-rating></p>
+                            <p class="itinerary-info-timespan" data-period></p>
+                        </div>
+                    </div>
+                    <!-- <a href="../createandview_trip/trip_view.php?data=${encodeURIComponent(tripName)}" target=”_blank” iti-block-link>
+                        
+                    </a> -->
                 </template>
             </div>
         </div>
