@@ -576,7 +576,7 @@ html, body {
   overflow-y: hidden;
   margin-left: 85px;
   background-color: #94785A; 
-  color: #fff;
+  color: black;
   z-index: 2;
 }
 .Header{
