@@ -522,11 +522,11 @@ hr.black_line {
     position:absolute;
     font-size: 25px;
     left: 135px;
-    top: 47px;
+    top: 37px;
 }
 #toggle-btn {
     position: absolute; /* 固定在右上角 */
-    top: 47px;
+    top: 37px;
     right: 93px;
     background-color: rgb(44, 43, 83);
     border: none;
