@@ -59,9 +59,10 @@
             
             itiBlockContainer.append(block);
 
-            itiBlockContainer.addEventListener("click", function(){
-              const tripName = header.textContent;
-              const tripNameUrl = "../createandview_trip/trip_view.php?data="+tripName
+            block.addEventListener("click", function(){
+              var tripName = '';
+              tripName = iti.trip_name;
+              var tripNameUrl = "../createandview_trip/trip_view.php?data="+tripName
               window.open(tripNameUrl, '_blank');
             });
   
@@ -80,8 +81,5 @@
     });
   }
 
-  loadItiBlocks();
-
-  
-
+loadItiBlocks();
 /* }); */
