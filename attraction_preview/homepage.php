@@ -40,7 +40,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             </a>
             <hr class="black_line">
             <?php if ($isLoggedIn): ?>
-                <a href="#"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
+                <a href="profile.php?userId=<?php echo $username; ?>"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo htmlspecialchars($username); ?></span></a><br>
                 <a href="logout.php"><span><i class="material-icons">exit_to_app</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登出</span></a><br>
             <?php else: ?>
                 <a href="login_index.html"><span><i class="material-icons">account_circle</i><span class="pfp">&nbsp;&nbsp;&nbsp;&nbsp; 登入/註冊</span></a><br>
