@@ -67,7 +67,6 @@
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.error("AJAX error:", textStatus, errorThrown);
-        alert('無法獲取行程資料');
       }
     });
   }
