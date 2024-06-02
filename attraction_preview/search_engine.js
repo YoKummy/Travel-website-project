@@ -62,7 +62,7 @@
             block.addEventListener("click", function(){
               var tripName = '';
               tripName = iti.trip_name;
-              var tripNameUrl = "../createandview_trip/trip_view.php?data="+tripName
+              var tripNameUrl = "../createandview_trip/trip_view.php?tripName="+tripName
               window.open(tripNameUrl, '_blank');
             });
   
