@@ -34,6 +34,24 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             console.log("Toggle modal");
             var modal = document.getElementById("editModal");
             modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
+
+            var friendsList = document.getElementById("friends-list");
+            friendsList.style.display = (modal.style.display === "block")? "none" : "block";
+
+            var tripNameElements = document.querySelectorAll(".tripname");
+            tripNameElements.forEach(function(element) {
+                element.style.opacity = (modal.style.display === "block")? "0" : "1";
+            });
+
+            var tripDateElements = document.querySelectorAll(".trip-date");
+            tripDateElements.forEach(function(element) {
+                element.style.opacity = (modal.style.display === "block")? "0" : "1";
+            });
+
+            var BtnElements = document.querySelectorAll(".edit-btn");
+            BtnElements.forEach(function(element) {
+                element.style.opacity = (modal.style.display === "block")? "0" : "1";
+            });
         }
 
         window.onclick = function(event) {
