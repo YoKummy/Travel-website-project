@@ -458,7 +458,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$tname = $_GET['tname']
+if (isset($_GET['data'])) {
+    $tname = $_GET['data'];
+    /* echo "<p>Received Value: $tname</p>"; */
+} else {
+    echo "<p>No data received</p>";
+}
 /* $itineraryId = 1; // 測資行程id
 $sql = "SELECT * FROM trips WHERE id = $itineraryId";
 $result = $conn->query($sql);
