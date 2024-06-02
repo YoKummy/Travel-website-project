@@ -1,7 +1,8 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['uname']); // 是否登入
-$uname = $_SESSION['username'];
+$uname = $_SESSION['username']; //記錄登入的用戶
+$userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
 $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"; // 默認頭像
 ?>
 <!DOCTYPE html>
@@ -68,11 +69,11 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             }
         }
 
-        function toggleEditModal() { //左側欄位範本  css請看leftbar.css
+        function toggleEditModal() {
             console.log("Toggle modal");
             var modal = document.getElementById("editModal");
             modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
-        }//左側欄位範本結尾  css請看leftbar.css
+        }
 
         window.onclick = function(event) {
             var modal = document.getElementById("editModal");
@@ -80,6 +81,13 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
                 modal.style.display = "none";
             }
         }
+
+        $(document).ready(function() {
+            $(".edit-btn").on("click", function() {
+                var tripName = $(this).parents(".rightDiv").find(".tripname").text(); //取得目前按鈕的tripname
+                window.location.href = "http://localhost:8080/Travel-website-project/createandview_trip/trip_view_new.php?title=" + encodeURIComponent(tripName) + "&uname=" + encodeURIComponent(uname);
+            });
+        });
     </script>
 </head>
 <body>
@@ -109,7 +117,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
     $servername = "localhost";
     $username = "root";
-    $password = "1225";
+    $password = "0305";
     $dbname = "touristDB";
 
     // Create connection
@@ -120,28 +128,24 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get the username of the profile to view from the URL, default to the logged-in user if not specified
-    $profileUsername = isset($_GET['user']) ? $_GET['user'] : $uname; // Replace "mario" with $_SESSION['username'] if you have session management
-    $loggedInUsername = $uname; // Replace with $_SESSION['username']
-
     // Fetch user details
     $userSql = "SELECT * FROM user WHERE uname = ?";
     $stmt = $conn->prepare($userSql);
-    $stmt->bind_param("s", $profileUsername);
+    $stmt->bind_param("s", $userId);
     $stmt->execute();
     $userResult = $stmt->get_result();
 
     // Fetch friends list
     $friendsSql = "SELECT fname FROM FriendList WHERE uname = ?";
     $stmt = $conn->prepare($friendsSql);
-    $stmt->bind_param("s", $loggedInUsername);
+    $stmt->bind_param("s", $uname);
     $stmt->execute();
     $friendsResult = $stmt->get_result();
 
     // Fetch friend count
     $countSql = "SELECT COUNT(*) AS total FROM FriendList WHERE uname = ?";
     $stmt = $conn->prepare($countSql);
-    $stmt->bind_param("s", $profileUsername);
+    $stmt->bind_param("s", $userId);
     $stmt->execute();
     $countResult = $stmt->get_result();
     $totalFriends = 0;
@@ -152,13 +156,12 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 
     if ($userResult->num_rows > 0) {
         $user = $userResult->fetch_assoc();
-        $uname = $profileUsername; /* htmlspecialchars($user['uname']); */
         $email = htmlspecialchars($user['email']);
         $bio = htmlspecialchars($user['bio']);
         $pfp = htmlspecialchars($user['pfp']);
     } else {
         echo "No user found.";
-        $uname = $email = $bio = $pfp = "";
+        $userId = $email = $bio = $pfp = "";
     }
 ?>
 
@@ -168,7 +171,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             <div id="profile-pic">
                 <img src="<?php echo $pfp ?>" alt="Profile picture" width="100%" height="100%">
             </div>
-            <div id="u-name"><?php echo $uname ?></div>
+            <div id="u-name"><?php echo $userId ?></div>
             <div id="bio">
                 <div id="editModal" class="modal">
                     <div class="modal-content">
@@ -189,7 +192,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             <div id="friend">
                 追蹤數: <?php echo $totalFriends ?>
                 <div id="button-container">
-                    <?php if ($loggedInUsername === $profileUsername): ?>
+                    <?php if ($uname === $userId): ?>
                         <button id="setting" onclick="toggleEditModal()">編輯個人檔案</button>
                     <?php endif; ?>
                 </div>
@@ -216,27 +219,39 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         </ul>
     </div>
     <div id="profile-lower">
+    <?php
+    $attractionSql = "SELECT trip_name, start_date, image_url  FROM trips WHERE userId =?";
+    $stmt = $conn->prepare($attractionSql);
+    $stmt->bind_param("s", $uname);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $tripName = $row['trip_name'];
+        $startDate = $row['start_date'];
+        $imageUrl = $row['image_url'];
+    
+       ?>
+        <div class="rightDiv">
+            <img class="trip-img" src="<?php echo $imageUrl;?>">
+            <h3 class = "tripname"><?php echo $tripName;?></h3>
+            <p class="trip-date">出發日期：<?php echo $startDate;?></p>
+            <div class="btn-group">
+                <button class="edit-btn">查看</button>
+            </div>
+        </div>
         <?php
-        // Assuming you have a query to fetch attractions created by the user
-        $attractionSql = "SELECT tname, uname FROM attraction WHERE uname = ?";
-        $stmt = $conn->prepare($attractionSql);
-        $stmt->bind_param("s", $loggedInUsername);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            echo "<ul>";
-            while($row = $result->fetch_assoc()) {
-                echo '<li><a href="' . htmlspecialchars($row["url"], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($row["tname"], ENT_QUOTES, 'UTF-8') . '</a> - Created by: ' . htmlspecialchars($row["uname"], ENT_QUOTES, 'UTF-8') . '</li>';
-            }
-            echo "</ul>";
-        } else {
-            echo "沒有創建的行程";
-        }
-
-        // Close the connection
-        $conn->close();
+    }
+    if ($result->num_rows == 0) {
         ?>
+         <div class="no-result">
+             <h2>沒有任何行程</h2>
+         </div>
+         <?php
+    }
+    // Close the connection
+    $conn->close();
+    ?>
     </div>
 </div>
 

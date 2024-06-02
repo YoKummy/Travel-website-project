@@ -422,10 +422,7 @@ function initMap() {
                     if (place.photos && place.photos[0]) {
                         placePhoto.src = place.photos[0].getUrl();
                     } else {
-                        var loadingDiv = document.createElement('div');
-                        loadingDiv.classList.add('loading');
-                        loadingDiv.textContent = '未提供圖片';
-                        imageContainer.appendChild(loadingDiv);
+                        placePhoto.src = '';
                     }
             
                     placeInfo.appendChild(placeName);
