@@ -1,3 +1,10 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['username']); // 是否登入
+$uname = $_SESSION['username']; //記錄登入的用戶
+$userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

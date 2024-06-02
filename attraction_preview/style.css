@@ -53,12 +53,14 @@
     background-color: #E0E0E0;
     margin-top: 10px;
     position: relative;
-    height: 270px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
 }
 .btn-group {
     position: absolute;
-    right: 0;
-    top: 205px;
+    right: 55px;
+    top: 275px;
 }
 .btn-group > button {
   margin-right: 15px;

@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 $servername = "localhost";
 $username = "root";
-$password = "5253"; // Replace with your actual password
+$password = "0305"; // Replace with your actual password
 $dbname = "touristDB";
 
 // Establish database connection

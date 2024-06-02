@@ -36,12 +36,21 @@ success: function(data) {
         rightDiv.append(`<h3 style="padding-left:15px;position:relative;top:200px;">${tripArray[i]}</h3>`);
         rightDiv.append(`<p class="trip-date">出發日期：${sdateArray[i]}</p>`);
         const btnGroup = $('<div>').addClass('btn-group');
-        const editBtn = $('<button>').addClass('edit-btn').text('查看');
+        const tripBtn = $('<button>').addClass('trip-btn').text('查看行程');
+        const editBtn = $('<button>').addClass('edit-btn').text('查看景點');
+        btnGroup.append(tripBtn);
         btnGroup.append(editBtn);
         const deleteBtn = $('<button>').addClass('delete-btn').text('刪除');
         btnGroup.append(deleteBtn);
         rightDiv.append(btnGroup);
         $('.offcanvas-body').append(rightDiv);
+        //編輯行程描述
+        tripBtn.on('click', function() {
+            const viewTrip = rightDiv.find('h3').text();
+            const url = `tripDetail.php?tripName=${viewTrip}`;
+            profile.php?userId=<?php echo $username; ?>
+            window.location.href = url;
+        });
         //刪除整個行程
         deleteBtn.on('click', function() {
             trip = tripArray[i];
@@ -59,7 +68,7 @@ success: function(data) {
                 console.log('取消刪除行程：' + trip);
             }
         });
-        //查看整個行程
+        //查看行程景點
         editBtn.on('click', function() {
             trip = tripArray[i];
             $('#day-buttons').empty();
