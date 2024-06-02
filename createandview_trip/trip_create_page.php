@@ -2,12 +2,11 @@
 session_start();
 $isLoggedIn = isset($_SESSION['username']); // 是否登入
 $uname = $_SESSION['username']; //記錄登入的用戶
-$userId = isset($_GET['userId']) ? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
 
 // Database connection
 $servername = "localhost";
 $username = "root"; 
-$password = "5253"; // Replace with your actual database password
+$password = "0305"; // Replace with your actual database password
 $dbname = "touristdb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,10 +16,10 @@ if ($conn->connect_error) {
 }
 
 // Fetch trip data
-$tripId = isset($_GET['tripId']) ? $_GET['tripId'] : null;
+$tripId = isset($_GET['tripName']) ? $_GET['tripName'] : null;
 $trip = null;
 if ($tripId) {
-    $tripSql = "SELECT total_date, trip_name FROM trips WHERE id = ?";
+    $tripSql = "SELECT total_date, trip_name FROM trips WHERE trip_name = ?";
     $stmt = $conn->prepare($tripSql);
     $stmt->bind_param("i", $tripId);
     $stmt->execute();
@@ -28,10 +27,11 @@ if ($tripId) {
     $stmt->close();
 }
 
+
 // Fetch attractions data
 $attractions = [];
 if ($tripId) {
-    $attractionSql = "SELECT trip_day, order_number, aname FROM attraction WHERE trip_id = ? ORDER BY trip_day, order_number";
+    $attractionSql = "SELECT trip_day, order_number, aname FROM attraction WHERE tname = ? ORDER BY trip_day, order_number";
     $stmt = $conn->prepare($attractionSql);
     $stmt->bind_param("i", $tripId);
     $stmt->execute();
@@ -146,7 +146,7 @@ $conn->close();
 <form method="post" action="trip_create.php" enctype="multipart/form-data">
     <div class="title-container">
         <h1 class="title">
-            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱" value="<?php echo htmlspecialchars($trip['trip_name'] ?? '', ENT_QUOTES); ?>">
+            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱" value="<?php echo $tripId? $tripId : '';?>">
         </h1>
     </div>
 
@@ -251,7 +251,7 @@ $conn->close();
                 console.log(xhr.responseText);
             }
         };
-        xhr.send("action=update_total_date&tripId=" + <?php echo json_encode($tripId); ?> + "&total_date=" + dayCount);
+        xhr.send("action=update_total_date&tripId=" + encodeURIComponent(<?php echo json_encode($tripId);?>) + "&total_date=" + dayCount);
     }
 
     function removeDay() {
@@ -329,7 +329,7 @@ $conn->close();
 
     function cancelCreation() {
         if (confirm("你確定要取消這次的行程創建嗎？")) {
-            window.location.href = 'homepage.html'; 
+            window.location.href = '../attraction_preview/homepage.php'; 
         }
     }
 
@@ -347,13 +347,13 @@ $conn->close();
 <?php
 // Handle AJAX request to update total_date
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_total_date') {
-    $tripId = isset($_POST['tripId']) ? $_POST['tripId'] : null;
+    $tripId = $_POST['tripId'];
     $total_date = isset($_POST['total_date']) ? $_POST['total_date'] : null;
 
     if ($tripId && $total_date) {
         $servername = "localhost";
         $username = "root"; 
-        $password = "5253"; // Replace with your actual database password
+        $password = "0305"; // Replace with your actual database password
         $dbname = "touristdb";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -363,7 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
 
         // Update total_date
-        $sql = "UPDATE trips SET total_date = ? WHERE id = ?";
+        $sql = "UPDATE trips SET total_date = ? WHERE trip_name = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $total_date, $tripId);
         if ($stmt->execute()) {

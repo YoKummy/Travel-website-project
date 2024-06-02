@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach ($_POST['days'] as $dayIndex => $day) {
             $tripDay = $dayIndex + 1;
             $intro = $day['intro'];
+            $dayAttractionCount = count($day['attractions']);
             
             foreach ($day['attractions'] as $attractionIndex => $attraction) {
                 // Handle image upload
@@ -47,32 +48,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $imagePath = 'https://via.placeholder.com/350x250';
                 }
 
-                // Insert into attraction table
-                $stmt = $conn->prepare("INSERT INTO attraction (order_number, tname, uname, aname, description, image, trip_day) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $orderNumber = $attractionIndex + 1; // 景點的先後順序
-                $stmt->bind_param("dsssssi", $orderNumber, $tripName, $uname, $attraction['name'], $attraction['description'], $imagePath, $tripDay);
+                // 檢查舊有的景點是那些
+                $attractionSql = "SELECT id FROM attraction WHERE tname =? AND trip_day =? AND aname =?";
+                $stmt = $conn->prepare($attractionSql);
+                $stmt->bind_param("isi", $tripName, $tripDay, $attraction['name']);
                 $stmt->execute();
+                $result = $stmt->get_result();
+                $attractionId = null;
+                if ($row = $result->fetch_assoc()) {
+                    $attractionId = $row['id'];
+                }
                 $stmt->close();
+
+                // 更新已有的景點
+                if ($attractionId) {
+                    $updateSql = "UPDATE attraction SET description =?, image =? WHERE id =?";
+                    $stmt = $conn->prepare($updateSql);
+                    $stmt->bind_param("ssi", $attraction['description'], $imagePath, $attractionId);
+                    $stmt->execute();
+                    $stmt->close();
+                } else {
+                    // 插入新的景點
+                    $dayAttractionCount++;
+                    $insertSql = "INSERT INTO attraction (order_number, tname, uname, aname, description, image, trip_day) VALUES (?,?,?,?,?,?,?)";
+                    $stmt = $conn->prepare($insertSql);
+                    $stmt->bind_param("dsssssi", $dayAttractionCount, $tripName, $uname, $attraction['name'], $attraction['description'], $imagePath, $tripDay);
+                    $stmt->execute();
+                    $stmt->close();
+                }
             }
-
-            // Check if the record already exists in day_description table
-            $stmt = $conn->prepare("SELECT * FROM day_description WHERE uname = ? AND tname = ? AND trip_day = ?");
-            $stmt->bind_param("ssi", $uname, $tripName, $tripDay);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                // Update existing record
-                $stmt = $conn->prepare("UPDATE day_description SET day_description = ? WHERE uname = ? AND tname = ? AND trip_day = ?");
-                $stmt->bind_param("sssi", $intro, $uname, $tripName, $tripDay);
-            } else {
-                // Insert new record
-                $stmt = $conn->prepare("INSERT INTO day_description (uname, tname, trip_day, day_description) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("ssis", $uname, $tripName, $tripDay, $intro);
-            }
-
-            $stmt->execute();
-            $stmt->close();
         }
 
         header('Location:../attraction_preview/homepage.php');
