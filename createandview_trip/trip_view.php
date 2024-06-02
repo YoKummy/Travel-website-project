@@ -443,6 +443,9 @@
 <body>
 
 <?php
+$title = $_GET['title'];
+$uname = $_GET['uname'];
+
 $servername = "localhost";
 $username = "root";
 $password = "0305";
@@ -452,26 +455,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-//這段應要透過帳密登入後的id去連接自己的行程id
-$tripId = 1; // 測資行程id
-$sql = "SELECT trip_name FROM trips WHERE id = '$tripId'";
-$result = $conn->query($sql);
-$itineraryTitle = "";
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $itineraryTitle = $row['trip_name'];
-}
 ?>
 
 <div class="title-container">
-    <h1 class="title"><?php echo htmlspecialchars($itineraryTitle); ?></h1>
+    <h1 class="title"><?php echo htmlspecialchars($uname); ?></h1>
 </div>
 
 <div class="container">
     <div class="day-buttons" id="day-buttons">
         <?php
-        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = '$itineraryTitle' ORDER BY trip_day ASC";
+        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = '$uname' ORDER BY trip_day ASC";
         $result = $conn->query($sql);
         $dayCount = 0;
         while ($row = $result->fetch_assoc()) {
@@ -486,7 +479,7 @@ if ($result->num_rows > 0) {
         for ($day = 1; $day <= $dayCount; $day++) {
             echo '<div id="day' . $day . '" class="day-content ' . ($day == 1 ? 'active' : '') . '">';
             
-            $sql = "SELECT * FROM attraction WHERE tname = $itineraryTitle AND trip_day = $day";
+            $sql = "SELECT * FROM attraction WHERE tname = $uname AND trip_day = $day";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
@@ -516,7 +509,7 @@ if ($result->num_rows > 0) {
 
 
 <div class="iti_review-content">
-    <h2 id="iti_title"><?php $itineraryTitle;?></h2>
+    <h2 id="iti_title"><?php $uname;?></h2>
     <div class="rating-box">
         <h1 class="rating-boxH1">評分</h1>
         <div class="rating">
@@ -535,7 +528,7 @@ if ($result->num_rows > 0) {
         $avg_rating = 0; // 初始化變數
         $rating_num = 0;
 
-        $sql = "SELECT average_score, rating_num FROM trips WHERE trip_name = '$itineraryTitle'";
+        $sql = "SELECT average_score, rating_num FROM trips WHERE trip_name = '$uname'";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             $avg_rating = $row['average_score'];

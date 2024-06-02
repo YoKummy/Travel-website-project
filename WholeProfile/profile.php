@@ -68,11 +68,11 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
             }
         }
 
-        function toggleEditModal() { //左側欄位範本  css請看leftbar.css
+        function toggleEditModal() {
             console.log("Toggle modal");
             var modal = document.getElementById("editModal");
             modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "block" : "none";
-        }//左側欄位範本結尾  css請看leftbar.css
+        }
 
         window.onclick = function(event) {
             var modal = document.getElementById("editModal");
@@ -83,9 +83,8 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 
         $(document).ready(function() {
             $(".edit-btn").on("click", function() {
-                var tripName = $(this).parents(".rightDiv").find(".tripname").text();
-                // 在這裡你可以儲存 trip-name 或執行其他操作
-                console.log("Edit button clicked for trip:", tripName);
+                var tripName = $(this).parents(".rightDiv").find(".tripname").text(); //取得目前按鈕的tripname
+                window.location.href = "http://localhost:8080/Travel-website-project/createandview_trip/trip_view_new.php?title=" + encodeURIComponent(tripName) + "&uname=" + encodeURIComponent(uname);
             });
         });
     </script>

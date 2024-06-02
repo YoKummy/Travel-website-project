@@ -438,7 +438,7 @@ hr.black_line {
 }
 .wrapper{
   width: 60%;
-  height: 115px;;
+  height: 85px;;
   background: #fff;
   border-radius: 10px;
   padding: 0px 25px 20px;
@@ -563,12 +563,12 @@ html, body {
   float: left;
   flex-direction: column; /* 讓元素由上到下排列 */
   width:94%;
-  min-height:110vh;
+  min-height:100vh;
   overflow-y: hidden;
   margin-left: 6%;
 }
 .Header{
-    height:20%;
+    height:14%;
     width:100%;
     justify-content: center;
     display: flex;
