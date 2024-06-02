@@ -1,7 +1,7 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['username']); // 判斷是否登入
-$username = $_SESSION['username'];
+$username = isset($_SESSION['username'])? $_SESSION['username'] : null;
 $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
 ?>
 
