@@ -100,15 +100,12 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
                             <p class="itinerary-info-timespan" data-period></p>
                         </div>
                     </div>
-                    <!-- <a href="../createandview_trip/trip_view.php?data=${encodeURIComponent(tripName)}" target=”_blank” iti-block-link>
-                        
-                    </a> -->
                 </template>
             </div>
         </div>
 
         <div id="floating-button">
-            <a href="Five_group_Chatroom\UI_Web_Chat-master\index.html"><span class="material-symbols-outlined">forum</span></a>
+            <a href="..\Five_group_Chatroom\UI_Web_Chat-master\index.html"><span class="material-symbols-outlined">forum</span></a>
         </div>
         <div id="overlay" class="overlay"></div>
         <div id="popup" class="popup">
