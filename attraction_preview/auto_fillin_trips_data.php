@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1040501";
+$password = "0305";
 $dbname = "touristDB";
 
 // Create connection
