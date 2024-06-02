@@ -87,7 +87,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
                         </div>
                         <div class="col">
                             <img src="李介翔.jfif" class="img-fluid" alt="Image 3">
-                            <p>李介翔</p>
+                            <p>蔡東融</p>
                         </div>
                         <div class="col">
                             <img src="李權治.png" class="img-fluid" alt="Image 4">
@@ -95,7 +95,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
                         </div>
                         <div class="col">
                             <img src="蔡東融.png" class="img-fluid" alt="Image 5">
-                            <p>蔡東融</p>
+                            <p>李介翔</p>
                         </div>
                         <div class="col">
                             <img src="周育翰.png" class="img-fluid" alt="Image 6">

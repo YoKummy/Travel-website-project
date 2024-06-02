@@ -331,6 +331,7 @@
 .popup-content { /*景點視窗內容 */
     max-height: 80vh;
     text-align: center;
+    z-index: 999;
 }
 .popup-content .material-symbols-outlined{
     position: relative; 
@@ -353,6 +354,16 @@
     top: 10px;
     right: 15px;
     cursor: pointer;
+    color: gray;
+}
+#place-name{
+    color: black;
+}
+#place-rating{
+    color: black;
+}
+#place-details{
+    color: black;
 }
 .place-image { /*視窗照片 */
     max-width: 80%;
