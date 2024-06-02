@@ -445,7 +445,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1040501";
+$password = "0305";
 $dbname = "itinerary_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
