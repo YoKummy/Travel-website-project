@@ -387,6 +387,7 @@
     text-align: center;
   }
 /*左側欄*/
+
 .Leftbar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -593,7 +594,7 @@ html, body {
     flex-direction: column; /* 讓元素由上到下排列 */
     float:left;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     white-space: nowrap;
     overflow-x: hidden;
     transition: 0.5s;

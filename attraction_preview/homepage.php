@@ -16,8 +16,8 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入 jQuery 庫 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.15.0/font/bootstrap-icons.css" rel="stylesheet"> <!--右側欄-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/><!--google font圖示-->
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="comment-style.css">
+<link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+<link rel="stylesheet" href="comment-style.css?v=<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Font Awesome --> 
 <title>Travel website</title>
 </head>
@@ -155,8 +155,8 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             </footer>
         </div>
     </div>
-    <script src="index.js"></script>
-    <script src="search_engine.js" defer></script>
+    <script src="index.js?v=<?php echo time(); ?>"></script>
+    <script src="search_engine.js?v=<?php echo time(); ?>" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script> <!--右側欄--> 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrg019oeLqn9I3RPG5PZm94sRi4pdN_cA&loading=async&callback=initMap&libraries=places" async defer></script><!--api金鑰-->
 </body>
