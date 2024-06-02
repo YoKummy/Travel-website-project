@@ -96,6 +96,9 @@ $uname = $_SESSION['username']; //記錄登入的用戶
     }
 
     /* 評價 */
+    .rating-box{ 
+        text-align: center;
+    }
     .selected {
         color: red; 
     }
@@ -533,7 +536,8 @@ if ($result->num_rows > 0) {
         </div>
         <h4 id="rating-value"></h4>
         <script type="text/javascript">
-            document.cookie = "ratingValue";
+            document.cookie = "arr_rating = [ratingValue, ratingIsSent]";
+            /* document.cookie = "ratingIsSent"; */
         </script>
 
         <?php 
@@ -547,14 +551,22 @@ if ($result->num_rows > 0) {
             $rating_num = $row['rating_num'];
         }
 
-        $ratingValue = intval($_COOKIE["ratingValue"]);
-        $avg_rating = ($ratingValue + $avg_rating * $rating_num) / ($rating_num + 1);
-        $rating_num ++;
+        $arr_rating = $_COOKIE["arr_rating"];
+        $ratingValue = intval($arr_rating[0]) /* intval($_COOKIE["ratingValue"]) */;
+        $ratingIsSent = boolval($arr_rating[1]) /* boolval($_COOKIE["ratingIsSent"]) */;
+        if($ratingIsSent){
+            $avg_rating = ($ratingValue + $avg_rating * $rating_num) / ($rating_num + 1);
+            $rating_num ++;
 
-        $stmt = $conn->prepare("INSERT INTO trips (average_score, rating_num) VALUES (?, ?)");
-        $stmt->bind_param("ii", $avg_rating, $rating_num);
-        $stmt->execute();
-        $stmt->close();
+            $sql = "UPDATE trips SET average_score = $avg_rating, rating_num = $rating_num WHERE trip_name = '$tname'";
+            if (!mysqli_query($conn, $sql)) {
+                echo "Error updating table: " . mysqli_error($conn);
+                exit;
+            }
+
+            /* $stmt = $conn->query("UPDATE trips SET average_score = $avg_rating, rating_num = $rating_num WHERE tname = '$tname'");
+            $stmt->close(); */
+        }
         ?>
         <button id="submit-btn">提交</button>
     </div>
@@ -665,10 +677,13 @@ if ($result->num_rows > 0) {
     });
     }
 
+    let ratingIsSent = false;
+
     document.getElementById("submit-btn").addEventListener("click", function () {
     if (typeof ratingValue !== "undefined" && ratingValue !== null) {
         console.log("您提交的評分是: " + ratingValue);
         alert("您提交的評分是: " + ratingValue);
+        ratingIsSent = true;
     } else {
         alert("請先選擇評分！");
     }

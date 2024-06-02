@@ -48,7 +48,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
                 <div class="wrapper">
                     <div class="content">
                     <ul>
-                        <input type="search" spellcheck="false" placeholder="請輸入您想前往的景點名稱" data-search>
+                        <input type="search" spellcheck="false" placeholder="" data-search>
                         <div class="details">
                             <div class="button_container">
                                 <button style="background-color:#c7945d;" search-btn>Search</button>
