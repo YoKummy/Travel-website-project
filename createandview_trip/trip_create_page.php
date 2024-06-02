@@ -3,6 +3,48 @@ session_start();
 $isLoggedIn = isset($_SESSION['username']); // 是否登入
 $uname = $_SESSION['username']; //記錄登入的用戶
 $userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個人檔案的用戶
+
+// Database connection
+$servername = "localhost";
+$username = "root"; // Replace with your database username
+$password = "5253"; // Replace with your database password
+$dbname = "touristdb";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch trip data
+$tripId = isset($_GET['tripId']) ? $_GET['tripId'] : null;
+$trip = null;
+if ($tripId) {
+    $tripSql = "SELECT total_date, trip_name FROM trips WHERE id = ?";
+    $stmt = $conn->prepare($tripSql);
+    $stmt->bind_param("i", $tripId);
+    $stmt->execute();
+    $trip = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+}
+
+// Fetch attractions data
+$attractions = [];
+if ($tripId) {
+    $attractionSql = "SELECT order_number, aname FROM attraction WHERE trip_id = ? ORDER BY order_number";
+    $stmt = $conn->prepare($attractionSql);
+    $stmt->bind_param("i", $tripId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $attractions[] = $row;
+    }
+    $stmt->close();
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +148,7 @@ $userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個�
 <form method="post" action="trip_create.php" enctype="multipart/form-data">
     <div class="title-container">
         <h1 class="title">
-            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱">
+            <input type="text" id="itinerary-title" name="itinerary-title" class="form-control text-center" placeholder="行程名稱" value="<?php echo htmlspecialchars($trip['trip_name'] ?? '', ENT_QUOTES); ?>">
         </h1>
     </div>
 
@@ -122,14 +164,16 @@ $userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個�
             <div id="day1" class="day-content active">
                 <textarea name="days[0][intro]" class="form-control mb-3 intro-textarea" rows="3" placeholder="編輯第1天的簡介"></textarea>
                 <div class="attractions-list" id="day1-attractions">
-                    <div class="attraction" id="day1-attraction0">
-                        <input type="file" name="days[0][attractions][0][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
-                        <img src="https://via.placeholder.com/350x250" alt="Attraction 1" onclick="triggerFileInput(this)">
-                        <div class="attraction-info">
-                            <input type="text" name="days[0][attractions][0][name]" class="form-control mb-2" placeholder="景點名稱">
-                            <textarea name="days[0][attractions][0][description]" class="form-control" rows="2" placeholder="景點描述"></textarea>
+                    <?php foreach ($attractions as $index => $attraction): ?>
+                        <div class="attraction" id="day1-attraction<?php echo $index; ?>">
+                            <input type="file" name="days[0][attractions][<?php echo $index; ?>][image]" class="file-input" accept="image/*" onchange="loadImage(event, this)">
+                            <img src="https://via.placeholder.com/350x250" alt="Attraction <?php echo $index + 1; ?>" onclick="triggerFileInput(this)">
+                            <div class="attraction-info">
+                                <input type="text" name="days[0][attractions][<?php echo $index; ?>][name]" class="form-control mb-2" placeholder="景點名稱" value="<?php echo htmlspecialchars($attraction['aname'], ENT_QUOTES); ?>">
+                                <textarea name="days[0][attractions][<?php echo $index; ?>][description]" class="form-control" rows="2" placeholder="景點描述"></textarea>
+                            </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="add-btns" id="day1-btns">
                     <button type="button" class="btn btn-secondary" onclick="addAttraction('day1', 0)">新增景點</button>
@@ -276,3 +320,5 @@ $userId = isset($_GET['userId'])? $_GET['userId'] : null; //紀錄被查看個�
 </script>
 </body>
 </html>
+
+
