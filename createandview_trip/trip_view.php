@@ -1,7 +1,7 @@
 <?php
 session_start();
-$isLoggedIn = isset($_SESSION['uname']); // 是否登入
-$uname = $_SESSION['uname']; //記錄登入的用戶
+$isLoggedIn = isset($_SESSION['username']); // 是否登入
+$uname = $_SESSION['username']; //記錄登入的用戶
 ?>
 <!DOCTYPE html>
 <html lang="en">
