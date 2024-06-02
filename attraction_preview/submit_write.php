@@ -20,17 +20,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error); 
 } 
 
-// 檢查文件上傳情形
-//目前不能準確將圖片上傳至右側欄
 $image_url = "";
 if (isset($_FILES['image']) && $_FILES['image']['name']) {
     $target_dir = "trip-img/";
     if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0777, true);
+        if (!mkdir($target_dir, 0777, true)) {
+            echo "Failed to create directory";
+        }
     }
-    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    $image_name = basename($_FILES["image"]["name"]);
+    $target_file = $target_dir. $image_name;
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        $image_url = $target_file;
+        $image_url = "trip-img/". $image_name; 
     } else {
         echo "Sorry, there was an error uploading your file.<br>";
     }
@@ -58,7 +59,7 @@ if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST[
     $total_date = $interval->days + 1; //獲取確切天數
 
     if ($stmt->execute()) {
-        header("Location: homepage.php");//改回傳地址
+        header("Location: homepage.php");
         exit;
     } else {
         echo "Error: " . $stmt->error . "<br>";

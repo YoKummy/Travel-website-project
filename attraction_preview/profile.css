@@ -9,11 +9,6 @@ img {
   width: 100%;
   border: 0;
 }
-.tripname{
-  padding-left: 15px;
-  position: relative; 
-  top: 10px;
-}
 /* Profile image header */
 #profile-upper {
   display: flex;
@@ -27,12 +22,14 @@ img {
   bottom: 0;
   width: calc(100% - 40px); /* Adjusted width */
   z-index: 0;
+  display: flex;
+  flex-direction: row;
 }
 
 #profile-pic {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 225px;
+  height: 225px;
   border-radius: 3px;
   margin-top: 28px;
   overflow: hidden;
@@ -49,13 +46,14 @@ img {
   color: #fff;
   font-size: 36px;
   font-weight: bold;
+
 }
 
 #bio {
   margin-top: 20px;
   color: white;
   font-size: 22px;
-  max-width: 600px;
+  width: 600px;
   height: 150px;
   border: 1px solid #c7945d;
   border-radius: 5px;
@@ -81,6 +79,7 @@ img {
   margin-top: 20px;
   color: white;
   font-size: 22px;
+  margin-left: 400px;
 }
 
 #button-container {
@@ -110,6 +109,7 @@ img {
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 #friends-list h3 {
@@ -136,4 +136,106 @@ img {
   margin-left: 300px;
   color: #94785A;
   height: 100vh;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 2; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: black;
+  margin: 5% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: yellow;
+  text-decoration: none;
+  cursor: pointer;
+}
+.trip-img{
+  width: 320px;
+  height: 180px;
+}
+.rightDiv {
+  width: 45%;
+  margin: 10px;
+  background-color: #D0D0D0;
+  border-radius: 25px;
+  padding: 10px;
+  height:320px;
+  display: inline-block;
+}
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+.tripImg{
+  border-radius:20px;
+}
+.edit-btn{
+  display: inline-block;
+  position: relative;
+  top: 0;
+  margin-left: 330px;
+  position: relative;
+  top: -8px;
+  border-radius: 15px;
+  padding: 5px;
+}
+.tripname {
+  display: inline-block;
+  position: relative;
+  top: -8px;
+}
+.trip-date{
+  position: relative;
+  top: -35px;
+  margin-left: 13px;
+}
+.uid{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profile_info{
+  margin-left: 35px;
+}
+#setting{
+  border-radius: 15px;
+  padding: 7px;
+  background-color:#c7945d;
+  color: black;
+}
+.formBtn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.inputBtn{
+  background-color: #94785A;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
 }
