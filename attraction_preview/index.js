@@ -46,10 +46,7 @@ success: function(data) {
         $('.offcanvas-body').append(rightDiv);
         //編輯行程描述
         tripBtn.on('click', function() {
-            const viewTrip = rightDiv.find('h3').text();
-            const url = `tripDetail.php?tripName=${viewTrip}`;
-            profile.php?userId=<?php echo $username; ?>
-            window.location.href = url;
+            const tripName = rightDiv.find('h3').text();
         });
         //刪除整個行程
         deleteBtn.on('click', function() {
