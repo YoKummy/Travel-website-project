@@ -1,3 +1,8 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['uname']); // 是否登入
+$uname = $_SESSION['uname']; //記錄登入的用戶
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -443,18 +448,25 @@
 <body>
 
 <?php
-/* $title = $_GET['title']; */
-$uname = $_GET['uname'];
-
 $servername = "localhost";
 $username = "root";
-$password = "0305";
+$password = "1040501";
 $dbname = "touristDB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+$tname = $_GET['tname']
+/* $itineraryId = 1; // 測資行程id
+$sql = "SELECT * FROM trips WHERE id = $itineraryId";
+$result = $conn->query($sql);
+$itineraryTitle = "";
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $itineraryTitle = $row['title'];
+} */
 ?>
 
 <div class="title-container">

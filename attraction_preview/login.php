@@ -14,7 +14,7 @@ session_start();
 
 $servername = "localhost"; 
 $username = "root"; 
-$password = "0305"; 
+$password = "1040501"; 
 $dbname = "touristDB"; 
 $conn = new mysqli($servername, $username, $password, $dbname); 
 if ($conn->connect_error) { 

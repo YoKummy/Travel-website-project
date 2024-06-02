@@ -88,7 +88,7 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
             <div class="itinerarys">
                 <div class="iti-blocks" iti-block-container></div>
                 <template iti-block-template>
-                    <a href="../createandview_trip/trip_view.php" target=”_blank”>
+                    <a href="../createandview_trip/trip_view.php?v=<?php echo time(); ?>" target=”_blank”>
                         <div class="blocks" iti_block>
                             <h3 data-header></h3>
                             <div class="image_container2" data-img>
