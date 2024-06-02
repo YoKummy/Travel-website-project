@@ -195,7 +195,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
         <div class="rightDiv <?php echo ($count % 2 == 0) ? 'left' : 'right'; ?>">
             <img class="tripImg" src="<?php echo $imageUrl;?>">
             <h3 class = "tripname"><?php echo $tripName;?></h3>
-            <button class="edit-btn">查看</button>
+            <button class="edit-btn" data-trip-name="<?php echo $tripName;?>">查看</button>
             <p class="trip-date">出發日期：<?php echo $startDate;?></p>
         </div>
         <?php
@@ -213,6 +213,16 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
     ?>
     </div>
 </div>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editBtns = document.querySelectorAll(".edit-btn");
+        editBtns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                const tripName = btn.getAttribute('data-trip-name');
+                window.location.href = "../createandview_trip/trip_view.php?tripName=" + encodeURIComponent(tripName);
+            });
+        });
+    });
+</script>
 </body>
 </html>
