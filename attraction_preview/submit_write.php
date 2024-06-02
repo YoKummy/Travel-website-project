@@ -58,7 +58,7 @@ if (isset($_POST['trip_name'], $_POST['start_date'], $_POST['end_date'], $_POST[
     $total_date = $interval->days + 1; //獲取確切天數
 
     if ($stmt->execute()) {
-        header("Location: homepage.html");
+        header("Location: homepage.php");//改回傳地址
         exit;
     } else {
         echo "Error: " . $stmt->error . "<br>";
