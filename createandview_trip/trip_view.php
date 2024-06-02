@@ -443,7 +443,7 @@
 <body>
 
 <?php
-$title = $_GET['title'];
+/* $title = $_GET['title']; */
 $uname = $_GET['uname'];
 
 $servername = "localhost";
@@ -458,13 +458,13 @@ if ($conn->connect_error) {
 ?>
 
 <div class="title-container">
-    <h1 class="title"><?php echo htmlspecialchars($uname); ?></h1>
+    <h1 class="title"><?php echo htmlspecialchars($tname); ?></h1>
 </div>
 
 <div class="container">
     <div class="day-buttons" id="day-buttons">
         <?php
-        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = '$uname' ORDER BY trip_day ASC";
+        $sql = "SELECT DISTINCT trip_day FROM attraction WHERE tname = '$tname' ORDER BY trip_day ASC";
         $result = $conn->query($sql);
         $dayCount = 0;
         while ($row = $result->fetch_assoc()) {
@@ -479,7 +479,7 @@ if ($conn->connect_error) {
         for ($day = 1; $day <= $dayCount; $day++) {
             echo '<div id="day' . $day . '" class="day-content ' . ($day == 1 ? 'active' : '') . '">';
             
-            $sql = "SELECT * FROM attraction WHERE tname = $uname AND trip_day = $day";
+            $sql = "SELECT * FROM attraction WHERE tname = $tname AND trip_day = $day";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
@@ -509,7 +509,7 @@ if ($conn->connect_error) {
 
 
 <div class="iti_review-content">
-    <h2 id="iti_title"><?php $uname;?></h2>
+    <h2 id="iti_title"><?php $tname;?></h2>
     <div class="rating-box">
         <h1 class="rating-boxH1">評分</h1>
         <div class="rating">
@@ -528,7 +528,7 @@ if ($conn->connect_error) {
         $avg_rating = 0; // 初始化變數
         $rating_num = 0;
 
-        $sql = "SELECT average_score, rating_num FROM trips WHERE trip_name = '$uname'";
+        $sql = "SELECT average_score, rating_num FROM trips WHERE trip_name = '$tname'";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             $avg_rating = $row['average_score'];
