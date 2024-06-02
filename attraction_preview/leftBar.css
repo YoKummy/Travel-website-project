@@ -5,7 +5,8 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgba(115, 199, 255, 0.596);
+    background-color:  #F6F5F3; 
+    color: #fff;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
@@ -22,7 +23,7 @@
 }
 
 .sidebar a:hover {
-    color: #f1f1f1;
+    color: #0072E3;
 }
 
 .material-icons,

@@ -78,6 +78,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the connection
 $conn->close();
 
-// Redirect back to profile page
-header("Location: profile.php");
+header("Location: profile.php?userId=". $uname);
 ?>;

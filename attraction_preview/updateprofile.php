@@ -15,7 +15,7 @@ $profilePicture = "https://static.vecteezy.com/system/resources/thumbnails/009/2
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "1225";
+$password = "0305";
 $dbname = "touristDB";
 
 // Create connection
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 
     // Redirect to profile page after update
-    header("Location: profile.php");
+    header("Location: profile.php?userId={$uname}");
     exit();
 }
 ?>

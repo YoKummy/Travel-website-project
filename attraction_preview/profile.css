@@ -1,5 +1,5 @@
 body {
-  background-color: #008d76;
+  background-color: #94785A;
   font-family: Helvetica, Arial, sans-serif;
   height: 100vh;
   overflow-y: auto;
@@ -9,7 +9,11 @@ img {
   width: 100%;
   border: 0;
 }
-
+.tripname{
+  padding-left: 15px;
+  position: relative; 
+  top: 10px;
+}
 /* Profile image header */
 #profile-upper {
   display: flex;
@@ -49,11 +53,11 @@ img {
 
 #bio {
   margin-top: 20px;
-  color: #fff;
+  color: white;
   font-size: 22px;
   max-width: 600px;
   height: 150px;
-  border: 1px solid #ccc;
+  border: 1px solid #c7945d;
   border-radius: 5px;
   overflow-x: hidden; /* 取消水平滾動條 */
   text-overflow: ellipsis;
@@ -75,7 +79,7 @@ img {
 }
 #friend {
   margin-top: 20px;
-  color: #fff;
+  color: white;
   font-size: 22px;
 }
 
@@ -87,9 +91,9 @@ img {
 #profile-lower {
   margin-top: 20px;
   width: 80%; 
-  background-color: #0066ff;
-  color: white;
-  box-shadow: 0px 8px 30px #1d2d4f;
+  background-color: #E0D9D3;
+  color: black;
+  box-shadow: 0px 8px 30px #c7945d;
   border-radius: 4px;
   overflow: hidden;
   padding: 20px;
@@ -101,7 +105,7 @@ img {
   top: 20px;
   right: 20px;
   width: 200px; 
-  background-color: #00bdec;
+  background-color: #c7945d;
   color: #000;
   padding: 10px;
   border-radius: 4px;
@@ -123,13 +127,13 @@ img {
 #friends-list ul li {
   margin: 5px 0;
   padding: 5px;
-  background-color: #dba5ff;
+  background-color: #F6F5F3;
   border-radius: 3px;
   text-align: center;
 }
 
 #main{
   margin-left: 300px;
-  color: #008d76;
+  color: #94785A;
   height: 100vh;
 }
