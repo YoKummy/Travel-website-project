@@ -266,7 +266,7 @@
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     cursor: pointer;/*滑鼠在容器上時變更滑鼠圖示 */
-    width: 18%;/*佔據父容器寬度的19% */
+    width: 17.5%;/*佔據父容器寬度的19% */
     float: left;/*容器向左對齊 */
     margin-right: 2%;
     height: 200px;
@@ -706,6 +706,7 @@ html, body {
 
 #Body_Attraction {
     display: block;
+    /* padding-left: 1000; */
 }
 
 #Body_Itinerary {

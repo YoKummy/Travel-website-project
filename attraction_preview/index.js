@@ -321,27 +321,20 @@ function initMap() {
                     query: query,
                     /* type: ['tourist_attraction'] */
                 };
-
                 if (region) {
                     request.region = region;
                 }
-
                 fetchCount = 0;
                 fetchAllResults(request);
             }
-
             function fetchAllResults(request, pagetoken = null) {
                 if (request.next_page_token) {
                     pagetoken = request.next_page_token;
                 }
-
                 service.textSearch(request, (results, status, pagetoken) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-
                         fetchCount++; // Increment fetch count
-
                         showPlaces(results);
-
                         if (request.next_page_token && fetchCount < maxFetchCount) {
                             // Fetch the next page after a short delay to avoid quota issues
                             setTimeout(() => fetchAllResults(request, pagetoken), 2000);

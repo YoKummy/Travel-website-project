@@ -91,9 +91,9 @@ $profilePicture = "pixilart-drawing.png"; // 使用默認頭像
                     <div class="blocks" iti_block>
                         <h3 data-header></h3>
                         <div class="image_container2" data-img>
-                            <img src="img/Taipei101_dayview.jpg" alt="Taipei101_dayview">
-                            <img src="img/Taipei101_nightview.jpg" alt="Taipei101_nightview">
-                            <img src="img/Taipei101_lowerview.webp" alt="Taipei101_lowerview">
+                            <img src="../createandview_trip/uploads/行程封面_老街.jpg" alt="">
+                            <img src="../createandview_trip/uploads/龍山寺.jpg" alt="">
+                            <img src="../createandview_trip/uploads/中正紀念堂.jpg" alt="">
                         </div>
                         <div class="itinerary-info-details">
                             <p class="itinerary-info-rating" data-rating></p>
